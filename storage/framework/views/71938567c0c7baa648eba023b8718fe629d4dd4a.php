@@ -89,6 +89,34 @@
                                                     <?php endif; ?>
                                                 </div>
 
+                                                <?php if(auth()->user()->role == 'A'): ?>
+                                                    <div class="form-group">
+                                                        <label for="verified">Verify</label>
+                                                        <select name="verified" id="verified" required class="form-control">
+                                                                <option value="1"
+                                                                <?php if($data->verified == 1): ?>
+                                                                    selected
+                                                                <?php endif; ?>
+                                                                >Yes</option>
+                                                                <option value="0"
+                                                                <?php if($data->verified == 0): ?>
+                                                                    selected
+                                                                <?php endif; ?>
+                                                                >No</option>
+
+                                                        </select>
+                                                        <?php if ($errors->has('verified')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('verified'); ?>
+                                                        <span class="text-danger">
+                                                            <strong><?php echo e($errors->first('verified')); ?></strong>
+                                                        </span>
+                                                        <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
 
 
 

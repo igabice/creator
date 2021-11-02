@@ -102,6 +102,40 @@
                                     @endif
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="email">Company</label>
+                                    <input value="{{$data->company}}" id="company" type="text" class="form-control" name="company"  />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Facebook</label>
+                                    <input value="{{$data->facebook}}" id="facebook" type="text" class="form-control" name="facebook"  />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Twitter</label>
+                                    <input value="{{$data->twitter}}" id="twitter" type="text" class="form-control" name="twitter" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Instagram</label>
+                                    <input value="{{$data->instagram}}" id="instagram" type="text" class="form-control" name="instagram" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Facebook</label>
+                                    <input value="{{$data->linkedin}}" id="linkedin" type="text" class="form-control" name="linkedin" >
+
+
+                                    @if($errors->has('linkedin'))
+                                        <span class="text-danger">
+                                    <strong>{{ $errors->first('linkedin') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
+                                <textarea name="about" >{{$data->about}}</textarea>
+
 
                                 <div class="form-group">
                                     <label for="role">Select Account Type</label>

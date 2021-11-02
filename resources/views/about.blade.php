@@ -3,24 +3,18 @@
 @section('content')
     <div class="inner-page">
 
+        <section id="inner-banner">
+            <div class="container">
 
-
-
-    <!-- INNER_PAGE_BANNER AREA START -->
-    <section id="inner-banner">
-        <div class="container">
-
-            <div class="row">
-
-                <div class="col-lg-12 text-center">
-                    <h3>About Page</h3>
-                    <a href=/"><i class="fa fa-home" aria-hidden="true"></i> Home</a><span> - About page</span>
-
+                <div class="row">
+                    <div class="col-lg-12 heading">
+                        <h3>About</h3>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-    </section>
+
+            </div>
+        </section>
 
 
         <section id="about">

@@ -110,10 +110,9 @@
                     </a>
                     <p>Login to access a whole lot of features</p>
                     <ul class="social-list clearfix">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="https://www.facebook.com/7dcng"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.twitter.com/7dcng"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com/7dcng"><i class="fa fa-instagram"></i></a></li>
                     </ul>
                 </div>
             </div>

@@ -33,6 +33,8 @@ Route::get('/refer-product/{id}', 'ProductsController@referProduct')->name('crea
 
 
 Route::get('/register', 'HomeController@register')->name('register');
+Route::get('/privacy', 'HomeController@privacy')->name('register');
+Route::get('/terms', 'HomeController@terms')->name('register');
 
 Route::post('/newsletter', 'GlobalAdminController@newsletter')->name('blog');
 Route::get('/contact', 'HomeController@contact')->name('contact');
@@ -42,11 +44,14 @@ Route::get('/courses', 'ProductsController@index')->name('courses');
 
 Route::middleware('auth')->group(function(){
     Route::get('/account', 'HomeController@account')->name('account');
+    Route::get('/my-courses', 'ProductsController@myProducts')->name('account');
 
     Route::post('/pay', 'FlutterwaveController@initialize')->name('pay');
+    Route::post('/pay-affiliate', 'FlutterwaveController@initializeAff')->name('pay-affiliate');
 // The callback url after a payment
 // The callback url after a payment
     Route::get('/rave/callback', 'FlutterwaveController@callback')->name('callback');
+    Route::get('/rave/callback-aff', 'FlutterwaveController@callbackAff')->name('callback-aff');
     Route::get('/rave/callback2', 'FlutterwaveController@callback2')->name('callback');
 // The callback url after a course payment
     Route::post('/buy-course', 'FlutterwaveController@buyCourse')->name('buyCourse');
@@ -97,7 +102,7 @@ Route::get('/cart-delete/{id}', 'CartsController@deleteProduct')->name('deletePr
 Route::get('/cartt', 'HomeController@cartt')->name('cartt');
 
 Route::get('/campaigns', 'CartsController@campaigns')->name('campaigns');
-Route::post('/campaign', 'CartsController@newCampaign')->name('new-campaigns');
+//Route::post('/campaign', 'CartsController@newCampaign')->name('new-campaigns');
 
 
 //Products

@@ -136,10 +136,10 @@
                         <img src="<?php echo e(asset('asset/images/logo/7dcplain.png')); ?>" style="max-height: 100px" /></a>
 
                     <div class="footer-social">
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/7dcng"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://www.twitter.com/7dcng"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.facebook.com/7dcng"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-4 footer-menu">
@@ -152,7 +152,7 @@
                     <h3>Useful Links</h3>
                     <a href="#">Career Opportunities</a>
                     <a href="#">Investor Relations</a>
-                    <a href="#">Terms of Engagement</a>
+                    <a href="/terms">Terms of Engagement</a>
                 </div>
                 <div class="col-lg-2 col-sm-4 footer-menu">
                     <h3>Information</h3>

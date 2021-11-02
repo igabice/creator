@@ -2,147 +2,127 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>7DC | Login </title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="HTML5 Template, eSports, Gaming, Bootstrap4, Responsive" />
+    <meta name="description" content="Gamix - eSports & Gaming HTML Template" />
+    <title>7DC - Reset Password</title>
+    <!--font-awesome icons link-->
+    <link rel="stylesheet" href="{{ asset('asset/css/font-awesome.min.css') }}">
 
-    <!-- Favicons -->
-    <link href="/static/img/favicon.png" rel="icon">
-    <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/vendor/icofont/icofont.min.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="/static/css/style.css" rel="stylesheet">
-
-
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/venobox.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/lightbox.min.css') }}">
+    <!--main style file-->
+    <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/responsive.css') }}">
 </head>
 
-<body>
+<body id="darkmode">
 
-<main id="main">
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>7DC</h2>
-                <h3>Reset Your Password
-                </h3>
-            </div>
-            <div class="row">
+<!-- preloader part start -->
+<div class="loader_screen preloader" id="preloader">
+    <div class="loader loader-box">
+        <svg viewBox="0 0 80 80">
+            <rect x="8" y="8" width="64" height="64"></rect>
+        </svg>
+    </div>
+</div>
+<!-- preloader part start -->
 
-                <div class="col-lg-6 offset-lg-3 mt-5 mt-lg-0 d-flex align-items-stretch">
+<!-- Login start -->
+<div class="login-12">
+    <div class="container">
+        <div class="col-md-12 pad-0">
+            <div class="row login-box-12">
+                <div class="col-lg-7 col-sm-12 col-pad-0 align-self-center">
+                    <div class="login-inner-form">
+                        <div class="details">
+                            <h3>Reset your password</h3>
 
-                    @if(session()->has('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <strong>{{ session()->get('success') }} </strong>
-                        </div>
-                    @endif
-                    @if($errors->has('password'))
-                        <div
-                                class="alert alert-danger alert-dismissible fade show"
-                                role="alert"
-                        >
-                            <strong>{{ $errors->first('password') }}</strong>
-                            <button
-                                    type="button"
-                                    class="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
-                            >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
-
-
-
-                    @if (session('status'))
-                        <div class="alert alert-success m-t-30" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    @if($errors->all())
-
-                        @foreach ($errors->all() as $error)
-                            <p class="text text-center text-danger center"> {{$error}} </p>
-                        @endforeach
-                    @endif
-
-                </div>
-                <div class="col-lg-6 offset-lg-3 mt-5 mt-lg-0 d-flex align-items-stretch">
-
-
-                        <div class="col-lg-12">
-                            <form class="mphp-email-form" method="post" action="{{ route('password.email') }}">
-                                @csrf
-                                <div class="form-group mb-4">
-                                    <label class="f-w--5" for="email">Email</label>
-                                    {{--                        <input class="form-control" id="email" type="email" name="email" required placeholder="Enter Email address"/>--}}
-                                    <input type="email"id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <button class="btn btn-block btn-primary f-w--7 py-3 font-primary" type="submit">
-                                        Send Password Reset Link
+                            @if($errors->has('email'))
+                                <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <button
+                                            type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
 
-                                <div class="form-group text-center mt-5">
-                                    <a
-                                            class="link ml-2 font-primary"
-                                            href="{{ url('/') }}">Go back home</a>
+                            @endif
 
+                            @if(session()->has('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <strong>{{ session()->get('success') }} </strong>
+                                </div>
+                            @endif
+                            @if($errors->has('password'))
+                                <div
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert"
+                                >
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                    <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="alert"
+                                            aria-label="Close"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+
+                            <form autocomplete="off" method="post" action="{{ route('password.email') }}">
+                                @csrf
+                                <div class="form-group">
+                                    <input type="email"id="email" type="email" class="input-text @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                 </div>
 
+                                <div class="form-group">
+                                    <button type="submit" class="btn-md btn-theme btn-block">
+                                        Send Password Reset Link
+                                    </button>
+                                </div>
                             </form>
+                            <p><a href="/"> Go to Home</a></p>
                         </div>
-
-
+                    </div>
                 </div>
 
+                <div class="col-lg-5 col-md-12 col-sm-12 col-pad-0 bg-img align-self-center none-992">
+                    <a href="/" class="logoss">
+                        7DC<span>.</span>
+                    </a>
+                    <p>Login to access a whole lot of features</p>
+                    <ul class="social-list clearfix">
+                        <li><a href="https://www.facebook.com/7dcng"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.twitter.com/7dcng"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com/7dcng"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
             </div>
-
-        </div>
-    </section>
-
-
-</main>
-
-<footer id="footer">
-    <div class="container">
-        <div class="copyright">
-            &copy; Copyright <strong><span>7DC (c) {{date('Y')}}</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-
-            {{--        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>--}}
         </div>
     </div>
-</footer><!-- End #footer -->
+</div>
+<!-- Login end -->
 
-<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-
-<!-- Vendor JS Files -->
-<script src="/static/vendor/jquery/jquery.min.js"></script>
-<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/static/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="/static/vendor/php-email-form/validate.js"></script>
-<script src="/static/vendor/jquery-countdown/jquery.countdown.min.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/static/js/main.js"></script>
-
+<!-- Optional JavaScript -->
+<script src="{{ asset('asset/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('asset/js/slick.min.js') }}"></script>
+<script src="{{ asset('asset/js/venobox.min.js') }}"></script>
+<script src="{{ asset('asset/js/lightbox.min.js') }}"></script>
+<script src="{{ asset('asset/js/counterup.min.js') }}"></script>
+<script src="{{ asset('asset/js/waypoints.min.js') }}"></script>
+<script src="{{ asset('asset/js/custom.js') }}"></script>
 </body>
+
+
 
 </html>

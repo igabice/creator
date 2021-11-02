@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Campaign;
+use App\CourseOwn;
 use App\Notifications\NewAction;
 use App\Notifications\NewAffiliate;
 use App\Notifications\NewAffiliateRefferal;
@@ -49,7 +50,21 @@ class UserController extends Controller
     }
     public function index(){
         $user = Auth::guard('web')->user();
-        $data = User::all();
+
+        if($_GET['type'] == 'Affiliates'){
+            $data = User::where('affiliate', '1')->get();
+
+        } else if($_GET['type'] == 'Creators'){
+            $data = User::where('verified', '1')->get();
+
+        } else{
+            $data = User::all();
+        }
+
+//        return $_GET['type'];
+
+
+
         $user->title = 'User';
         return view('all-users', compact('data', 'user'));
     }
@@ -91,28 +106,29 @@ class UserController extends Controller
     }
     public function verify($id){
         $user = User::find($id);
+
         // if($user->verified == 1){
         //     return back()->withError('account already verified!');
         // }
         //$user->id_verified = 1;
 
-$wallet = Wallet::where('user_id', $user->id)->first();
-        $wallet->balance = $wallet->balance + 12000;
-        $wallet->save();
+//        $wallet = Wallet::where('user_id', $user->id)->first();
+//        $wallet->balance = $wallet->balance + 12000;
+//        $wallet->save();
         
-        $topup = new TopUp();
-        $topup->wallet_id = $wallet->id;
-        $topup->owner_id = $user->id;
-        $topup->user_id = Auth::guard('web')->user()->id;
-        $topup->amount = 12000;
-        $topup->description = 'Verification bonus';
-        $topup->type = '';
-        $topup->save();
+//        $topup = new TopUp();
+//        $topup->wallet_id = $wallet->id;
+//        $topup->owner_id = $user->id;
+//        $topup->user_id = Auth::guard('web')->user()->id;
+//        $topup->amount = 12000;
+//        $topup->description = 'Verification bonus';
+//        $topup->type = '';
+//        $topup->save();
  
             $payment = new Payment();
             $payment->payment_id = random_int(20, 1000).$user->id;
             $payment->gateway_response = 'success';
-            $payment->ip_address = $_SERVER['SERVER_NAME'];
+            $payment->ip_address ='';
             $payment->channel = 'flutterwave';
             $payment->amount = 10000;
             $payment->reference = 'ref';
@@ -124,96 +140,6 @@ $wallet = Wallet::where('user_id', $user->id)->first();
 
             $user->verified = 1;
             $user->save();
-            
-                    
-
-            $successMsgUser = 'Thank you for taking this step to verify your account. Say bye-bye to being small. Thank you for believing in the mission!  <br/>
-                    You’re now a verified member of the 7DC family. Now let’s go get that private jet. <br/>
-                    As a show of gratitude, and to support and also encourage your efforts, we’ve credited your e-wallet with a membership bonus of N12,000. <br/>
-                    Kudos to you, '.$user->name.' '.$user->middle_name .' '.$user->last_name .' <br/>
-                    You’re a rockstar! <br/>';
-                    $user->notify(new NewAction($successMsgUser, 'You’re a rockstar!')); 
-            
-            
-            $total = 10000;
-            $refsName = '';
-            //credit first referral
-            if($user->referred_by_1 != null){
-                $refsName = $user->name.' '.$user->middle_name .' '.$user->last_name;
-                $referral1 = User::find($user->referred_by_1);
-                
-                $successMsg = 'Yo! You are balling! Anyways we’ll not have it otherwise. <br/>
-                    You just made 4000 because '.$user->name.' '.$user->middle_name .' '.$user->last_name .' made payment for account verification. Way to go, you are securing the bag and your future too.<br/>
-                    Remember to share your knowledge and strategies with your team members. You’ll only shine as bright as they do. <br/>
-                    Remember to reach out to '.$user->name.' '.$user->middle_name .' '.$user->last_name .' to say thank you and to offer post-payment service and support.';
-                    $referral1->notify(new NewAction($successMsg, 'Congratulations, your referral made a payment!')); 
-                if($referral1){
-                    $wallet1 = Wallet::where('user_id', $referral1->id)->first();
-                    $wallet1->balance = $wallet1->balance + 4000;
-                    $wallet1->save();
-                    $total = $total - 4000;
-                }
-            }
-            
-
-            $admins = User::where('role', '=', 'A')->get();
-            
-            foreach($admins as $admin){
-                $successMsg = 'Hurray! <br/> <br/>
-                            The 7DC Platform is growing, Kudos team! <br/>
-                            The affiliate details are as follows <br/>
-                            Name : '.$user->name.' '.$user->middle_name .' '.$user->last_name .'. <br/>
-                            WhatsApp Number : '.$user->phone .'<br/> 
-                            Email Address : '.$user->email .' <br/>
-                            Name of Referrer : ';
-                $admin->notify(new NewAction($successMsg, 'New Affiliate Verification!'));    
-            }
-            
-            //credit second referral
-            if($user->referred_by_2 != null){
-                $referral2 = User::find($user->referred_by_2);
-                
-                $successMsg = 'Yo! You are balling! Anyways we’ll not have it otherwise. <br/>
-                    You just made 2000 because '.$user->name.' '.$user->middle_name .' '.$user->last_name .' made payment for account verification. Way to go, you are securing the bag and your future too.<br/>
-                    Remember to share your knowledge and strategies with your team members. You’ll only shine as bright as they do. <br/>
-                    Remember to reach out to '.$user->name.' '.$user->middle_name .' '.$user->last_name .' to say thank you and to offer post-payment service and support.';
-                    $referral2->notify(new NewAction($successMsg, 'Congratulations, your referral made a payment!'));  
-                if($referral2){
-                    $wallet1 = Wallet::where('user_id', $referral2->id)->first();
-                    $wallet1->balance = $wallet1->balance + 2000;
-                    $wallet1->save();
-                    $total = $total - 2000;
-                }
-            }
-        if($user->referred_by_3 != null){
-            $referral3 = User::find($user->referred_by_3);
-            
-            $successMsg = 'Yo! You are balling! Anyways we’ll not have it otherwise. <br/>
-                    You just made 1000 because '.$user->name.' '.$user->middle_name .' '.$user->last_name .' made payment for account verification. Way to go, you are securing the bag and your future too.<br/>
-                    Remember to share your knowledge and strategies with your team members. You’ll only shine as bright as they do. <br/>
-                    Remember to reach out to '.$user->name.' '.$user->middle_name .' '.$user->last_name .' to say thank you and to offer post-payment service and support.';
-                    $referral3->notify(new NewAction($successMsg, 'Congratulations, your referral made a payment!')); 
-            if($referral3){
-                $wallet1 = Wallet::where('user_id', $referral3->id)->first();
-                $wallet1->balance = $wallet1->balance + 1000;
-                $wallet1->save();
-                $total = $total - 1000;
-            }
-        }
-            //admin AYO
-            $wallet1 = Wallet::where('user_id', 7)->first();
-            $wallet1->balance = $wallet1->balance + 2000;
-            $wallet1->save();
-            $total = $total - 2000;
-
-            //company gets balance
-            $companyWallet = Wallet::find(1);
-            $companyWallet->balance = $companyWallet->balance + $total;
-            $companyWallet->save();
-
-
-            //return redirect()->to('/home')->with('success', 'your payment was received and your account will be approved shortly. you\'ll be notified when ready.');
-
 
 
         return back()->withSuccess('account verified!');
@@ -296,7 +222,10 @@ $wallet = Wallet::where('user_id', $user->id)->first();
             ->get();
         $data = Product::where('user_id', $user->id)->get();
 
-        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns]);
+
+        $own = CourseOwn::where('user_id', $user->id)->count();
+
+        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns, 'own'=>$own]);
     }
 
 
@@ -562,10 +491,10 @@ $wallet = Wallet::where('user_id', $user->id)->first();
         $objRequest['phone']=str_replace(' ', '', $objRequest['phone']);
 
         $arrData->update($objRequest);
-        $msg='User updated successfully.';
+        $msg='Updated successfully.';
 
-        if($arrData->role == 'M'){
-            return redirect()->to('/marketers')->with('success', $msg);
+        if($arrData->role != 'A'){
+            return redirect()->to('/account')->with('success', $msg);
         }
 
         return redirect()->to('/users')->with('success', $msg);

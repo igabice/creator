@@ -91,6 +91,30 @@
                                                     @endif
                                                 </div>
 
+                                                @if(auth()->user()->role == 'A')
+                                                    <div class="form-group">
+                                                        <label for="verified">Verify</label>
+                                                        <select name="verified" id="verified" required class="form-control">
+                                                                <option value="1"
+                                                                @if($data->verified == 1)
+                                                                    selected
+                                                                @endif
+                                                                >Yes</option>
+                                                                <option value="0"
+                                                                @if($data->verified == 0)
+                                                                    selected
+                                                                @endif
+                                                                >No</option>
+
+                                                        </select>
+                                                        @error('verified')
+                                                        <span class="text-danger">
+                                                            <strong>{{ $errors->first('verified') }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                @endif
+
 
 
 

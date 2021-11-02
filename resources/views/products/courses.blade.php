@@ -63,6 +63,7 @@
                                 @if(auth()->user()->role == 'A')
                                 <a class="btn btn-sm btn-warning" href="/products/{{$object->id}}/edit">edit</a>
                                 @endif
+
                             </h5>
                             
                         </div>

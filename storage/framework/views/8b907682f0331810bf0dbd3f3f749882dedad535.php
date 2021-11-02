@@ -70,7 +70,7 @@
                                             <a href="/products/<?php echo e($object->id); ?>" class="product-btn" style="color: white"><h4><?php echo e($object->name); ?></h4></a>
 
 
-                                            <a href="/cart/<?php echo e($object->id); ?>" class="product-btn">Add to Cart</a>
+
                                             <?php if(auth()->user() != null): ?>
 
                                                 <?php if(auth()->user()->role == 'A'): ?>

@@ -114,6 +114,7 @@
                                             <a class="btn btn-outline-success btn-sm" href="{{ route('products.show', $object->id) }}"> View</a>
                                         @endif
 
+
                                 </td>
                             </tr>
                         @endforeach

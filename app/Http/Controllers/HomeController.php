@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Campaign;
+use App\CourseOwn;
 use App\Post;
 use App\Notifications\NewAction;
 use App\Notifications\NewAffiliate;
@@ -139,11 +140,18 @@ class HomeController extends Controller
             ->get();
         $data = Product::where('user_id', $user->id)->get();
 
-        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns]);
+        $own = CourseOwn::where('user_id', $user->id)->count();
+
+        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns, 'own'=>$own]);
     }
 
-    public function cartt(){
-        return view('cartt');
+    public function privacy(){
+        return view('privacy');
+    }
+
+
+    public function terms(){
+        return view('terms');
     }
 
     function registerUser(Request $request){

@@ -30,14 +30,21 @@
     <script>
         $(document).ready(function(){
 
-            $('#dataTable').DataTable({
+            var table = $('#dataTable').DataTable({
                 serverSide: false,
-                processing: false,
+                processing: true,
                 responsive: true,
-                lengthChange: true,
-
-
+                lengthChange: false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'excel'
+                ],
             });
+
+            yadcf.init(table, [
+                {column_number : 1, filter_default_label: "STATUS", filter_match_mode: "exact"},
+            ]);
+
 
             var app = @json($data);
 
@@ -70,16 +77,16 @@
 
 
     <!-- INNER_PAGE_BANNER AREA START -->
-    <section id="inner-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3>Payouts</h3>
+        <section id="inner-banner">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-12 heading">
+                        <h3>Payouts</h3>
+                    </div>
                 </div>
             </div>
-
-        </div>
-    </section>
+        </section>
 
 
     <section id="cart-view">
@@ -91,8 +98,8 @@
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th></th>
                             <th>Amount</th>
-                            <th>Status</th>
                             <th>Account</th>
                             <th>Date</th>
                             <th>Action</th>
@@ -101,19 +108,23 @@
                         <tbody>
                         @foreach($data as $object)
                             <tr>
-                                <td><a href="/users/{{$object->user_id}}">{{ $object->getUser()}}</a> </td>
+                                <td><a href="/users/{{$object->user_id}}">{{ $object->getUser()}}</a>
+                                    @if($object->verified == 0)
+                                        <p style="background-color: orange; width: 60px; color: white; padding: 5px; border-radius: 10px" >
+                                            <small>Pending</small>
+                                        </p>
+                                    @else
+                                        <p style="background-color: darkgreen; width: 60px; color: white; padding: 5px; border-radius: 10px" ><small>Paid</small></p>
+                                    @endif
+                                </td>
+                                <td>
+                                    {{$object->verified}}
+                                </td>
                                 <td>
                                     @if($object->verified == 0)
                                         {{ $object->amount}}
                                     @else
                                         {{ $object->amount - ($object->amount*0.01)}}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($object->verified == 0)
-                                        <p style="background-color: orange; width: 60px; color: white; padding: 5px; border-radius: 10px" ><small>Pending</small></p>
-                                    @else
-                                        <p style="background-color: darkgreen; width: 60px; color: white; padding: 5px; border-radius: 10px" ><small>Paid</small></p>
                                     @endif
                                 </td>
                                 <td>{{ $object->getAccount()}} </td>

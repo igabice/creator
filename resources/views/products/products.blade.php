@@ -72,7 +72,7 @@
                                             <a href="/products/{{$object->id}}" class="product-btn" style="color: white"><h4>{{ $object->name}}</h4></a>
 {{--                                            <a href='/product-delete/{{$object->product_id}}' ><i class="fa fa-times"  title="Delete" aria-hidden="true"></i></a>--}}
 
-                                            <a href="/cart/{{$object->id}}" class="product-btn">Add to Cart</a>
+{{--                                            <a href="/cart/{{$object->id}}" class="product-btn">Add to Cart</a>--}}
                                             @if(auth()->user() != null)
 
                                                 @if(auth()->user()->role == 'A')

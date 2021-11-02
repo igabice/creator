@@ -1,25 +1,18 @@
 <?php $__env->startSection('content'); ?>
     <div class="inner-page">
 
+        <section id="inner-banner">
+            <div class="container">
 
-    <?php
-    $data = Auth::user();
-    ?>
-
-
-
-
-    <!-- INNER_PAGE_BANNER AREA START -->
-    <section id="inner-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3>Add Product</h3>
-                    <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> Home</a><span> - Add Product</span>
+                <div class="row">
+                    <div class="col-lg-12 heading">
+                        <h3>Add Product</h3>
+                    </div>
                 </div>
+
+
             </div>
-        </div>
-    </section>
+        </section>
 
 
         <section id="cart-view">
@@ -121,11 +114,21 @@
                                                             <input class="form-control" name="image" id="image"  type="file" />
                                                         </div>
 
-
+                                                        <div class="form-group label-floating  ">
+                                                            <label class="control-label">Trailer Video</label>
+                                                            <input class="form-control" name="trailer" id="image"  type="file" />
+                                                        </div>
+                                                        <div class="form-group label-floating  ">
+                                                            <label class="control-label">Description</label>
+                                                            <input value="<?php echo e(old('description')); ?>" placeholder="Description"  type="text" class="form-control <?php if($errors->has('description')): ?> is-invalid <?php endif; ?>" name="description">
+                                                        </div>
 
                                                         <input value="<?php echo e(auth()->user()->id); ?>" name="user_id" type="hidden">
-
-
+                                                        <input value="course" name="type" type="hidden">
+                                                        <?php if(auth()->user()->role == 'A'): ?>
+                                                          <input value="1" name="verified" type="hidden">
+                                                        <?php endif; ?>
+                                                        
                                                     </div>
                                                 </div>
 

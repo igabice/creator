@@ -1,65 +1,147 @@
-<!-- @extends('layouts.app') -->
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="HTML5 Template, eSports, Gaming, Bootstrap4, Responsive" />
+    <meta name="description" content="Gamix - eSports & Gaming HTML Template" />
+    <title>7DC - Login</title>
+    <!--font-awesome icons link-->
+    <link rel="stylesheet" href="{{ asset('asset/css/font-awesome.min.css') }}">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/venobox.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/lightbox.min.css') }}">
+    <!--main style file-->
+    <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/css/responsive.css') }}">
+</head>
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+<body id="darkmode">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+<!-- preloader part start -->
+<div class="loader_screen preloader" id="preloader">
+    <div class="loader loader-box">
+        <svg viewBox="0 0 80 80">
+            <rect x="8" y="8" width="64" height="64"></rect>
+        </svg>
+    </div>
+</div>
+<!-- preloader part start -->
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+<!-- Login start -->
+<div class="login-12">
+    <div class="container">
+        <div class="col-md-12 pad-0">
+            <div class="row login-box-12">
+                <div class="col-lg-7 col-sm-12 col-pad-0 align-self-center">
+                    <div class="login-inner-form">
+                        <div class="details">
+                            <h3>Reset password</h3>
 
-                                @if($errors->has('email'))
-                                    <span class="text-danger">
+                            @if($errors->has('email'))
+                                <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <button
+                                            type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                            @endif
+
+                            @if(session()->has('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <strong>{{ session()->get('success') }} </strong>
+                                </div>
+                            @endif
+                            @if($errors->has('password'))
+                                <div
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert"
+                                >
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                    <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="alert"
+                                            aria-label="Close"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+
+                            <form autocomplete="off" method="post" action="{{ route('password.update') }}">
+                                @csrf
+
+                                <input type="hidden" name="token" value="{{ $token }}">
+                                <div class="form-group">
+                                    <input type="email"id="email" type="email" class="input-text @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                                    @if($errors->has('email'))
+                                        <span class="text-danger">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @if($errors->has('password'))
-                                    <span class="text-danger">
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <input type="password"id="password" type="password" class="input-text @error('password') is-invalid @enderror" name="password" >
+                                    @if($errors->has('password'))
+                                        <span class="text-danger">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
-                                @endif
-                            </div>
-                        </div>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <input type="password"id="password-confirm" type="password" class="input-text" name="password_confirmation" >
+                                </div>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn-md btn-theme btn-block">
+                                        {{ __('Reset Password') }}
+                                    </button>
+                                </div>
+                            </form>
+                            <p><a href="/"> Go to Home</a></p>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="col-lg-5 col-md-12 col-sm-12 col-pad-0 bg-img align-self-center none-992">
+                    <a href="/" class="logoss">
+                        7DC<span>.</span>
+                    </a>
+                    <p>Login to access a whole lot of features</p>
+                    <ul class="social-list clearfix">
+                        <li><a href="https://www.facebook.com/7dcng"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.twitter.com/7dcng"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com/7dcng"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+<!-- Login end -->
+
+<!-- Optional JavaScript -->
+<script src="{{ asset('asset/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('asset/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('asset/js/slick.min.js') }}"></script>
+<script src="{{ asset('asset/js/venobox.min.js') }}"></script>
+<script src="{{ asset('asset/js/lightbox.min.js') }}"></script>
+<script src="{{ asset('asset/js/counterup.min.js') }}"></script>
+<script src="{{ asset('asset/js/waypoints.min.js') }}"></script>
+<script src="{{ asset('asset/js/custom.js') }}"></script>
+</body>
+
+
+
+</html>
+

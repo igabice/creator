@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="HTML5 Template, eSports, Gaming, Bootstrap4, Responsive" />
     <meta name="description" content="Gamix - eSports & Gaming HTML Template" />
-    <title>7DC - Login</title>
+    <title>7DC - Register</title>
     <!--font-awesome icons link-->
     <link rel="stylesheet" href="{{ asset('asset/css/font-awesome.min.css') }}">
 
@@ -158,10 +158,10 @@
                     <p>Sign up to access a whole lot of features</p>
                     <p>Already have an account?<a href="/login"> Login</a></p>
                     <ul class="social-list clearfix">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="https://www.facebook.com/7dcng"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.twitter.com/7dcng"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com/7dcng"><i class="fa fa-instagram"></i></a></li>
+{{--                        <li><a href="https://www.twitter.com/7dcng"><i class="fa fa-linkedin"></i></a></li>--}}
                     </ul>
                 </div>
             </div>

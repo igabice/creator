@@ -19,7 +19,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     protected $fillable = [
         'name', 'last_name', 'middle_name', 'active', 'phone', 'email', 'phone_2', 'role', 'password', 'account_name', 'account_number', 'bank', 'id_type', 'nok_email', 'nok_relationship',
-        'referred_by_1', 'referred_by_2', 'referred_by_3', 'rating', 'image', 'username', 'id_verified', 'id_card', 'nok_name', 'nok_phone', 'nok_image', 'is_kyc'];
+        'referred_by_1', 'referred_by_2', 'referred_by_3', 'rating', 'image', 'username', 'id_verified', 'id_card', 'nok_name', 'nok_phone', 'nok_image', 'is_kyc',
+        'verified', 'facebook', 'about', 'twitter', 'instagram', 'linkedin', 'company'];
 
     public function isAdmin(){
         if($this->admin==1)return true;

@@ -147,9 +147,31 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a class="main-btn btn-c-white" href="#">
+                                <div class="col-lg-12 checkout-item">
+                                    <div class="row">
+                                        <div class="col-4 col-lg-4 col-sm-4">
+                                            <h3> Social Links</h3>
+                                        </div>
+                                        <div class="col-8 col-lg-8 col-sm-8">
+
+                                            <div class="footer-social">
+                                                @if($user->facebook)  <a href="{{$user->facebook}}"><i class="fa fa-instagram" aria-hidden="true"></i></a>@endif
+                                                @if($user->twitter)  <a href="{{$user->twitter}}"><i class="fa fa-twitter" aria-hidden="true"></i></a>@endif
+                                                @if($user->instagram)  <a href="{{$user->instagram}}"><i class="fa fa-instagram" aria-hidden="true"></i></a>@endif
+                                                @if($user->linkedin)  <a href="{{$user->linkedin}}"><i class="fa fa-linkedin" aria-hidden="true"></i></a>@endif
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if(auth()->user() != null)
+                                @if($user->id == auth()->user()->id && auth()->user()->role == 'A')
+                                <a class="main-btn btn-c-white" href="{{ route('users.edit', $user->id) }}">
                                     <span class="f-s--xs">Edit Profile </span>
                                 </a>
+                                    @endif
+                                    @endif
 
                             </div>
                             <br>
@@ -172,7 +194,7 @@
 
                         <div class="row">
 
-                     {{--
+
 
                             @if(count($data) > 0)
                                 @foreach($data as $object)
@@ -189,16 +211,10 @@
 
                                 @endforeach
                             @else
-                                <div class="col-lg-6 col-sm-6">
-                                    <div class="cart-items text-center">
-                                        <h3></h3>
-                                        <img src="asset/images/product1.png" alt="product-img" class="img-fluid">
-                                        <h4>You cart is empty</h4>
-                                    </div>
-                                </div>
+
                             @endif
 
---}}
+
                         </div>
 
                         <div class="checkout-box">
@@ -206,12 +222,41 @@
                                 <div class="col-lg-12 checkout-item">
                                     <div class="row">
 
+                                       @if($user->verified != 1)
+                                            <div class="col-12 col-lg-12 col-sm-12">
+                                                <h2 style="color: lightgrey">Become a creator</h2>
+                                                <br>
+                                                <p style="color: lightgrey">May a payment of N36,000 Yearly fees and you can start selling your own courses</p>
+                                                <br>
+                                                <form method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                                    @if(auth()->user())
+                                                        <input type="hidden" name="email" value="{{$user->email}}"> {{-- required --}}
+                                                    @else
+                                                        <label for="email">Confirmation Email</label>
+                                                        <input type="email" required name="email" placeholder="Email">
+                                                    @endif
+                                                    <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
+                                                    <input type="hidden" name="amount" value="36000"> {{-- required in kobo --}}
+                                                    <input type="hidden" name="quantity" value="1">
+                                                    <input type="hidden" name="currency" value="NGN">
+                                                    <input type="hidden" name="metadata" value="{{ json_encode($array = ['user_id' => $user->id, 'type' => 'creator']) }}" >
+                                                    <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
+
+                                                    {{ csrf_field() }}
+                                                    <button class="main-btn btn-c-white" type="submit" value="Checkout">
+                                                        <span class="f-s--xs">Pay Now </span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endif
+
+                                           @if($user->affiliate != 1 && $own > 0)
                                         <div class="col-12 col-lg-12 col-sm-12">
-                                            <h2 style="color: lightgrey">Become a creator</h2>
+                                            <h2 style="color: lightgrey">Become an affiliate</h2>
                                             <br>
-                                            <p style="color: lightgrey">May a payment of N36,000 Yearly fees and you can start selling your own courses</p>
+                                            <p style="color: lightgrey">Make a yearly payment of N20,000 to becaome an affiliate. Start referring courses and make money as you do.</p>
                                             <br>
-                                            <form method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                            <form method="POST" action="{{ route('pay-affiliate') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
                                                 @if(auth()->user())
                                                     <input type="hidden" name="email" value="{{$user->email}}"> {{-- required --}}
                                                 @else
@@ -219,7 +264,7 @@
                                                     <input type="email" required name="email" placeholder="Email">
                                                 @endif
                                                 <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
-                                                <input type="hidden" name="amount" value="36000"> {{-- required in kobo --}}
+                                                <input type="hidden" name="amount" value="20000"> {{-- required in kobo --}}
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="currency" value="NGN">
                                                 <input type="hidden" name="metadata" value="{{ json_encode($array = ['user_id' => $user->id, 'type' => 'creator']) }}" >
@@ -231,6 +276,7 @@
                                                 </button>
                                             </form>
                                         </div>
+                                               @endif
                                     </div>
                                 </div>
                             </div>
@@ -293,15 +339,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="main-btn btn-c-white" href="#">
-                                        <span class="f-s--xs">Request Payout </span>
+                                    <a class="main-btn btn-c-white" href="/my-payouts">
+                                        <span class="f-s--xs">My Payouts </span>
                                     </a>
 
 
                                 </div>
                             </div>
                         </div>
-
+                        @if($user->affiliate == 1)
                         <div class="contact-box">
 
                             <div class="checkout-box">
@@ -310,9 +356,9 @@
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
 
-                                                <h3 style="color: lightgrey">Course Referrals ({{count($campaigns)}})</h3>
+                                                <h3 style="color: lightgrey">Sales in Ongoing Month ({{count($campaigns)}})</h3>
 
-{{--                                            <i class=" btnn btn btn-warning" title="click to copy" data-clipboard-text="{{request()->root()}}/register?ref={{$user->id}}">click to copy referral link:  {{request()->root()}}/register?ref={{$user->id}}</i>--}}
+                        {{--                                            <i class=" btnn btn btn-warning" title="click to copy" data-clipboard-text="{{request()->root()}}/register?ref={{$user->id}}">click to copy referral link:  {{request()->root()}}/register?ref={{$user->id}}</i>--}}
 
                                                 <table id="dataTable" class="table   dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
@@ -350,12 +396,14 @@
                             </div>
 
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                            @endif
+</div>
+
+</div>
+</div>
+</section>
 
 
-    </div>
+</div>
 
 @endsection

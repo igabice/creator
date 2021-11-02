@@ -48,31 +48,38 @@
         });
     </script>
 
+
     @endsection
 
 
     <div class="inner-page">
 
+        <section id="inner-banner">
+            <div class="container">
 
-
-
-    <!-- INNER_PAGE_BANNER AREA START -->
-    <section id="inner-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3>ALl Users</h3>
+                <div class="row">
+                    <div class="col-lg-12 heading">
+                        <h3>All Users</h3>
+                    </div>
                 </div>
             </div>
-
-        </div>
-    </section>
+        </section>
 
 
     <section id="cart-view">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12" style="color: white">
+                    <div class="col-lg-6">
+                        @if(session()->has('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <strong>Well done!</strong> {{ session()->get('success') }}
+                            </div>
+                        @endif
+                    </div>
 
                       @if( auth()->user()->role == 'A')
                                 Verified: <i class="fa fa-check-circle" style="color: green"></i>
@@ -103,7 +110,8 @@
                                                 <i class="fa fa-ban" style="color: red"></i>
                                             @endif
                                         </td>
-                                        <td>{{$user->last_name}}</td>
+                                        <td>{{$user->last_name}}
+                                        </td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->phone}}</td>
                                         <td>@if($user->verified == 1)
@@ -123,6 +131,11 @@
 
                                                 <a class="btn btn-outline-success btn-sm" href="{{ route('users.show', $user->id) }}"> View</a>
 
+                                                @if($user->verified == 0 && auth()->user()->role == 'A')
+                                                    <a class="btn btn-sm btn-outline-warning" href="/approve/{{$user->id}}" title="verify user?">
+                                                        verify?
+                                                    </a>
+                                                @endif
                                             </form></td>
                                     </tr>
                                 @endforeach

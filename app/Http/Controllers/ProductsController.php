@@ -56,7 +56,7 @@ class ProductsController extends Controller
     public function show($id){
         $user = auth('web')->user();
         $data = Product::find($id);
-        $orders = Campaign::where('product_id', $id)->get();
+        $refferal = Campaign::where('product_id', $id)->where('user_id', $user->id)->count();
         $own = CourseOwn::where('user_id', $user->id)->where('product_id', $id)->first();
 
         $videos = CourseVideo::all();//where('course_id', $id)->get();
@@ -72,7 +72,8 @@ class ProductsController extends Controller
                 'marketers.id', 'products.id')
             ->get();
 
-        return view('products.details', ['data' => $data, 'campaign' => $campaign, 'videos' =>$videos, 'own' =>$own]);
+        return view('products.details', ['data' => $data, 'campaign' => $campaign, 'videos' =>$videos,
+            'refferal' => $refferal,  'own' =>$own, 'user'=>$user]);
     }
 
     function saveVideo(Request $request){
@@ -173,20 +174,42 @@ class ProductsController extends Controller
 
         return view('products.editproduct', ['data' => $data, ]);
     }
+
+    public function myProducts()
+    {
+        $user = auth()->user();
+        if($user->verified != 1){
+            return redirect()->to('/account')->with('error', 'You are not allowed to view this resources');
+        }
+        if($user->role == 'A'){
+            $data = Product::all();
+        }
+        else{
+            $data = Product::where('user_id', $user->id)->get();
+        }
+
+        //return $data;
+
+        return view('my-courses', ['data' => $data, 'user' => $user, ]);
+    }
+
+
     public function referProduct($id)
     {
         $data= Product::find($id);
 
-        if(isset($_GET['ref'])){
+        if(isset(request()->ref)){
             $commission = new CommissionDeposit();
             $commission->product_id = $id;
-            $commission->user_id = $_GET['ref'];
+            $commission->user_id = request()->ref;
             $commission->amount = $data->price *$data->commission * 0.01;
             $commission->save();
 
-            $wallet= Wallet::where('user_id', $_GET['ref'])->first();
+            $wallet= Wallet::where('user_id', request()->ref)->first();
             $wallet->balance = $wallet->balance + $commission->amount;
             $wallet->save();
+
+            return redirect()->to(url('/').'/products/'.$id.'?ref='.request()->ref);
         }
 
         return redirect()->to(url('/').'/products/'.$id);
@@ -243,6 +266,16 @@ class ProductsController extends Controller
             $fileName = $pathmeter_correct.$fileName;
             $file->move('./uploads/image/'. $pathmeter_correct, $fileName);
             $objRequest['link'] = "/uploads/image/".$fileName;
+        }
+
+        if ($request->hasFile('trailer')) {
+            $fileName = null;
+            $file = $request->file('trailer');
+            $fileName = time().$file->getClientOriginalName();
+            $pathmeter_correct =  date('Y').'/'. date('m').'/'. date('d').'/';
+            $fileName = $pathmeter_correct.$fileName;
+            $file->move('./uploads/trailer/'. $pathmeter_correct, $fileName);
+            $objRequest['trailer'] = "/uploads/trailer/".$fileName;
         }
         
 

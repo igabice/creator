@@ -8,7 +8,8 @@ class Product extends Model
 {
     protected $table = 'products';
 
-    protected $fillable = ['link', 'image', 'user_id', 'commission', 'd_commission', 'best', 'price', 'name', 'visible', 'type'];
+    protected $fillable = ['link', 'image', 'user_id', 'commission', 'd_commission', 'best', 'verified', 'price', 'name', 'visible', 'type',
+        'description', 'trailer'];
 
     public function getUser(){
         $data=User::find($this->user_id);

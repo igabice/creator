@@ -1,14 +1,6 @@
 <?php $__env->startSection('content'); ?>
     <div class="inner-page">
 
-
-    <?php
-    $data = Auth::user();
-    ?>
-
-
-
-
     <!-- INNER_PAGE_BANNER AREA START -->
         <section id="inner-banner">
             <div class="container">
@@ -131,6 +123,40 @@ endif; ?>" name="email" required autocomplete="email" autofocus>
                                     </span>
                                     <?php endif; ?>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="email">Company</label>
+                                    <input value="<?php echo e($data->company); ?>" id="company" type="text" class="form-control" name="company"  />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Facebook</label>
+                                    <input value="<?php echo e($data->facebook); ?>" id="facebook" type="text" class="form-control" name="facebook"  />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Twitter</label>
+                                    <input value="<?php echo e($data->twitter); ?>" id="twitter" type="text" class="form-control" name="twitter" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Instagram</label>
+                                    <input value="<?php echo e($data->instagram); ?>" id="instagram" type="text" class="form-control" name="instagram" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Facebook</label>
+                                    <input value="<?php echo e($data->linkedin); ?>" id="linkedin" type="text" class="form-control" name="linkedin" >
+
+
+                                    <?php if($errors->has('linkedin')): ?>
+                                        <span class="text-danger">
+                                    <strong><?php echo e($errors->first('linkedin')); ?></strong>
+                                    </span>
+                                    <?php endif; ?>
+                                </div>
+
+                                <textarea name="about" ><?php echo e($data->about); ?></textarea>
 
 
                                 <div class="form-group">

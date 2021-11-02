@@ -51,26 +51,33 @@
 
     <div class="inner-page">
 
+        <section id="inner-banner">
+            <div class="container">
 
-
-
-    <!-- INNER_PAGE_BANNER AREA START -->
-    <section id="inner-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3>ALl Users</h3>
+                <div class="row">
+                    <div class="col-lg-12 heading">
+                        <h3>All Users</h3>
+                    </div>
                 </div>
             </div>
-
-        </div>
-    </section>
+        </section>
 
 
     <section id="cart-view">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12" style="color: white">
+                    <div class="col-lg-6">
+                        <?php if(session()->has('success')): ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <strong>Well done!</strong> <?php echo e(session()->get('success')); ?>
+
+                            </div>
+                        <?php endif; ?>
+                    </div>
 
                       <?php if( auth()->user()->role == 'A'): ?>
                                 Verified: <i class="fa fa-check-circle" style="color: green"></i>
@@ -102,7 +109,9 @@
                                                 <i class="fa fa-ban" style="color: red"></i>
                                             <?php endif; ?>
                                         </td>
-                                        <td><?php echo e($user->last_name); ?></td>
+                                        <td><?php echo e($user->last_name); ?>
+
+                                        </td>
                                         <td><?php echo e($user->email); ?></td>
                                         <td><?php echo e($user->phone); ?></td>
                                         <td><?php if($user->verified == 1): ?>
@@ -123,6 +132,11 @@
 
                                                 <a class="btn btn-outline-success btn-sm" href="<?php echo e(route('users.show', $user->id)); ?>"> View</a>
 
+                                                <?php if($user->verified == 0 && auth()->user()->role == 'A'): ?>
+                                                    <a class="btn btn-sm btn-outline-warning" href="/approve/<?php echo e($user->id); ?>" title="verify user?">
+                                                        verify?
+                                                    </a>
+                                                <?php endif; ?>
                                             </form></td>
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

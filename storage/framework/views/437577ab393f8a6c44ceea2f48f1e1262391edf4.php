@@ -8,11 +8,29 @@
 
             $('#actionPayout').on('shown.bs.modal', function (e) {
                 var i = $(e.relatedTarget).data('index');
-                console.log(i);
-                $("#main-content")
+
+                $("#main-c")
                     .html('<input type="hidden" name="id" value="'+ app[i].id +'">' +
-                        '<input type="text" name="title" value="'+ app[i].title +'">' +
+                            '<label>Title</label><br>'+
+                        '<input type="text" style="color: black" name="title" placeholder="Title" class="form-control" value="'+ app[i].title +'"><br>' +
+                        '<label>Description</label><br>'+
+                        '<input type="text" style="color: black" name="description" placeholder="Description" class="form-control" value="'+ app[i].description +'"><br>' +
                         '<input type="file" name="file" >' +
+                        '\n' +
+                        '                            </table>');
+                //.html('<div class="box3">' + app[i].name + '<br>' + '</div>');
+            });
+
+
+
+            $('#make-campaign').on('shown.bs.modal', function (e) {
+
+                $("#main-content")
+                    .html('<table class="table table-bordered table-striped"><tr><td>Name:</td><th><?php echo e($data->name); ?></th></tr>'+
+                        '<tr><td>Price:</td><th><?php echo e($data->price); ?></th></tr>\n' +
+                        '<tr><td>Commission:</td><th><?php echo e($data->commission); ?></th></tr>\n' +
+                        '<input type="hidden" name="product_id" value="<?php echo e($data->id); ?>">' +
+                        '<input type="hidden" name="user_id" value="<?php echo e(Auth::user()->id); ?>">' +
                         '\n' +
                         '                            </table>');
                 //.html('<div class="box3">' + app[i].name + '<br>' + '</div>');
@@ -132,6 +150,12 @@
                                         <input type="hidden" name="orderID" value="<?php echo e($user->email.\Illuminate\Support\Facades\Date::now()); ?>">
                                         <input type="hidden" name="amount" value="<?php echo e($data->price +10); ?>">
                                         <input type="hidden" name="product_id" value="<?php echo e($data->id); ?>">
+                                            <?php if(isset(request()->ref)): ?>
+                                            <input type="hidden" name="ref_id" value="<?php echo e(request()->ref); ?>">
+                                            <?php else: ?>
+                                                <input type="hidden" name="ref_id" value="7">
+                                            <?php endif; ?>
+
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="currency" value="NGN">
                                         <input type="hidden" name="metadata" value="<?php echo e(json_encode($array = ['user_id' => $user->id, 'type' => 'cart'])); ?>" >
@@ -145,6 +169,21 @@
                                     </form>
                                         <?php endif; ?>
                                 </div>
+                                <br>
+                                <?php echo e($user->affiliate); ?> <?php echo e($refferal); ?>
+
+                                <?php if($user->affiliate != 1 && $refferal < 1): ?>
+                                  
+
+
+                                    <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
+                                        Sell this course
+                                    </a>
+                                    <?php endif; ?>
+
+                                <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
+                                    Sell this course
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -178,16 +217,11 @@
                                                             <!--<input value="<?php echo e(old('file')); ?>" id="file" type="text" class="form-control <?php if($errors->has('file')): ?> is-invalid <?php endif; ?>" name="file" required >-->
                                                                 <input class="form-control" name="file" id="image"  type="file" />
                                                             </div>
-
-
-
-
-
-
-
-
-                                                    <input type="hidden" name="status" value="closed">
-                                                    <button class="btn btn-primary btn-sm" type="submit">SUBMIT</button>
+                                                            <div class="form-group">
+                                                                <input value="<?php echo e(old('description')); ?>" placeholder="Description" id="description" type="text" class="form-control" name="description" >
+                                                            </div>
+                                                            <input type="hidden" name="status" value="closed">
+                                                            <button class="btn btn-primary btn-sm" type="submit">SUBMIT</button>
 
                                                         </div>
                                                 <br>
@@ -200,7 +234,7 @@
                                     <table class="table table-bordered table-striped">
                                         <?php $__currentLoopData = $videos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $video): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr><th>
-                                                    <?php if($own != null || auth()->role == 'A'): ?>
+                                                    <?php if($own != null || auth()->user()->role == 'A'): ?>
 
                                                     <?php if($video->status == 'yes'): ?>
                                                             <a href="<?php echo e($data->file); ?>" data-lightbox="roadtrip" data-title="Gallery">
@@ -313,6 +347,26 @@
 
 
 
+            <div id="make-campaign" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="<?php echo e(url('/campaign')); ?>" method="post">
+                        <?php echo csrf_field(); ?>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title mt-0" id="myModalLabel">Create campaign for this product?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body" id="main-content">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </form>
+                </div><!-- /.modal-dialog -->
+            </div>
 
             <div id="actionPayout" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -323,7 +377,7 @@
                                 <h5 class="modal-title mt-0" id="myModalLabel">Edit Video</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
-                            <div class="modal-body" id="main-content">
+                            <div class="modal-body" id="main-c">
 
                             </div>
                             <div class="modal-footer">

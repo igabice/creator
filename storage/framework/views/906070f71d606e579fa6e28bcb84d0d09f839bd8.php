@@ -28,14 +28,21 @@
     <script>
         $(document).ready(function(){
 
-            $('#dataTable').DataTable({
+            var table = $('#dataTable').DataTable({
                 serverSide: false,
-                processing: false,
+                processing: true,
                 responsive: true,
-                lengthChange: true,
-
-
+                lengthChange: false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'excel'
+                ],
             });
+
+            yadcf.init(table, [
+                {column_number : 1, filter_default_label: "STATUS", filter_match_mode: "exact"},
+            ]);
+
 
             var app = <?php echo json_encode($data, 15, 512) ?>;
 
@@ -68,16 +75,16 @@
 
 
     <!-- INNER_PAGE_BANNER AREA START -->
-    <section id="inner-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3>Payouts</h3>
+        <section id="inner-banner">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-12 heading">
+                        <h3>Payouts</h3>
+                    </div>
                 </div>
             </div>
-
-        </div>
-    </section>
+        </section>
 
 
     <section id="cart-view">
@@ -89,8 +96,8 @@
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th></th>
                             <th>Amount</th>
-                            <th>Status</th>
                             <th>Account</th>
                             <th>Date</th>
                             <th>Action</th>
@@ -99,7 +106,19 @@
                         <tbody>
                         <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $object): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td><a href="/users/<?php echo e($object->user_id); ?>"><?php echo e($object->getUser()); ?></a> </td>
+                                <td><a href="/users/<?php echo e($object->user_id); ?>"><?php echo e($object->getUser()); ?></a>
+                                    <?php if($object->verified == 0): ?>
+                                        <p style="background-color: orange; width: 60px; color: white; padding: 5px; border-radius: 10px" >
+                                            <small>Pending</small>
+                                        </p>
+                                    <?php else: ?>
+                                        <p style="background-color: darkgreen; width: 60px; color: white; padding: 5px; border-radius: 10px" ><small>Paid</small></p>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php echo e($object->verified); ?>
+
+                                </td>
                                 <td>
                                     <?php if($object->verified == 0): ?>
                                         <?php echo e($object->amount); ?>
@@ -107,13 +126,6 @@
                                     <?php else: ?>
                                         <?php echo e($object->amount - ($object->amount*0.01)); ?>
 
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <?php if($object->verified == 0): ?>
-                                        <p style="background-color: orange; width: 60px; color: white; padding: 5px; border-radius: 10px" ><small>Pending</small></p>
-                                    <?php else: ?>
-                                        <p style="background-color: darkgreen; width: 60px; color: white; padding: 5px; border-radius: 10px" ><small>Paid</small></p>
                                     <?php endif; ?>
                                 </td>
                                 <td><?php echo e($object->getAccount()); ?> </td>

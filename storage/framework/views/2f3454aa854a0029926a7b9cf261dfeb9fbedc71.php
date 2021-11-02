@@ -79,9 +79,7 @@
                                             <tr>
                                                 <td colspan="2">
                                                     <center>
-                                                        <a href="/cart/<?php echo e($data->id); ?>"
-                                                           class="btn btn-warning btn-icon btn-icon-right btn-lg">
-                                                            <i class="fa fa-plus"></i> Add to Cart </a>
+                                                       
                                                     </center>
                                                 </td>
                                             </tr>

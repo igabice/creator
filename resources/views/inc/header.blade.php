@@ -13,7 +13,7 @@
                     <a class="nav-link nl-m-top account-icon" href="/courses"><i>Courses</i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nl-m-top account-icon" href="/"><i>Coaches</i></a>
+                    <a class="nav-link nl-m-top account-icon" href="/"><i>Creators</i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nl-m-top account-icon" href="/blog"><i>Blog</i></a>
@@ -21,8 +21,13 @@
 
                 @if(auth()->user() != null)
                 <li class="nav-item">
-                    <a class="nav-link nl-m-top account-icon" href="/account"><i>Account</i></a>
+                    <a class="nav-link nl-m-top account-icon" href="/account"><i>Dashboard</i></a>
                 </li>
+                @if(auth()->user()->verified == 1)
+                <li class="nav-item">
+                    <a class="nav-link nl-m-top account-icon" href="/my-courses"><i>My Courses</i></a>
+                </li>
+                    @endif
                     {{--
                     <li class="nav-item">
                         <a class="nav-link nl-m-top account-icon" href="/cart"><i>Cart</i></a>
@@ -81,16 +86,22 @@
                         <a class="menu-link" href="/courses"><i>Courses</i></a>
                     </li>
                     <li >
-                        <a class="menu-link" href="/"><i>Coaches</i></a>
+                        <a class="menu-link" href="/"><i>Creators</i></a>
                     </li>
-                    <li >
-                        <a class="menu-link" href="/blog"><i>Blog</i></a>
-                    </li>
+{{--                    <li >--}}
+{{--                        <a class="menu-link" href="/blog"><i>Blog</i></a>--}}
+{{--                    </li>--}}
 
                     @if(auth()->user() != null)
                         <li >
-                            <a class="menu-link" href="/account"><i>Account</i></a>
+                            <a class="menu-link" href="/account"><i>Dashboard</i></a>
                         </li>
+
+                        @if(auth()->user()->verified == 1)
+                            <li class="nav-item">
+                                <a class="menu-link" href="/my-courses"><i>My Courses</i></a>
+                            </li>
+                        @endif
                        {{--
                         <li >
                             <a class="menu-link" href="/cart"><i>Cart</i></a>
@@ -110,7 +121,13 @@
                     @if(auth()->user() != null)
                     @if(auth()->user()->role == 'A')
                     <li>
-                        <a href="/users" class="menu-link">Manage Users</a>
+                        <a href="/users?type=Affliliates" class="menu-link">Affiliates</a>
+                    </li>
+                    <li>
+                        <a href="/users?type=Creators" class="menu-link">Creators</a>
+                    </li>
+                    <li>
+                        <a href="/users?type=all" class="menu-link">All Users</a>
                     </li>
                     <li>
                         <a href="/courses" class="menu-link">Manage Courses</a>

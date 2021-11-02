@@ -10,10 +10,10 @@
         </div>
         <div class="follow-us">
             <span>Follow us</span>
-            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+            <a href="https://www.instagram.com/7dcng"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <a href="https://www.twitter.com/7dcng"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            <a href="https://www.facebook.com/7dcng"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+{{--            <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>--}}
         </div>
         <div class="banner-arrow">
             <i class="fa fa-angle-left arrow-al" aria-hidden="true"></i>

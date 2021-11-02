@@ -10,11 +10,29 @@
 
             $('#actionPayout').on('shown.bs.modal', function (e) {
                 var i = $(e.relatedTarget).data('index');
-                console.log(i);
-                $("#main-content")
+
+                $("#main-c")
                     .html('<input type="hidden" name="id" value="'+ app[i].id +'">' +
-                        '<input type="text" name="title" value="'+ app[i].title +'">' +
+                            '<label>Title</label><br>'+
+                        '<input type="text" style="color: black" name="title" placeholder="Title" class="form-control" value="'+ app[i].title +'"><br>' +
+                        '<label>Description</label><br>'+
+                        '<input type="text" style="color: black" name="description" placeholder="Description" class="form-control" value="'+ app[i].description +'"><br>' +
                         '<input type="file" name="file" >' +
+                        '\n' +
+                        '                            </table>');
+                //.html('<div class="box3">' + app[i].name + '<br>' + '</div>');
+            });
+
+
+
+            $('#make-campaign').on('shown.bs.modal', function (e) {
+
+                $("#main-content")
+                    .html('<table class="table table-bordered table-striped"><tr><td>Name:</td><th>{{ $data->name}}</th></tr>'+
+                        '<tr><td>Price:</td><th>{{$data->price}}</th></tr>\n' +
+                        '<tr><td>Commission:</td><th>{{$data->commission}}</th></tr>\n' +
+                        '<input type="hidden" name="product_id" value="{{$data->id }}">' +
+                        '<input type="hidden" name="user_id" value="{{Auth::user()->id}}">' +
                         '\n' +
                         '                            </table>');
                 //.html('<div class="box3">' + app[i].name + '<br>' + '</div>');
@@ -134,6 +152,12 @@
                                         <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
                                         <input type="hidden" name="amount" value="{{$data->price +10}}">
                                         <input type="hidden" name="product_id" value="{{$data->id}}">
+                                            @if(isset(request()->ref))
+                                            <input type="hidden" name="ref_id" value="{{request()->ref}}">
+                                            @else
+                                                <input type="hidden" name="ref_id" value="7">
+                                            @endif
+
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="currency" value="NGN">
                                         <input type="hidden" name="metadata" value="{{ json_encode($array = ['user_id' => $user->id, 'type' => 'cart']) }}" >
@@ -146,6 +170,41 @@
                                     </form>
                                         @endif
                                 </div>
+                                <br>
+                                {{$user->affiliate}} {{$refferal}}
+                                @if($user->affiliate != 1 && $refferal < 1)
+                                  {{--
+                                    <form method="POST" action="{{ route('buyCourse') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                        @if($user)
+                                            <input type="hidden" name="email" value="{{$user->email}}">
+                                @else
+                                    <label for="email">Confirmation Email</label>
+                                    <input type="email" required name="email" placeholder="Email">
+                                @endif
+                                <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
+                                <input type="hidden" name="amount" value="{{$data->price +10}}">
+                                <input type="hidden" name="product_id" value="{{$data->id}}">
+                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="currency" value="NGN">
+                                <input type="hidden" name="metadata" value="{{ json_encode($array = ['user_id' => $user->id, 'type' => 'cart']) }}" >
+                                <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}">
+
+                                {{ csrf_field() }}
+                                <button class="main-btn btn-c-white" type="submit" value="Checkout">
+                                    <span class="f-s--xs">Make Payment </span>
+                                </button>
+                                </form>
+                                --}}
+
+
+                                    <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
+                                        Sell this course
+                                    </a>
+                                    @endif
+
+                                <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
+                                    Sell this course
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -179,16 +238,11 @@
                                                             <!--<input value="{{old('file')}}" id="file" type="text" class="form-control @if($errors->has('file')) is-invalid @endif" name="file" required >-->
                                                                 <input class="form-control" name="file" id="image"  type="file" />
                                                             </div>
-{{--                                                            <div class="form-inline">--}}
-{{--                                                                <label for="status">Status</label>--}}
-{{--                                                                <select name="status" id="role" required class="form-control">--}}
-{{--                                                                    <option value="yes">Open</option>--}}
-{{--                                                                    <option value="no">Closed</option>--}}
-{{--                                                                </select>--}}
-{{--                                                                --}}
-{{--                                                            </div>--}}
-                                                    <input type="hidden" name="status" value="closed">
-                                                    <button class="btn btn-primary btn-sm" type="submit">SUBMIT</button>
+                                                            <div class="form-group">
+                                                                <input value="{{old('description')}}" placeholder="Description" id="description" type="text" class="form-control" name="description" >
+                                                            </div>
+                                                            <input type="hidden" name="status" value="closed">
+                                                            <button class="btn btn-primary btn-sm" type="submit">SUBMIT</button>
 
                                                         </div>
                                                 <br>
@@ -201,7 +255,7 @@
                                     <table class="table table-bordered table-striped">
                                         @foreach($videos as $video)
                                             <tr><th>
-                                                    @if($own != null || auth()->role == 'A')
+                                                    @if($own != null || auth()->user()->role == 'A')
 
                                                     @if($video->status == 'yes')
                                                             <a href="{{$data->file}}" data-lightbox="roadtrip" data-title="Gallery">
@@ -313,6 +367,26 @@
 {{--                </div>--}}
 {{--            </div>--}}
 {{--        </section>--}}
+            <div id="make-campaign" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="{{url('/campaign')}}" method="post">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title mt-0" id="myModalLabel">Create campaign for this product?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body" id="main-content">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </form>
+                </div><!-- /.modal-dialog -->
+            </div>
 
             <div id="actionPayout" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -323,7 +397,7 @@
                                 <h5 class="modal-title mt-0" id="myModalLabel">Edit Video</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
-                            <div class="modal-body" id="main-content">
+                            <div class="modal-body" id="main-c">
 
                             </div>
                             <div class="modal-footer">
