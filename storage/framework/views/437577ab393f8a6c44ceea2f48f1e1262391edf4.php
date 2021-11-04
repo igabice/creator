@@ -30,7 +30,7 @@
                         '<tr><td>Price:</td><th><?php echo e($data->price); ?></th></tr>\n' +
                         '<tr><td>Commission:</td><th><?php echo e($data->commission); ?></th></tr>\n' +
                         '<input type="hidden" name="product_id" value="<?php echo e($data->id); ?>">' +
-                        '<input type="hidden" name="user_id" value="<?php echo e(Auth::user()->id); ?>">' +
+                        '<input type="hidden" name="user_id" value="<?php echo e($user != null ? $user->id : ''); ?>">' +
                         '\n' +
                         '                            </table>');
                 //.html('<div class="box3">' + app[i].name + '<br>' + '</div>');
@@ -141,13 +141,16 @@
 
                                     <?php if($own == null): ?>
                                     <form method="POST" action="<?php echo e(route('buyCourse')); ?>" accept-charset="UTF-8" class="form-horizontal" role="form">
-                                        <?php if($user): ?>
+                                        <?php if($user != null): ?>
                                             <input type="hidden" name="email" value="<?php echo e($user->email); ?>"> 
+                                            <input type="hidden" name="orderID" value="<?php echo e($user->email.\Illuminate\Support\Facades\Date::now()); ?>">
+                                            <input type="hidden" name="metadata" value="<?php echo e(json_encode($array = ['user_id' => $user->id, 'type' => 'cart'])); ?>" >
                                         <?php else: ?>
                                             <label for="email">Confirmation Email</label>
                                             <input type="email" required name="email" placeholder="Email">
+                                            <input type="hidden" name="orderID" value="<?php echo e(random_int(12,234).\Illuminate\Support\Facades\Date::now()); ?>">
+                                            <input type="hidden" name="metadata" value="<?php echo e(json_encode($array = ['type' => 'course'])); ?>" >
                                         <?php endif; ?>
-                                        <input type="hidden" name="orderID" value="<?php echo e($user->email.\Illuminate\Support\Facades\Date::now()); ?>">
                                         <input type="hidden" name="amount" value="<?php echo e($data->price +10); ?>">
                                         <input type="hidden" name="product_id" value="<?php echo e($data->id); ?>">
                                             <?php if(isset(request()->ref)): ?>
@@ -158,7 +161,6 @@
 
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="currency" value="NGN">
-                                        <input type="hidden" name="metadata" value="<?php echo e(json_encode($array = ['user_id' => $user->id, 'type' => 'cart'])); ?>" >
                                         <input type="hidden" name="reference" value="<?php echo e(Paystack::genTranxRef()); ?>"> 
 
                                         <?php echo e(csrf_field()); ?>
@@ -170,20 +172,22 @@
                                         <?php endif; ?>
                                 </div>
                                 <br>
-                                <?php echo e($user->affiliate); ?> <?php echo e($refferal); ?>
-
-                                <?php if($user->affiliate != 1 && $refferal < 1): ?>
-                                  
+                                <?php if($user != null): ?>
+                                    <?php if($user->affiliate != 1 && $refferal < 1): ?>
 
 
-                                    <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
-                                        Sell this course
-                                    </a>
+                                        <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
+                                            Sell this course
+                                        </a>
                                     <?php endif; ?>
+                                <?php endif; ?>
 
-                                <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
-                                    Sell this course
-                                </a>
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -194,7 +198,8 @@
                         <div class="checkout-box">
                             <div class="row">
                                 <div class="col-lg-12 checkout-item">
-                                    <?php if(auth()->user()->role == 'A'): ?>
+                                    <?php if($user != null): ?>
+                                        <?php if($user->role == 'A'): ?>
                                         <h4>Add Video</h4>
                                         <form class="form-horizontal" method="POST" action="/video-add" enctype="multipart/form-data">
                                             <?php echo csrf_field(); ?>
@@ -228,36 +233,39 @@
                                             </div>
 
                                         </form>
+
+                                            <h4>Course Videos</h4>
+                                            <table class="table table-bordered table-striped">
+                                                <?php $__currentLoopData = $videos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $video): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <tr><th>
+                                                            <?php if($own != null || auth()->user()->role == 'A'): ?>
+
+                                                                <?php if($video->status == 'yes'): ?>
+                                                                    <a href="<?php echo e($data->file); ?>" data-lightbox="roadtrip" data-title="Gallery">
+                                                                        <?php else: ?>
+                                                                            <a  href="#" >
+                                                                                <?php endif; ?>
+
+
+
+                                                                                <?php echo e($loop->index +1); ?>.   <?php echo e($video->title); ?>
+
+                                                                            </a>
+                                                                            <?php if(auth()->user()->role == 'A'): ?>
+                                                                                <a class="btn btn-outline-success btn-sm" data-index="<?php echo e($loop->iteration -1); ?>"
+                                                                                   data-toggle="modal" data-target="#actionPayout"> Edit</a>
+                                                                <?php endif; ?>
+                                                            <?php endif; ?>
+                                                        </th>
+                                                    </tr>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+                                            </table>
+                                        <?php endif; ?>
                                     <?php endif; ?>
 
-                                    <h4>Course Videos</h4>
-                                    <table class="table table-bordered table-striped">
-                                        <?php $__currentLoopData = $videos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $video): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <tr><th>
-                                                    <?php if($own != null || auth()->user()->role == 'A'): ?>
 
-                                                    <?php if($video->status == 'yes'): ?>
-                                                            <a href="<?php echo e($data->file); ?>" data-lightbox="roadtrip" data-title="Gallery">
-                                                            <?php else: ?>
-                                                                <a  href="#" >
-                                                                    <?php endif; ?>
-
-
-
-                                                                    <?php echo e($loop->index +1); ?>.   <?php echo e($video->title); ?>
-
-                                                                </a>
-                                                                <?php if(auth()->user()->role == 'A'): ?>
-                                                                    <a class="btn btn-outline-success btn-sm" data-index="<?php echo e($loop->iteration -1); ?>"
-                                                                       data-toggle="modal" data-target="#actionPayout"> Edit</a>
-                                                    <?php endif; ?>
-                                                    <?php endif; ?>
-                                                </th>
-                                            </tr>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-
-                                    </table>
                                 </div>
                             </div>
                         </div>

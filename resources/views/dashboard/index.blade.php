@@ -166,21 +166,19 @@
                                     </div>
                                 </div>
                                 @if(auth()->user() != null)
-                                @if($user->id == auth()->user()->id && auth()->user()->role == 'A')
-                                <a class="main-btn btn-c-white" href="{{ route('users.edit', $user->id) }}">
-                                    <span class="f-s--xs">Edit Profile </span>
-                                </a>
+                                    @if($user->id == auth()->user()->id || auth()->user()->role == 'A')
+                                    <a class="main-btn btn-c-white" href="{{ route('users.edit', $user->id) }}">
+                                        <span class="f-s--xs">Edit Profile </span>
+                                    </a>
                                     @endif
-                                    @endif
+                                @endif
 
                             </div>
-                            <br>
-                            <br>
+                            <br><br>
                             @if($user->verified == 0 && auth()->user()->role == 'A')
                                 <a class="btn btn-sm btn-outline-success" href="/approve/{{$user->id}}" title="verify user?">
                                     Click to verify this user
                                 </a>
-
                             @endif
                             &nbsp;
                             @if($user->is_kyc == 0 && auth()->user()->role == 'A')
@@ -189,13 +187,9 @@
                                 </a>
 
                             @endif
-
                         </div>
 
                         <div class="row">
-
-
-
                             @if(count($data) > 0)
                                 @foreach($data as $object)
                                     <div class="col-lg-6 col-sm-6">
@@ -206,9 +200,6 @@
                                             <a href='/cart-delete/{{$object->product_id}}'><i class="fa fa-times" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
-
-
-
                                 @endforeach
                             @else
 
@@ -322,7 +313,7 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    ₦ 0
+                                                    ₦{{$user->myWallet()->referral_bonus  }}
                                                 </h4>
                                             </div>
                                         </div>

@@ -27,9 +27,9 @@ use Carbon\Carbon;
 
 class ProductsController extends Controller
 {
-    public function __construct(){
-        //$this->middleware('auth')->except(['declineproduct', 'acceptproduct']);
-    }
+//    public function __construct(){
+//        $this->middleware('guest')->except(['show']);
+//    }
 
     public function index(){
         $user = auth('web')->user();
@@ -56,24 +56,34 @@ class ProductsController extends Controller
     public function show($id){
         $user = auth('web')->user();
         $data = Product::find($id);
-        $refferal = Campaign::where('product_id', $id)->where('user_id', $user->id)->count();
-        $own = CourseOwn::where('user_id', $user->id)->where('product_id', $id)->first();
 
-        $videos = CourseVideo::all();//where('course_id', $id)->get();
+        if($user != null){
+            $refferal = Campaign::where('product_id', $id)->where('user_id', $user->id)->count();
+            $campaign = Campaign::leftJoin('users as marketers', 'marketers.id', '=', 'campaign.user_id')
+                ->join('products', 'products.id', '=', 'campaign.product_id')
+                ->leftjoin('commission_deposit', 'marketers.id', '=', 'commission_deposit.user_id')
+                ->select('marketers.name as firstname', 'marketers.last_name as lastname', 'campaign.id as id', 'commission_deposit.amount', 'campaign.created_at as created_at',
+                    'marketers.id as user_id', 'products.id as id',
+                    DB::raw('SUM(commission_deposit.id) as id_count'), DB::raw('SUM(commission_deposit.amount) as revenue'))
+                ->where('products.id', $id)
+                ->groupBy('commission_deposit.amount', 'marketers.name', 'commission_deposit.id', 'marketers.last_name', 'campaign.id', 'campaign.created_at',
+                    'marketers.id', 'products.id')
+                ->get();
+            $own = CourseOwn::where('user_id', $user->id)->where('product_id', $id)->first();
+        }else{
+            $own = null;
+            $refferal = [];
+            $campaign = [];
+        }
 
-        $campaign = Campaign::leftJoin('users as marketers', 'marketers.id', '=', 'campaign.user_id')
-            ->join('products', 'products.id', '=', 'campaign.product_id')
-            ->leftjoin('commission_deposit', 'marketers.id', '=', 'commission_deposit.user_id')
-            ->select('marketers.name as firstname', 'marketers.last_name as lastname', 'campaign.id as id', 'commission_deposit.amount', 'campaign.created_at as created_at',
-                'marketers.id as user_id', 'products.id as id',
-                DB::raw('SUM(commission_deposit.id) as id_count'), DB::raw('SUM(commission_deposit.amount) as revenue'))
-            ->where('products.id', $id)
-            ->groupBy('commission_deposit.amount', 'marketers.name', 'commission_deposit.id', 'marketers.last_name', 'campaign.id', 'campaign.created_at',
-                'marketers.id', 'products.id')
-            ->get();
 
-        return view('products.details', ['data' => $data, 'campaign' => $campaign, 'videos' =>$videos,
-            'refferal' => $refferal,  'own' =>$own, 'user'=>$user]);
+        $videos = CourseVideo::where('course_id', $id)->get();
+
+
+
+
+        return view('products.details', ['data' => $data, 'videos' =>$videos,
+            'campaign' => $campaign, 'refferal' => $refferal,  'own' =>$own, 'user'=>$user]);
     }
 
     function saveVideo(Request $request){
@@ -207,6 +217,7 @@ class ProductsController extends Controller
 
             $wallet= Wallet::where('user_id', request()->ref)->first();
             $wallet->balance = $wallet->balance + $commission->amount;
+            $wallet->referral_bonus = $wallet->referral_bonus + $commission->amount;
             $wallet->save();
 
             return redirect()->to(url('/').'/products/'.$id.'?ref='.request()->ref);

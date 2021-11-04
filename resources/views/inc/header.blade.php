@@ -12,13 +12,15 @@
                 <li class="nav-item">
                     <a class="nav-link nl-m-top account-icon" href="/courses"><i>Courses</i></a>
                 </li>
+                <li >
+                    <a class="nav-link nl-m-top account-icon" href="/bundles"><i>Bundles</i></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link nl-m-top account-icon" href="/"><i>Creators</i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nl-m-top account-icon" href="/blog"><i>Blog</i></a>
                 </li>
-
                 @if(auth()->user() != null)
                 <li class="nav-item">
                     <a class="nav-link nl-m-top account-icon" href="/account"><i>Dashboard</i></a>
@@ -84,6 +86,9 @@
 
                     <li >
                         <a class="menu-link" href="/courses"><i>Courses</i></a>
+                    </li>
+                    <li >
+                        <a class="menu-link" href="/bundles"><i>Bundles</i></a>
                     </li>
                     <li >
                         <a class="menu-link" href="/"><i>Creators</i></a>

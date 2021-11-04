@@ -133,21 +133,19 @@
                                     </div>
                                 </div>
                                 <?php if(auth()->user() != null): ?>
-                                <?php if($user->id == auth()->user()->id && auth()->user()->role == 'A'): ?>
-                                <a class="main-btn btn-c-white" href="<?php echo e(route('users.edit', $user->id)); ?>">
-                                    <span class="f-s--xs">Edit Profile </span>
-                                </a>
+                                    <?php if($user->id == auth()->user()->id || auth()->user()->role == 'A'): ?>
+                                    <a class="main-btn btn-c-white" href="<?php echo e(route('users.edit', $user->id)); ?>">
+                                        <span class="f-s--xs">Edit Profile </span>
+                                    </a>
                                     <?php endif; ?>
-                                    <?php endif; ?>
+                                <?php endif; ?>
 
                             </div>
-                            <br>
-                            <br>
+                            <br><br>
                             <?php if($user->verified == 0 && auth()->user()->role == 'A'): ?>
                                 <a class="btn btn-sm btn-outline-success" href="/approve/<?php echo e($user->id); ?>" title="verify user?">
                                     Click to verify this user
                                 </a>
-
                             <?php endif; ?>
                             &nbsp;
                             <?php if($user->is_kyc == 0 && auth()->user()->role == 'A'): ?>
@@ -156,13 +154,9 @@
                                 </a>
 
                             <?php endif; ?>
-
                         </div>
 
                         <div class="row">
-
-
-
                             <?php if(count($data) > 0): ?>
                                 <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $object): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="col-lg-6 col-sm-6">
@@ -173,9 +167,6 @@
                                             <a href='/cart-delete/<?php echo e($object->product_id); ?>'><i class="fa fa-times" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
-
-
-
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <?php else: ?>
 
@@ -291,7 +282,8 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    ₦ 0
+                                                    ₦<?php echo e($user->myWallet()->referral_bonus); ?>
+
                                                 </h4>
                                             </div>
                                         </div>

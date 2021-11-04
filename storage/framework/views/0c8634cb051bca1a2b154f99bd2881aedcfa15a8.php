@@ -59,74 +59,16 @@
                         </div>
                     </div>
                     <div class="game-main">
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-                            
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                           
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
+                        <?php $__currentLoopData = $featured; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="col-lg-3 game-item text-center">
+                                <a href="/course/<?php echo e($feature->id); ?>?ref=2">
+                                <div class="game-img">
+                                    <img src=" <?php echo e($feature->image ?? 'asset/images/courses/closing.png'); ?>" alt="game-img" class="img-fluid"/>
 
+                                </div> <?php echo e($feature->name); ?> </a>
 
-
-
-
-
-
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
                             </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             </div>
@@ -142,91 +84,24 @@
                 <div class="col-lg-12">
                     <div class="col-lg-12 col-md-11 tab-m-auto">
                         <div class="game-box">
-                            <a href="/coaches" class=""><h4><span>Featured Coaches </span></h4> </a>
+                            <a href="#" class=""><h4><span>Featured Coaches </span></h4> </a>
+
                             <br>
                         </div>
                     </div>
                     <div class="game-main">
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
+                        <?php $__currentLoopData = $coaches; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="col-lg-3 game-item text-center">
+
+                                    <div class="game-img">
+                                        <img src=" <?php echo e($feature->image ?? 'asset/images/courses/closing.png'); ?>" alt="game-img" class="img-fluid"/>
+
+                                    </div> <?php echo e($feature->name); ?> <?php echo e($feature->last_name); ?>
+
+
+
                             </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             </div>
@@ -242,91 +117,22 @@
                 <div class="col-lg-12">
                     <div class="col-lg-12 col-md-11 tab-m-auto">
                         <div class="game-box">
-                            <a href="/coaches" class=""><h4><span>Latest Courses </span></h4> </a>
+                            <a href="/courses" class=""><h4><span>Latest Courses </span></h4> </a>
                             <br>
                         </div>
                     </div>
                     <div class="game-main">
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
+
+                        <?php $__currentLoopData = $latest; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="col-lg-3 game-item text-center">
+                                <a href="/course/<?php echo e($feature->id); ?>?ref=2">
+                                    <div class="game-img">
+                                        <img src=" <?php echo e($feature->image ?? 'asset/images/courses/closing.png'); ?>" alt="game-img" class="img-fluid"/>
+
+                                    </div> <?php echo e($feature->name); ?> </a>
+
                             </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             </div>
@@ -342,168 +148,28 @@
                 <div class="col-lg-12">
                     <div class="col-lg-12 col-md-11 tab-m-auto">
                         <div class="game-box">
-                            <a href="/coaches" class=""><h4><span>Best Selling Courses </span></h4> </a>
+                            <a href="/courses" class=""><h4><span>Best Selling Courses </span></h4> </a>
                             <br>
                         </div>
                     </div>
                     <div class="game-main">
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
+                        <?php $__currentLoopData = $best; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="col-lg-3 game-item text-center">
+                                <a href="/course/<?php echo e($feature->id); ?>?ref=2">
+                                    <div class="game-img">
+                                        <img src=" <?php echo e($feature->image ?? 'asset/images/courses/closing.png'); ?>" alt="game-img" class="img-fluid"/>
+
+                                    </div> <?php echo e($feature->name); ?> </a>
+
                             </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <?php if(auth()->user() != null): ?>
-    <section id="games">
-        <div class="container game-line">
-            <div class="gl-one gl"></div>
-            <div class="gl-two gl"></div>
-            <div class="row game-pa">
-
-                <div class="col-lg-12">
-                    <div class="col-lg-12 col-md-11 tab-m-auto">
-                        <div class="game-box">
-                            <a href="/coaches" class=""><h4><span> Courses you've accssed</span></h4> </a>
-                            <br>
-                        </div>
-                    </div>
-                    <div class="game-main">
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-                            
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-                            
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <?php endif; ?>
+  
 
     <section id="about">
         <div class="container">
@@ -618,67 +284,7 @@
         </div>
     </section>
 
-    <section id="product">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 heading">
-                    <h3>Product</h3>
-                </div>
-            </div>
-            <div class="row product-pa">
-                <div class="col-lg-12">
-                    <div class="product-main">
-                        <div class="col-lg-3 text-center">
-                            <div class="product-item">
-                                <h3>$135</h3>
-                                <img src="asset/images/product1.png" alt="product-img" class="img-fluid">
-                                <h4>Ober headset</h4>
-                                <a href="#" class="product-btn">Add to Cart</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-center">
-                            <div class="product-item">
-                                <h3>$240</h3>
-                                <div class="sale">
-                                    <span>Sale</span>
-                                </div>
-                                <img src="asset/images/product2.png" alt="product-img" class="img-fluid">
-                                <h4>D-Link Webcam</h4>
-                                <a href="#" class="product-btn">Add to Cart</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-center">
-                            <div class="product-item">
-                                <h3>$135</h3>
-                                <img src="asset/images/product1.png" alt="product-img" class="img-fluid">
-                                <h4>Ober headset</h4>
-                                <a href="#" class="product-btn">Add to Cart</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-center">
-                            <div class="product-item">
-                                <h3>$99</h3>
-                                <div class="sale">
-                                    <span>Sale</span>
-                                </div>
-                                <img src="asset/images/product3.png" alt="product-img" class="img-fluid">
-                                <h4>Wired Earphone</h4>
-                                <a href="#" class="product-btn">Add to Cart</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 text-center">
-                            <div class="product-item">
-                                <h3>$240</h3>
-                                <img src="asset/images/product2.png" alt="product-img" class="img-fluid">
-                                <h4>D-Link Webcam</h4>
-                                <a href="#" class="product-btn">Add to Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
     <section id="subscribe">
         <div class="container zindex">
             <div class="row">

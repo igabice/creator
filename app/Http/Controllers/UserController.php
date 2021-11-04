@@ -52,7 +52,9 @@ class UserController extends Controller
         $user = Auth::guard('web')->user();
 
         if($_GET['type'] == 'Affiliates'){
-            $data = User::where('affiliate', '1')->get();
+            $data = User::leftJoin('wallets', 'users.id', '=', 'wallets.user_id')
+                ->select('users.*', 'states.name as guest_expertise')
+            ->where('affiliate', '1')->get();
 
         } else if($_GET['type'] == 'Creators'){
             $data = User::where('verified', '1')->get();

@@ -109,7 +109,12 @@ class HomeController extends Controller
     }
 
     public function soon(){
-        return view('index');
+        $best = Product::take(6)->get();
+        $featured = Product::take(6)->get();
+        $coaches = User::take(6)->get();
+        $latest = Product::take(6)->get();
+
+        return view('index', compact('best', 'latest', 'featured', 'coaches'));
         //return Hash::make('password');
     }
 

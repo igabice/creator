@@ -61,74 +61,16 @@
                         </div>
                     </div>
                     <div class="game-main">
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
+                        @foreach($featured as $feature)
+                            <div class="col-lg-3 game-item text-center">
+                                <a href="/course/{{$feature->id}}?ref=2">
+                                <div class="game-img">
+                                    <img src=" {{$feature->image ?? 'asset/images/courses/closing.png'}}" alt="game-img" class="img-fluid"/>
+
+                                </div> {{$feature->name }} </a>
+
                             </div>
-                            <a href="#">The 7D Closing</a>
-                            
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                           
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-{{--                            <div class="star">--}}
-{{--                                <i class="fa fa-star" aria-hidden="true"></i>--}}
-{{--                                <i class="fa fa-star" aria-hidden="true"></i>--}}
-{{--                                <i class="fa fa-star" aria-hidden="true"></i>--}}
-{{--                                <i class="fa fa-star" aria-hidden="true"></i>--}}
-{{--                                <i class="fa fa-star" aria-hidden="true"></i>--}}
-{{--                            </div>--}}
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -144,91 +86,23 @@
                 <div class="col-lg-12">
                     <div class="col-lg-12 col-md-11 tab-m-auto">
                         <div class="game-box">
-                            <a href="/coaches" class=""><h4><span>Featured Coaches </span></h4> </a>
+                            <a href="#" class=""><h4><span>Featured Coaches </span></h4> </a>
+{{--                            <a href="/coaches" class=""><h4><span>Featured Coaches </span></h4> </a>--}}
                             <br>
                         </div>
                     </div>
                     <div class="game-main">
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
+                        @foreach($coaches as $feature)
+                            <div class="col-lg-3 game-item text-center">
+
+                                    <div class="game-img">
+                                        <img src=" {{$feature->image ?? 'asset/images/courses/closing.png'}}" alt="game-img" class="img-fluid"/>
+
+                                    </div> {{$feature->name }} {{$feature->last_name }}
+{{--                                <a href="/course/{{$feature->id}}?ref=2">  </a>--}}
+
                             </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -244,91 +118,22 @@
                 <div class="col-lg-12">
                     <div class="col-lg-12 col-md-11 tab-m-auto">
                         <div class="game-box">
-                            <a href="/coaches" class=""><h4><span>Latest Courses </span></h4> </a>
+                            <a href="/courses" class=""><h4><span>Latest Courses </span></h4> </a>
                             <br>
                         </div>
                     </div>
                     <div class="game-main">
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
+
+                        @foreach($latest as $feature)
+                            <div class="col-lg-3 game-item text-center">
+                                <a href="/course/{{$feature->id}}?ref=2">
+                                    <div class="game-img">
+                                        <img src=" {{$feature->image ?? 'asset/images/courses/closing.png'}}" alt="game-img" class="img-fluid"/>
+
+                                    </div> {{$feature->name }} </a>
+
                             </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -344,97 +149,28 @@
                 <div class="col-lg-12">
                     <div class="col-lg-12 col-md-11 tab-m-auto">
                         <div class="game-box">
-                            <a href="/coaches" class=""><h4><span>Best Selling Courses </span></h4> </a>
+                            <a href="/courses" class=""><h4><span>Best Selling Courses </span></h4> </a>
                             <br>
                         </div>
                     </div>
                     <div class="game-main">
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
+                        @foreach($best as $feature)
+                            <div class="col-lg-3 game-item text-center">
+                                <a href="/course/{{$feature->id}}?ref=2">
+                                    <div class="game-img">
+                                        <img src=" {{$feature->image ?? 'asset/images/courses/closing.png'}}" alt="game-img" class="img-fluid"/>
+
+                                    </div> {{$feature->name }} </a>
+
                             </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/closing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/closing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">The 7D Closing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-3 game-item text-center">
-                            <div class="game-img">
-                                <img src="asset/images/courses/marketing.png" alt="game-img" class="img-fluid">
-                                <div class="lightbox-overlay">
-                                    <a href="asset/images/courses/marketing.png" data-lightbox="roadtrip" data-title="Gallery"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <a href="#">7D Affiliate Marketing</a>
-                            <div class="star">
-                                
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+  {{--
     @if(auth()->user() != null)
     <section id="games">
         <div class="container game-line">
@@ -445,7 +181,7 @@
                 <div class="col-lg-12">
                     <div class="col-lg-12 col-md-11 tab-m-auto">
                         <div class="game-box">
-                            <a href="/coaches" class=""><h4><span> Courses you've accssed</span></h4> </a>
+                            <a href="/coaches" class=""><h4><span> Courses you've accessed</span></h4> </a>
                             <br>
                         </div>
                     </div>
@@ -458,7 +194,7 @@
                                 </div>
                             </div>
                             <a href="#">The 7D Closing</a>
-                            
+
                         </div>
                         <div class="col-lg-3 game-item text-center">
                             <div class="game-img">
@@ -468,7 +204,7 @@
                                 </div>
                             </div>
                             <a href="#">7D Affiliate Marketing</a>
-                            
+
                         </div>
                         <div class="col-lg-3 game-item text-center">
                             <div class="game-img">
@@ -478,7 +214,7 @@
                                 </div>
                             </div>
                             <a href="#">The 7D Closing</a>
-                            
+
                         </div>
                         <div class="col-lg-3 game-item text-center">
                             <div class="game-img">
@@ -488,7 +224,7 @@
                                 </div>
                             </div>
                             <a href="#">7D Affiliate Marketing</a>
-                            
+
                         </div>
                         <div class="col-lg-3 game-item text-center">
                             <div class="game-img">
@@ -498,7 +234,7 @@
                                 </div>
                             </div>
                             <a href="#">7D Affiliate Marketing</a>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -506,6 +242,7 @@
         </div>
     </section>
     @endif
+    --}}
 
     <section id="about">
         <div class="container">
@@ -620,6 +357,7 @@
         </div>
     </section>
 
+    {{--
     <section id="product">
         <div class="container">
             <div class="row">
@@ -681,6 +419,7 @@
             </div>
         </div>
     </section>
+    --}}
     <section id="subscribe">
         <div class="container zindex">
             <div class="row">

@@ -41,6 +41,7 @@ Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/about', 'HomeController@about')->name('about');
 
 Route::get('/courses', 'ProductsController@index')->name('courses');
+Route::get('/course/{id}', 'ProductsController@show')->name('single-course');
 
 Route::middleware('auth')->group(function(){
     Route::get('/account', 'HomeController@account')->name('account');
@@ -53,7 +54,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/rave/callback', 'FlutterwaveController@callback')->name('callback');
     Route::get('/rave/callback-aff', 'FlutterwaveController@callbackAff')->name('callback-aff');
     Route::get('/rave/callback2', 'FlutterwaveController@callback2')->name('callback');
-// The callback url after a course payment
+// The callback url after a course/bundle payment
+    Route::post('/buy-bundle', 'FlutterwaveController@buyBundle')->name('buyBundle');
+    Route::get('/rave/bundle-bought', 'FlutterwaveController@bundleBought')->name('bundleBought');
     Route::post('/buy-course', 'FlutterwaveController@buyCourse')->name('buyCourse');
     Route::get('/rave/course-bought', 'FlutterwaveController@courseBought')->name('courseBought');
 
@@ -88,8 +91,15 @@ Route::get('/video-delete/{id}', 'ProductsController@deleteVideo')->name('video-
 Route::post('/video-add', 'ProductsController@saveVideo')->name('video-save');
 Route::post('/video-edit', 'ProductsController@editVideo')->name('video-edit');
 
+
 Route::post('/products-update', 'ProductsController@update')->name('state-update');
 Route::get('/create-product', 'ProductsController@createform')->name('create-update');
+
+
+//BundlesController
+Route::resource('bundles', 'BundlesController');
+Route::post('/bundles-update', 'BundlesController@update')->name('state-update');
+Route::get('/create-bundles', 'BundlesController@createform')->name('create-update');
 
 Route::get('/strategy', 'ProductsController@strategy')->name('strategy');
 Route::post('/campaign', 'ProductsController@newCampaign')->name('new-campaigns');
