@@ -252,8 +252,8 @@ class FlutterwaveController extends Controller
 //            $payment->save();
 //
 //
-//            $user->affiliate = 1;
-//            $user->save();
+            $user->affiliate = 1;
+            $user->save();
 
 
         return redirect()->to('/account')->with('success', 'Congrats! You are now an affiliate!');

@@ -4,7 +4,7 @@
 
     Welcome to 7DC.
 
-    <p>Visit <a href="https://www.affiliatedng.com/login"> https://wwww.affiliatedng.com </a>  to login to your account.</p>
+    <p>Visit <a href="https://www.7dc.com/login"> https://wwww.7dc.com </a>  to login to your account.</p>
 
     
     <?php $__currentLoopData = $introLines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $line): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -63,4 +63,4 @@
         <?php $__env->endSlot(); ?>
     <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
-<?php /**PATH /home/affilia1/affiliatedng/resources/views/mail/newuser.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/resources/views/mail/newuser.blade.php ENDPATH**/ ?>

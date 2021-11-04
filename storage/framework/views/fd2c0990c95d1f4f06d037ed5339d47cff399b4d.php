@@ -150,4 +150,4 @@ endif; ?>" name="email" value="<?php echo e(old('email')); ?>" required autocomp
 
 </body>
 
-</html><?php /**PATH /home/affilia1/affiliatedng/resources/views/auth/passwords/email.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/affilia1/7dc/resources/views/auth/passwords/email.blade.php ENDPATH**/ ?>

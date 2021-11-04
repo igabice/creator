@@ -27,4 +27,4 @@
     $('.nav-tabs a').on('shown.bs.tab', function (e) {
         location.hash = e.target.hash.replace("#tab_", "#");
     });
-</script><?php /**PATH /home/affilia1/affiliatedng/resources/views/vendor/backpack/base/inc/scripts.blade.php ENDPATH**/ ?>
+</script><?php /**PATH /home/affilia1/7dc/resources/views/vendor/backpack/base/inc/scripts.blade.php ENDPATH**/ ?>

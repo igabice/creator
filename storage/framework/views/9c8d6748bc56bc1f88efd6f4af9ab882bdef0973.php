@@ -60,4 +60,4 @@
         </div>
     </body>
 </html>
-<?php /**PATH /home/affilia1/affiliatedng/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/views/minimal.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/views/minimal.blade.php ENDPATH**/ ?>

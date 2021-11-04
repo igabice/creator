@@ -57,4 +57,4 @@
   </div>
 </div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make(backpack_user() && (starts_with(\Request::path(), config('backpack.base.route_prefix'))) ? 'backpack::layout' : 'backpack::layout_guest', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/affilia1/affiliatedng/resources/views/errors/layout.blade.php ENDPATH**/ ?>
+<?php echo $__env->make(backpack_user() && (starts_with(\Request::path(), config('backpack.base.route_prefix'))) ? 'backpack::layout' : 'backpack::layout_guest', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/affilia1/7dc/resources/views/errors/layout.blade.php ENDPATH**/ ?>

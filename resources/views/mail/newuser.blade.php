@@ -1,10 +1,22 @@
 @component('mail::message')
     {{-- Greeting --}}
-    Dear {{ $data->surname }} {{ $data->name }}, your account has been created successfully!
+    O ya! {{ $data->surname }} {{ $data->name }},
 
-    Welcome to 7DC.
+    <p>We are very excited to have you here. Welcome to the 7 Digits Courses Platform (7dc.ng).</p>
+    <br>
+    <p>We want you to know that this platform is created to offer a minimum of  7 Digits value.</p>
+    <br>
+    <p>If you are here because you signed up for a course of ours, you will be so pleased you did, we can assure you that. The value and skills the course you subscribed to will add to you is immense. There is no platform as dynamic and full of value as ours.</p>
+    <br>
+    <p>Or wait! Are you an affiliate marketer? Welcome to the money field. Watch out for the bundle offers that come from time to time. In the meantime, [Name], go make the billions.</p>
+    <br>
+    <p>And If you are here to sell your high-value course, we can’t wait for your course to grace our landing page. We would love to have your image in the Coaches Profile section.</p>
+    <br>
+    <p>In all, we welcome you to this amazing platform.</p>
+    <br>
 
-    <p>Visit <a href="https://www.affiliatedng.com/login"> https://wwww.affiliatedng.com </a>  to login to your account.</p>
+
+    <p>Visit <a href="https://www.7dc.com/login"> https://wwww.7dc.com </a>  to login to your account.</p>
 
     {{-- Intro Lines --}}
     @foreach ($introLines as $line)

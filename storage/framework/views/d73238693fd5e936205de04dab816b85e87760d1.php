@@ -155,10 +155,10 @@
             &copy; Copyright <strong><span>The 7D Affiliates Limited (7D Group) (c) <?php echo e(date('Y')); ?></span></strong>. All Rights Reserved
         </div>
         <div class="social-links text-center">
-            <a href="https://www.twitter.com/affiliatedng" class="twitter"><i class="icofont-twitter"></i></a>
-            <a href="https://www.facebook.com/affiliatedng" class="facebook"><i class="icofont-facebook"></i></a>
-            <a href="https://www.instagram.com/affiliatedng" class="instagram"><i class="icofont-instagram"></i></a>
-            <a href="https://www.linkedin.com/affiliatedng" class="google-plus"><i class="icofont-linkedin"></i></a>
+            <a href="https://www.twitter.com/7dc" class="twitter"><i class="icofont-twitter"></i></a>
+            <a href="https://www.facebook.com/7dc" class="facebook"><i class="icofont-facebook"></i></a>
+            <a href="https://www.instagram.com/7dc" class="instagram"><i class="icofont-instagram"></i></a>
+            <a href="https://www.linkedin.com/7dc" class="google-plus"><i class="icofont-linkedin"></i></a>
 
             
         </div>
@@ -183,4 +183,4 @@
 
 </body>
 
-</html><?php /**PATH /home/affilia1/affiliatedng/resources/views/auth/login.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/affilia1/7dc/resources/views/auth/login.blade.php ENDPATH**/ ?>

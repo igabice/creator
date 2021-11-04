@@ -169,4 +169,4 @@
 
 </body>
 
-</html><?php /**PATH /home/affilia1/affiliatedng/resources/views/vendor/backpack/base/auth/passwords/reset.blade.php ENDPATH**/ ?>
+</html><?php /**PATH /home/affilia1/7dc/resources/views/vendor/backpack/base/auth/passwords/reset.blade.php ENDPATH**/ ?>

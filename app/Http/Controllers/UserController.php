@@ -73,7 +73,7 @@ class UserController extends Controller
 
     public function allCreators(){
         $user = Auth::guard('web')->user();
-        $data = User::where('role', 'C')->get();
+        $data = User::where('verified', '1')->get();
         $user->title = 'Creators';
         return view('users.list', compact('data', 'user'));
     }
@@ -224,10 +224,16 @@ class UserController extends Controller
             ->get();
         $data = Product::where('user_id', $user->id)->get();
 
+        $totalEarnings = Product::select('products.id, products.name, products.price')
+            ->join('course_own', 'products.id', '=', 'course_own.product_id')
+            ->where('products.user_id', $user->id)
+            //->groupBy('products.id', 'products.name',)
+            ->sum('price');
+
 
         $own = CourseOwn::where('user_id', $user->id)->count();
 
-        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns, 'own'=>$own]);
+        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns, 'own'=>$own, 'totalEarnings' => $totalEarnings]);
     }
 
 

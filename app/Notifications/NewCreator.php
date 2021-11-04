@@ -28,7 +28,7 @@ class NewCreator extends Notification implements  ShouldQueue
         return (new MailMessage)
             ->subject('Welcome on board!')
             ->line($this->name.', Thank you!')
-            ->line('We’re happy to have you on affiliatedng platform')
+            ->line('We’re happy to have you on 7dc platform')
             ->line('Focus on creating your digital products; and we will handle the selling for you!')
             ->line('Start creating, and join us as we revolutionise the digital economy in Nigeria.')
             ->action('Login', url('/login'))

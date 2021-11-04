@@ -94,4 +94,4 @@
         </div>
     </div>
 </header>
-<?php /**PATH /home/affilia1/affiliatedng/resources/views/inc/navbar.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/resources/views/inc/navbar.blade.php ENDPATH**/ ?>

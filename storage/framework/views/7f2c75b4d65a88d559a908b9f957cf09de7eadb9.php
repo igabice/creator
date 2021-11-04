@@ -10,4 +10,4 @@
         </table>
     </td>
 </tr>
-<?php /**PATH /home/affilia1/affiliatedng/vendor/laravel/framework/src/Illuminate/Mail/resources/views/html/footer.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/vendor/laravel/framework/src/Illuminate/Mail/resources/views/html/footer.blade.php ENDPATH**/ ?>

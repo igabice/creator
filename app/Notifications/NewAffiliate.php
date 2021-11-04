@@ -38,8 +38,8 @@ class NewAffiliate extends Notification implements  ShouldQueue
             ->action('home', url('/login'))
             ->line('See you there.')
             ->line('In the meantime;')
-            ->line(new HtmlString('<p>Follow @affiliatedng on Facebook by clicking  <a href="http://www.facebook.com/affiliatedng" style="color: #0d95e8">here</a></p>'))
-            ->line(new HtmlString('<p>and on instagram by clicking  <a href="http://www.instagram.com/affiliatedng" style="color: #0d95e8">here</a></p>'))
+            ->line(new HtmlString('<p>Follow @7dc on Facebook by clicking  <a href="http://www.facebook.com/7dc" style="color: #0d95e8">here</a></p>'))
+            ->line(new HtmlString('<p>and on instagram by clicking  <a href="http://www.instagram.com/7dc" style="color: #0d95e8">here</a></p>'))
             ->line('Thank you');
     }
 

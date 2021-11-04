@@ -90,7 +90,7 @@
                                 <input type="hidden" name="register" value="yes">
 
                                 <div class="form-group">
-                                    <input value="{{old('phone')}}" id="phone" placeholder="Whatsapp Number" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" required autocomplete="phone" autofocus>
+                                    <input value="{{old('phone')}}" id="phone" placeholder="Whatsapp Number" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" required autocomplete="phone" autofocus>
                                     @if($errors->has('phone'))
                                         <span class="text-danger">
                                                     <strong>{{ $errors->first('phone') }}</strong>

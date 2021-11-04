@@ -154,11 +154,11 @@
                     <div class="col-12">
                         <span class="d-sm-inline-block" style="color: white"> Copyright (c) <?php echo e(date('Y')); ?>  The 7D Affiliates Limited (7D Group)
 
-                            <a href="https://www.twitter.com/affiliatedng" class="twitter"><i class="fa fa-twitter"></i></a>
-                <a href="https://www.facebook.com/affiliatedng" class="facebook"><i class="fa fa-facebook"></i></a>
-                <a href="https://www.instagram.com/affiliatedng" class="instagram"><i class="fa fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/affiliatedng" class="google-plus"><i class="fa fa-linkedin-in"></i></a>
-                <a href="https://www.tiktok.com/affiliatedng" class="google-plus"><i class="fa fa-tumblr"></i></a>
+                            <a href="https://www.twitter.com/7dc" class="twitter"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.facebook.com/7dc" class="facebook"><i class="fa fa-facebook"></i></a>
+                <a href="https://www.instagram.com/7dc" class="instagram"><i class="fa fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/7dc" class="google-plus"><i class="fa fa-linkedin-in"></i></a>
+                <a href="https://www.tiktok.com/7dc" class="google-plus"><i class="fa fa-tumblr"></i></a>
                         </span>
                     </div>
                 </div>

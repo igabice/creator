@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function(){
 // The callback url after a payment
 // The callback url after a payment
     Route::get('/rave/callback', 'FlutterwaveController@callback')->name('callback');
-    Route::get('/rave/callback-aff', 'FlutterwaveController@callbackAff')->name('callback-aff');
+    Route::get('/rave/callback-aff', 'FlutterwaveController@callbackAff')->name('callbackAff');
     Route::get('/rave/callback2', 'FlutterwaveController@callback2')->name('callback');
 // The callback url after a course/bundle payment
     Route::post('/buy-bundle', 'FlutterwaveController@buyBundle')->name('buyBundle');

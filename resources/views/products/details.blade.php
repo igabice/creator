@@ -177,8 +177,8 @@
                                     @if($user->affiliate != 1 && $refferal < 1)
 
 
-                                        <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
-                                            Sell this course
+                                        <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this product">
+                                            Sell product
                                         </a>
                                     @endif
                                 @endif
@@ -361,7 +361,7 @@
                         @csrf
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title mt-0" id="myModalLabel">Create campaign for this product?</h5>
+                                <h5 class="modal-title mt-0" id="myModalLabel">Sell this product?</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div class="modal-body" id="main-content">

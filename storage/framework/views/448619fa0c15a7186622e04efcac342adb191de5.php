@@ -64,4 +64,4 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('backpack::layout_guest', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/affilia1/affiliatedng/resources/views/vendor/backpack/base/auth/passwords/email.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('backpack::layout_guest', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/affilia1/7dc/resources/views/vendor/backpack/base/auth/passwords/email.blade.php ENDPATH**/ ?>

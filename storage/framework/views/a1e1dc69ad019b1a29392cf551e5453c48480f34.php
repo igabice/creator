@@ -28,4 +28,4 @@
         <?php echo $__env->renderComponent(); ?>
     <?php $__env->endSlot(); ?>
 <?php echo $__env->renderComponent(); ?>
-<?php /**PATH /home/affilia1/affiliatedng/vendor/laravel/framework/src/Illuminate/Mail/resources/views/html/message.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/vendor/laravel/framework/src/Illuminate/Mail/resources/views/html/message.blade.php ENDPATH**/ ?>

@@ -68,4 +68,4 @@ Dr Ayo OluAyoola
 <?php $__env->endSlot(); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
-<?php /**PATH /home/affilia1/affiliatedng/resources/views/vendor/notifications/email.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/resources/views/vendor/notifications/email.blade.php ENDPATH**/ ?>

@@ -42,4 +42,4 @@
     
 </body>
 </html>
-<?php /**PATH /home/affilia1/affiliatedng/resources/views/vendor/backpack/base/layout_guest.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/resources/views/vendor/backpack/base/layout_guest.blade.php ENDPATH**/ ?>

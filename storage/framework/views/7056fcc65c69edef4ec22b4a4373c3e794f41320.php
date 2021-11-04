@@ -11,4 +11,4 @@
 
 <?php echo strip_tags($footer); ?>
 
-<?php /**PATH /home/affilia1/affiliatedng/vendor/laravel/framework/src/Illuminate/Mail/resources/views/text/layout.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/vendor/laravel/framework/src/Illuminate/Mail/resources/views/text/layout.blade.php ENDPATH**/ ?>

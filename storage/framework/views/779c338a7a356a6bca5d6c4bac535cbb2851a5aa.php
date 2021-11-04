@@ -6,4 +6,4 @@
 <?php if(config('backpack.base.developer_link') && config('backpack.base.developer_name')): ?>
     <?php echo e(trans('backpack::base.handcrafted_by')); ?> <a target="_blank" href="<?php echo e(config('backpack.base.developer_link')); ?>"><?php echo e(config('backpack.base.developer_name')); ?></a>.
 <?php endif; ?>
-<?php /**PATH /home/affilia1/affiliatedng/resources/views/vendor/backpack/base/inc/footer.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/resources/views/vendor/backpack/base/inc/footer.blade.php ENDPATH**/ ?>

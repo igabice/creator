@@ -141,4 +141,4 @@
     </div>
 </div>
 
-<?php /**PATH /home/affilia1/affiliatedng/resources/views/inc/sidebar.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/resources/views/inc/sidebar.blade.php ENDPATH**/ ?>

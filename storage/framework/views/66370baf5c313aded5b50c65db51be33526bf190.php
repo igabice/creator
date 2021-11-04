@@ -22,4 +22,4 @@
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
   });
-</script><?php /**PATH /home/affilia1/affiliatedng/resources/views/vendor/backpack/base/inc/alerts.blade.php ENDPATH**/ ?>
+</script><?php /**PATH /home/affilia1/7dc/resources/views/vendor/backpack/base/inc/alerts.blade.php ENDPATH**/ ?>

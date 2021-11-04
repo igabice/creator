@@ -16,7 +16,7 @@
                     <a class="nav-link nl-m-top account-icon" href="/bundles"><i>Bundles</i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nl-m-top account-icon" href="/"><i>Creators</i></a>
+                    <a class="nav-link nl-m-top account-icon" href="/creators"><i>Creators</i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nl-m-top account-icon" href="/blog"><i>Blog</i></a>
@@ -79,7 +79,7 @@
                         <a class="menu-link" href="/bundles"><i>Bundles</i></a>
                     </li>
                     <li >
-                        <a class="menu-link" href="/"><i>Creators</i></a>
+                        <a class="menu-link" href="/creators"><i>Creators</i></a>
                     </li>
 
 

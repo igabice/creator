@@ -9,6 +9,9 @@
 
 @section('script')
     {{--
+    @if()
+     @elseif($user->id == auth()->user()->id)
+     @end
     <script src='asset/datatables/jquery.dataTables.min.js'></script>
     <script src='asset/datatables/dataTables.bootstrap4.min.js'></script>
     <script src='asset/datatables/dataTables.buttons.min.js'></script>
@@ -55,7 +58,14 @@
 
             <div class="row">
                 <div class="col-lg-12 heading">
-                    <h3>Dashboard</h3>
+                    @if( auth()->user() == null)
+                        <h3>Profile</h3>
+                    @elseif($user->id == auth()->user()->id)
+                        <h3>Dashboard</h3>
+                    @else
+                        <h3>Profile</h3>
+                    @endif
+
                 </div>
             </div>
 
@@ -190,20 +200,22 @@
                         </div>
 
                         <div class="row">
+                           {{--
                             @if(count($data) > 0)
+                                <h4>My Courses</h4>
                                 @foreach($data as $object)
                                     <div class="col-lg-6 col-sm-6">
                                         <div class="cart-items text-center">
                                             <h3>₦{{ $object->price}}</h3>
                                             <img src="/{{$object->image ?? 'asset/images/noimage.jpeg'}}" alt="product-img" class="img-fluid">
                                             <h4>{{ $object->name}}</h4>
-                                            <a href='/cart-delete/{{$object->product_id}}'><i class="fa fa-times" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
                                 @endforeach
                             @else
 
                             @endif
+                            --}}
 
 
                         </div>
@@ -243,11 +255,16 @@
 
                                            @if($user->affiliate != 1 && $own > 0)
                                         <div class="col-12 col-lg-12 col-sm-12">
-                                            <h2 style="color: lightgrey">Become an affiliate</h2>
+
+                                            Become a 7D Affiliate
+
+
+                                            <h2 style="color: lightgrey">Become a 7D Affiliate</h2>
                                             <br>
-                                            <p style="color: lightgrey">Make a yearly payment of N20,000 to becaome an affiliate. Start referring courses and make money as you do.</p>
+                                            <p style="color: lightgrey"> Want to start earning from selling courses and other products? Register as an Affiliate.
+                                                Learn and Earn while at it.</p>
                                             <br>
-                                            <form method="POST" action="{{ route('pay-affiliate') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                            <form method="GET" action="{{ route('callbackAff') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
                                                 @if(auth()->user())
                                                     <input type="hidden" name="email" value="{{$user->email}}"> {{-- required --}}
                                                 @else
@@ -263,7 +280,7 @@
 
                                                 {{ csrf_field() }}
                                                 <button class="main-btn btn-c-white" type="submit" value="Checkout">
-                                                    <span class="f-s--xs">Pay Now </span>
+                                                    <span class="f-s--xs">Register (FREE) </span>
                                                 </button>
                                             </form>
                                         </div>
@@ -277,10 +294,50 @@
                     <div class="col-lg-1"></div>
 
                     <div class="col-lg-5 ">
+                        @if(auth()->user() == null)
+                            <div class="contact-box">
+
+                                <div class="checkout-box">
+                                    <div class="row">
+
+                                        <div class="col-lg-12 checkout-item">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-12 col-sm-12">
+                                                    <h3> About Creator</h3>
+                                                </div>
+                                                <div class="col-12 col-lg-12 col-sm-12">
+                                                    <h4>
+                                                        {{$user->about}}
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        @elseif($user->id == auth()->user()->id || auth()->user()->role == 'A')
                         <div class="contact-box">
+
                             <div class="checkout-box">
                                 <div class="row">
 
+                                    <div class="col-lg-12 checkout-item">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-12 col-sm-12">
+                                                <h3> About Creator</h3>
+                                            </div>
+                                            <div class="col-12 col-lg-12 col-sm-12">
+                                                <h4>
+                                                    {{$user->about}}
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
                                             <div class="col-8 col-lg-8 col-sm-8">
@@ -306,18 +363,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 checkout-item">
-                                        <div class="row">
-                                            <div class="col-8 col-lg-8 col-sm-8">
-                                                <h3> Total Commission</h3>
-                                            </div>
-                                            <div class="col-4 col-lg-4 col-sm-4 text-right">
-                                                <h4>
-                                                    ₦{{$user->myWallet()->referral_bonus  }}
-                                                </h4>
-                                            </div>
-                                        </div>
-                                    </div>
+{{--                                    <div class="col-lg-12 checkout-item">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-8 col-lg-8 col-sm-8">--}}
+{{--                                                <h3> Total Commission</h3>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-4 col-lg-4 col-sm-4 text-right">--}}
+{{--                                                <h4>--}}
+{{--                                                    ₦{{$user->myWallet()->referral_bonus  }}--}}
+{{--                                                </h4>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
                                             <div class="col-8 col-lg-8 col-sm-8">
@@ -330,6 +387,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-12 checkout-item">
+                                        <div class="row">
+                                            <div class="col-8 col-lg-8 col-sm-8">
+                                                <h3> Total Earnings</h3>
+                                            </div>
+                                            <div class="col-4 col-lg-4 col-sm-4 text-right">
+                                                <h4>
+                                                    ₦{{ $totalEarnings  }}
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <a class="main-btn btn-c-white" href="/my-payouts">
                                         <span class="f-s--xs">My Payouts </span>
                                     </a>
@@ -338,7 +407,30 @@
                                 </div>
                             </div>
                         </div>
-                        @if($user->affiliate == 1)
+                        @else
+                            <div class="contact-box">
+
+                                <div class="checkout-box">
+                                    <div class="row">
+
+                                        <div class="col-lg-12 checkout-item">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-12 col-sm-12">
+                                                    <h3> About Creator</h3>
+                                                </div>
+                                                <div class="col-12 col-lg-12 col-sm-12">
+                                                    <h4>
+                                                        {{$user->about}}
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if($user->affiliate == 1 && ($user->id == auth()->user()->id || auth()->user()->role == 'A'))
                         <div class="contact-box">
 
                             <div class="checkout-box">

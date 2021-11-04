@@ -143,11 +143,21 @@ class HomeController extends Controller
             ->select('*')
             ->where('campaign.user_id', $user->id)
             ->get();
+
+
         $data = Product::where('user_id', $user->id)->get();
+
+
+        $totalEarnings = Product::select('products.id, products.name, products.price')
+            ->join('course_own', 'products.id', '=', 'course_own.product_id')
+            ->where('products.user_id', $user->id)
+            //->groupBy('products.id', 'products.name',)
+            ->sum('price');
+
 
         $own = CourseOwn::where('user_id', $user->id)->count();
 
-        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns, 'own'=>$own]);
+        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns, 'own'=>$own, 'totalEarnings' => $totalEarnings]);
     }
 
     public function privacy(){
@@ -207,22 +217,21 @@ class HomeController extends Controller
         }
         $emails[] = $user->email;
 
-       // $subscriber->notify(new NewPostNotify($request->title, $request->body, $subscriber));
+//        $subscriber->notify(new NewPostNotify($request->title, $request->body, $subscriber));
 
-//        try{
-//            Mail::to($emails)->send(new NewUserMail($user));
-//        }catch(\Exception $ex){
-//            //return $ex->getMessage();
-//        }
+        try{
+            Mail::to($emails)->send(new NewUserMail($user));
+        }catch(\Exception $ex){
+            //return $ex->getMessage();
+        }
 
-        //NewAffiliateRefferal
 //        if($refferer != null){
 //            $refferer->notify(new NewAffiliateRefferal($refferer->name, $user->name.' '.$user->last_name, $user->email, $user->phone));
 //        }
 //        if($user->role == 'M'){
 //            $user->notify(new NewAffiliate($user->name));
 //        }else{
-//           $user->notify(new NewCreator($user->name));
+           $user->notify(new NewCreator($user->name));
 //        }
         $msg= 'Account created successfully.';
 

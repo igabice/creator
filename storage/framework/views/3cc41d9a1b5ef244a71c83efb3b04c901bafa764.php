@@ -67,4 +67,4 @@
 <?php $__env->endSlot(); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
-<?php /**PATH /home/affilia1/affiliatedng/vendor/laravel/framework/src/Illuminate/Notifications/resources/views/email.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/affilia1/7dc/vendor/laravel/framework/src/Illuminate/Notifications/resources/views/email.blade.php ENDPATH**/ ?>
