@@ -59,7 +59,11 @@
 
                 <div class="row">
                     <div class="col-lg-12 heading">
+                        @if(isset(request()->type))
+                        <h3>{{request()->type}}</h3>
+                        @else
                         <h3>All Users</h3>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -93,6 +97,16 @@
                                 <tr>
                                     <th>First Name</th>
                                     <th>Last Name</th>
+                                    @if(isset(request()->type))
+                                        @if(request()->type == 'Creators')
+                                        <th>Earnings</th>
+                                        @else
+                                            <th>Earnings</th>
+                                            <th>Balance</th>
+                                            @endif
+                                    @else
+
+                                    @endif
                                     <th>Email Address</th>
                                     <th>Phone No.</th>
                                     <th></th>
@@ -110,8 +124,18 @@
                                                 <i class="fa fa-ban" style="color: red"></i>
                                             @endif
                                         </td>
-                                        <td>{{$user->last_name}}
-                                        </td>
+                                        <td>{{$user->last_name}}</td>
+
+                                        @if(isset(request()->type))
+                                            @if(request()->type == 'Creators')
+                                                <td>{{$user->revenue}}</td>
+                                            @else
+                                                <td>{{$user->referral_bonus}}</td>
+                                                <td>{{$user->balance}}</td>
+                                            @endif
+                                        @else
+
+                                        @endif
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->phone}}</td>
                                         <td>@if($user->verified == 1)

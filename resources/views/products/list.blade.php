@@ -73,6 +73,7 @@
                             </h5>
                             <div class="shop-thumb__price">
                                 {{ $object->price}}
+                                <small>{{ $object->price}}</small>
                             </div>
                             <div class="pt-15 b-t text-right">
                                 <div class="row align-items-center">

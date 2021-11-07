@@ -4,7 +4,7 @@
 
     Welcome to 7DC.
 
-    <p>Visit <a href="https://www.7dc.com/login"> https://wwww.7dc.com </a>  to login to your account.</p>
+    <p>Visit <a href="https://www.7dc.ng/login"> https://wwww.7dc.ng </a>  to login to your account.</p>
 
     
     <?php $__currentLoopData = $introLines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $line): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

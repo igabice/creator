@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => 'support@7dc.com',//env('MAIL_FROM_ADDRESS', 'schoolcanal19@gmail.com'),
+        'address' => 'support@7dc.ng',//env('MAIL_FROM_ADDRESS', 'schoolcanal19@gmail.com'),
         'name' => '7DC',//env('MAIL_FROM_NAME', 'AffiliateNg'),
     ],
 

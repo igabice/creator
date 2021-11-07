@@ -29,8 +29,8 @@ class NewUserMail extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@7dc.com')
-                    ->subject('New User Account')
+        return $this->from('no-reply@7dc.ng')
+                    ->subject('O ya! '.$this->data->name )
                     ->view('mail.newuser');
     }
 }

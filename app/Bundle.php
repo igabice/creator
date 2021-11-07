@@ -8,7 +8,7 @@ class Bundle extends Model
 {
     protected $table = 'bundles';
 
-    protected $fillable = ['title', 'price', 'active', 'product_1', 'product_2', 'product_3', 'product_4', 'product_5', 'commission', 'd_commission',
+    protected $fillable = ['title', 'price', 'former_price', 'active', 'product_1', 'product_2', 'product_3', 'product_4', 'product_5', 'commission', 'd_commission',
         'description', 'created_by', 'image'];
 
     public function getUser(){

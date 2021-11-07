@@ -12,8 +12,7 @@
                         <h3>Bundles</h3>
                         <div class="col-lg-2">
                             @if(auth()->user() != null)
-                                @if(auth()->user()->role == 'A')
-
+                                @if(auth()->user()->role == 'A' || auth()->user()->verified == '1')
                                     <a href="/create-bundles" class="coupon-btn btn btn-primary"><i style="color: white">Add Bundle</i></a>
                                 @endif
                             @endif
@@ -68,9 +67,9 @@
 {{--                                            <a href='/product-delete/{{$object->product_id}}' ><i class="fa fa-times"  title="Delete" aria-hidden="true"></i></a>--}}
 
                                             <a href="/bundles/{{$object->id}}" class="product-btn">
-                                            <h4>₦{{ $object->title}}</h4>
+                                            <h4>{{ $object->title}}</h4>
                                             </a>
-                                            <h6 style="color: lightgrey">₦{{ $object->price}}</h6>
+                                            <h6 style="color: lightgrey">₦{{ $object->price}} <small style="color: grey; text-decoration: line-through">₦{{ $object->former_price}}</small></h6>
                                             @if(auth()->user() != null)
 
                                                 @if(auth()->user()->role == 'A')

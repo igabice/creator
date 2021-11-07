@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 
 use App\Bundle;
 use App\CourseOwn;
+use App\Notifications\AdminSale;
+use App\Notifications\AffiliateSale;
+use App\Notifications\CreatorSale;
+use App\Notifications\NewAction;
+use App\Notifications\NewAffiliate;
 use App\Payment;
 use App\Product;
 use App\TopUp;
@@ -171,17 +176,17 @@ class FlutterwaveController extends Controller
 //        $wallet->balance = $wallet->balance + 12000;
 //        $wallet->save();
 
-            $payment = new Payment();
-            $payment->payment_id = random_int(20, 1000).$user->id;
-            $payment->gateway_response = 'success';
-            $payment->ip_address = 'none';
-            $payment->channel = 'flutterwave';
-            $payment->amount = 10000;
-            $payment->reference = 'ref';
-            $payment->payment_type = 'card';
-            $payment->item = 'yearly7D';
-            $payment->user_id = $user->id;
-            $payment->save();
+//            $payment = new Payment();
+//            $payment->payment_id = random_int(20, 1000).$user->id;
+//            $payment->gateway_response = 'success';
+//            $payment->ip_address = 'none';
+//            $payment->channel = 'flutterwave';
+//            $payment->amount = 10000;
+//            $payment->reference = 'ref';
+//            $payment->payment_type = 'card';
+//            $payment->item = 'yearly7D';
+//            $payment->user_id = $user->id;
+//            $payment->save();
 
 
             $user->verified = 1;
@@ -254,6 +259,29 @@ class FlutterwaveController extends Controller
 //
             $user->affiliate = 1;
             $user->save();
+         $user->notify(new NewAffiliate($user->name));
+
+
+
+     $successMsgUser = " Hello Admin,<br>
+        The following user is now an Affiliate,<br><br>
+        
+        Email: ".$user->email."<br>
+        
+        Whatsapp Number: ".$user->phone."<br>
+        
+        The community is getting bigger, Team!!<br><br>
+        Oyaaaaaa!!><br>
+        Let’s SOAR, Team!<br><br>
+        
+        Signed, <br>
+        The 7D Team.";
+
+         $admins = User::where('role', 'A')->get();
+
+         foreach ($admins as $admin){
+             $admin->notify(new NewAction($successMsgUser, 'New Affiliate Onboard!'));
+         }
 
 
         return redirect()->to('/account')->with('success', 'Congrats! You are now an affiliate!');
@@ -274,7 +302,7 @@ class FlutterwaveController extends Controller
         $payment->channel = 'flutterwave';
         $payment->amount = $product->amount;
         $payment->reference = 'ref';
-        $payment->payment_type = 'card';
+        $payment->payment_type = 'course';
         $payment->item = $product->id;
         $payment->user_id = $user->id;
         $payment->save();
@@ -285,7 +313,7 @@ class FlutterwaveController extends Controller
         $own->user_id = $user->id;
         $own->save();
 
-        $amount = $product->amount*$product->commission;
+        $amount = $product->commission;
 
         $wallet1 = Wallet::where('user_id', $user->referred_by_1)->first();
         $wallet1->balance = $wallet1->balance + ($amount);
@@ -302,9 +330,24 @@ class FlutterwaveController extends Controller
         $topup->save();
 
 
+        $creator = User::find($product->user_id);
+
+        $user->notify(new CreatorSale($creator, $product, $user));
+        $affiliate = User::find($product->referred_by_1);
+        $user->notify(new AffiliateSale($affiliate, $product));
+
         $user->item = '';
         $user->referred_by_1 = 7;
         $user->save();
+
+
+
+        $admins = User::where('role', 'A')->get();
+
+        foreach ($admins as $admin){
+            $admin->notify(new AdminSale($affiliate, $product, $user));
+        }
+
 
         return redirect()->to('/products/'.$product->id)->with('success', 'your payment was received');
 
@@ -369,7 +412,7 @@ class FlutterwaveController extends Controller
         $payment->channel = 'flutterwave';
         $payment->amount = $product->price;
         $payment->reference = 'ref';
-        $payment->payment_type = 'card';
+        $payment->payment_type = 'bundle';
         $payment->item = $product->id;
         $payment->user_id = $user->id;
         $payment->save();
@@ -419,7 +462,7 @@ class FlutterwaveController extends Controller
         $own->user_id = $user->id;
         $own->save();
 
-        $amount = $product->amount*$product->commission;
+        $amount = $product->commission;
 
         $wallet1 = Wallet::where('user_id', $user->referred_by_1)->first();
         $wallet1->balance = $wallet1->balance + ($amount);
@@ -436,9 +479,24 @@ class FlutterwaveController extends Controller
         $topup->save();
 
 
+
+
+        $creator = User::find($product->user_id);
+
+        $user->notify(new CreatorSale($creator, $product, $user));
+        $affiliate = User::find($product->referred_by_1);
+        $user->notify(new AffiliateSale($affiliate, $product));
+
         $user->item = '';
-//        $user->referred_by_1 = 7;
+        $user->referred_by_1 = 7;
         $user->save();
+
+
+        $admins = User::where('role', 'A')->get();
+
+        foreach ($admins as $admin){
+            $admin->notify(new AdminSale($affiliate, $product, $user));
+        }
 
         return redirect()->to('/bundles/'.$product->id)->with('success', 'your payment was received');
 
@@ -448,17 +506,17 @@ class FlutterwaveController extends Controller
     {
         $user = Auth::user();
 
-        $payment = new Payment();
-        $payment->payment_id = random_int(20, 1000).$user->id;
-        $payment->gateway_response = 'success';
-        $payment->ip_address = 'none';
-        $payment->channel = 'flutterwave';
-        $payment->amount = 120000;
-        $payment->reference = 'ref';
-        $payment->payment_type = 'card';
-        $payment->item = 'lifetime7D';
-        $payment->user_id = $user->id;
-        $payment->save();
+//        $payment = new Payment();
+//        $payment->payment_id = random_int(20, 1000).$user->id;
+//        $payment->gateway_response = 'success';
+//        $payment->ip_address = 'none';
+//        $payment->channel = 'flutterwave';
+//        $payment->amount = 120000;
+//        $payment->reference = 'ref';
+//        $payment->payment_type = 'card';
+//        $payment->item = 'lifetime7D';
+//        $payment->user_id = $user->id;
+//        $payment->save();
 
 
         $user->verified = 1;

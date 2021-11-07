@@ -59,7 +59,7 @@
                                 @foreach($data as $object)
                                     <div class="col-lg-6 col-sm-12">
                                         <div class="row">
-                                            <div class="cart-items text-center col-md-5">
+                                            <div class="cart-items text-center col-md-6">
                                                 <a href="/users/{{$object->id}}">
                                                 <img src="{{$object->image ?? 'asset/images/noimage.jpeg'}}" alt="product-img" class="img-fluid">
                                                 </a>
@@ -68,16 +68,17 @@
 
                                                 {{--                                            <a href="/cart/{{$object->id}}" class="product-btn">Add to Cart</a>--}}
 
-                                            </div> <div class="cart-items col-md-5" >
-                                                <a href="/products/{{$object->id}}" class="product-btn" style="color: white"><h4>{{ $object->name}}</h4></a>
+                                            </div> <div class="cart-items col-md-6" >
+                                                <a href="/users/{{$object->id}}" class="product-btn" style="color: white"><h4>{{ $object->name}}</h4></a>
                                                 <a href="/users/{{$object->id}}" style="color: lightgrey">
-                                                {{$object->about}}
+
+                                                {{ substr($object->about, 0, 200) }}
+                                                    <a href="/users/{{$object->id}}" class="product-btn" style="color: darkorange"><small>Learn more...</small></a>
                                                 </a>
                                                 <br>
                                                 <br>
                                                 @if(auth()->user() != null)
 
-                                                    <a href="/users/{{$object->id}}" class="product-btn" style="color: darkorange"><small>Learn more...</small></a>
                                                     @if(auth()->user()->role == 'A')
                                                         <a href="/users/{{$object->id}}/edit" class="product-btn" style="color: orangered">EDIT</a>
                                                     @endif

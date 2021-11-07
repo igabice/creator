@@ -89,7 +89,7 @@
                                                                 <?php endif; ?>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="price">Commission (%)</label>
+                                                                <label for="price">Commission </label>
                                                                 <input value="<?php echo e(old('commission') ?? 0); ?>" placeholder="Commission" id="commission" type="text" class="form-control <?php if($errors->has('commission')): ?> is-invalid <?php endif; ?>" name="commission">
                                                                 <?php if($errors->has('commission')): ?>
                                                                     <span class="text-danger">
@@ -98,7 +98,7 @@
                                                                 <?php endif; ?>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="price">7dc Commission (%)</label>
+                                                                <label for="price">7dc Commission </label>
                                                                 <input value="<?php echo e(old('d_commission') ?? 0); ?>" placeholder="7DC commission"  type="text" class="form-control <?php if($errors->has('d_commission')): ?> is-invalid <?php endif; ?>" name="d_commission">
                                                                 <?php if($errors->has('d_commission')): ?>
                                                                     <span class="text-danger">

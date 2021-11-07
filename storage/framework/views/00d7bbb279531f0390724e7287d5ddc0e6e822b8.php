@@ -35,6 +35,7 @@
                                         </a>
                                     <?php endif; ?>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="username">Username</label>
                                     <input value="<?php echo e($data->username); ?>" id="username" type="text" class="form-control <?php if ($errors->has('username')) :
@@ -145,34 +146,33 @@ endif; ?>" name="email" required autocomplete="email" autofocus>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="email">Facebook</label>
+                                    <label for="email">Linkedin</label>
                                     <input value="<?php echo e($data->linkedin); ?>" id="linkedin" type="text" class="form-control" name="linkedin" >
 
-
-                                    <?php if($errors->has('linkedin')): ?>
-                                        <span class="text-danger">
-                                    <strong><?php echo e($errors->first('linkedin')); ?></strong>
-                                    </span>
-                                    <?php endif; ?>
                                 </div>
-
-                                <textarea name="about" ><?php echo e($data->about); ?></textarea>
-
-
                                 <div class="form-group">
-                                    <label for="role">Select Account Type</label>
-                                    <select name="role" id="role" required class="form-control">
-                                        <option value=""></option>
-                                        <option value="M" <?php if($data->role == 'M'): ?> selected <?php endif; ?>>Marketer</option>
-                                        <option value="C"<?php if($data->role == 'C'): ?> selected <?php endif; ?>>Creator</option>
-                                        <option value="A" <?php if($data->role == 'A'): ?> selected <?php endif; ?>>Admin</option>
-                                    </select>
-                                    <?php if($errors->has('role')): ?>
-                                        <span class="text-danger">
-                            <strong><?php echo e($errors->first('role')); ?></strong>
-                        </span>
-                                    <?php endif; ?>
+                                    <label for="email">About</label>
+                                    <textarea name="about" class="form-control"><?php echo e($data->about); ?></textarea>
+
                                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 <hr>
 
                                 <div class="form-group row m-t-20">

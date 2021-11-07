@@ -55,9 +55,10 @@
                                 <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $object): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="col-lg-3 col-sm-6">
                                         <div class="cart-items text-center">
-                                            <h3>₦<?php echo e($object->price); ?></h3>
                                             <img src="<?php echo e($object->image ?? 'asset/images/noimage.jpeg'); ?>" alt="product-img" class="img-fluid">
-                                            <a href="/products/<?php echo e($object->id); ?>" class="product-btn" style="color: white"><h4><?php echo e($object->name); ?></h4></a>
+                                            <a href="/products/<?php echo e($object->id); ?>" class="product-btn" style="color: white"><h4 style="color: white"><?php echo e($object->name); ?></h4></a>
+                                            <h5 style="color: orange">₦<?php echo e($object->price); ?> <small style="color: grey; text-decoration: line-through">₦<?php echo e($object->former_price); ?></small></h5>
+
 
 
 
@@ -76,7 +77,7 @@
                                     <div class="cart-items text-center">
                                         <h3></h3>
                                         <img src="asset/images/product1.png" alt="product-img" class="img-fluid">
-                                        <h4>There are no users</h4>
+
                                     </div>
                                 </div>
                             <?php endif; ?>

@@ -37,6 +37,7 @@
                                         </a>
                                     @endif
                                 </div>
+
                                 <div class="form-group">
                                     <label for="username">Username</label>
                                     <input value="{{$data->username}}" id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" required>
@@ -123,34 +124,33 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="email">Facebook</label>
+                                    <label for="email">Linkedin</label>
                                     <input value="{{$data->linkedin}}" id="linkedin" type="text" class="form-control" name="linkedin" >
 
-
-                                    @if($errors->has('linkedin'))
-                                        <span class="text-danger">
-                                    <strong>{{ $errors->first('linkedin') }}</strong>
-                                    </span>
-                                    @endif
                                 </div>
-
-                                <textarea name="about" >{{$data->about}}</textarea>
-
-
                                 <div class="form-group">
-                                    <label for="role">Select Account Type</label>
-                                    <select name="role" id="role" required class="form-control">
-                                        <option value=""></option>
-                                        <option value="M" @if($data->role == 'M') selected @endif>Marketer</option>
-                                        <option value="C"@if($data->role == 'C') selected @endif>Creator</option>
-                                        <option value="A" @if($data->role == 'A') selected @endif>Admin</option>
-                                    </select>
-                                    @if($errors->has('role'))
-                                        <span class="text-danger">
-                            <strong>{{ $errors->first('role') }}</strong>
-                        </span>
-                                    @endif
+                                    <label for="email">About</label>
+                                    <textarea name="about" class="form-control">{{$data->about}}</textarea>
+
                                 </div>
+
+
+
+
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="role">Select Account Type</label>--}}
+{{--                                    <select name="role" id="role" required class="form-control">--}}
+{{--                                        <option value=""></option>--}}
+{{--                                        <option value="M" @if($data->role == 'M') selected @endif>Marketer</option>--}}
+{{--                                        <option value="C"@if($data->role == 'C') selected @endif>Creator</option>--}}
+{{--                                        <option value="A" @if($data->role == 'A') selected @endif>Admin</option>--}}
+{{--                                    </select>--}}
+{{--                                    @if($errors->has('role'))--}}
+{{--                                        <span class="text-danger">--}}
+{{--                            <strong>{{ $errors->first('role') }}</strong>--}}
+{{--                        </span>--}}
+{{--                                    @endif--}}
+{{--                                </div>--}}
                                 <hr>
 
                                 <div class="form-group row m-t-20">

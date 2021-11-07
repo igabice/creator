@@ -51,13 +51,30 @@ class UserController extends Controller
     public function index(){
         $user = Auth::guard('web')->user();
 
-        if($_GET['type'] == 'Affiliates'){
-            $data = User::leftJoin('wallets', 'users.id', '=', 'wallets.user_id')
-                ->select('users.*', 'states.name as guest_expertise')
+        if($_GET['type'] == 'Affliliates'){
+            $data = User::leftJoin('wallet', 'users.id', '=', 'wallet.user_id')
+                ->select('users.name', 'users.verified',  'users.id',  'users.email', 'users.last_name', 'wallet.balance','wallet.referral_bonus' )
             ->where('affiliate', '1')->get();
 
         } else if($_GET['type'] == 'Creators'){
-            $data = User::where('verified', '1')->get();
+//            $totalEarnings = Product::select('products.id, products.name, products.price')
+//                ->join('course_own', 'products.id', '=', 'course_own.product_id')
+//                ->where('products.user_id', $user->id)
+//                //->groupBy('products.id', 'products.name',)
+//                ->sum('price');
+
+//            $users = User::select('users*', 'analytics.*', DB::raw('SUM(analytics.revenue) As revenue'))
+//                ->leftJoin('analytics', 'analytics.user_id', '=', 'users.id')
+//                ->where('analytics.date', Carbon::today()->toDateString())
+//                ->get();
+
+            $data = User::select('users.name', 'users.verified',  'users.id',  'users.email', 'users.last_name', DB::raw('SUM(products.price) As revenue'))
+                ->join('products', 'products.user_id', '=', 'users.id')
+                ->join('course_own', 'products.id', '=', 'course_own.product_id')
+                ->where('users.verified', '1')
+                ->groupBy('products.id', 'users.id', 'users.name', 'users.verified', 'users.email', 'users.last_name')
+                ->get();
+
 
         } else{
             $data = User::all();
@@ -127,21 +144,43 @@ class UserController extends Controller
 //        $topup->type = '';
 //        $topup->save();
  
-            $payment = new Payment();
-            $payment->payment_id = random_int(20, 1000).$user->id;
-            $payment->gateway_response = 'success';
-            $payment->ip_address ='';
-            $payment->channel = 'flutterwave';
-            $payment->amount = 10000;
-            $payment->reference = 'ref';
-            $payment->payment_type = 'card';
-            $payment->item = 'yearly7D';
-            $payment->user_id = $user->id;
-            $payment->save();
+//            $payment = new Payment();
+//            $payment->payment_id = random_int(20, 1000).$user->id;
+//            $payment->gateway_response = 'success';
+//            $payment->ip_address ='';
+//            $payment->channel = 'flutterwave';
+//            $payment->amount = 10000;
+//            $payment->reference = 'ref';
+//            $payment->payment_type = 'card';
+//            $payment->item = 'yearly7D';
+//            $payment->user_id = $user->id;
+//            $payment->save();
 
 
-            $user->verified = 1;
-            $user->save();
+
+
+        $user->verified = 1;
+        $user->save();
+        $user->notify(new NewCreator($user->name));
+
+        $successMsgUser = "We\'ve just welcomed a New Creator on board! Wooooo!!<br><br>
+        Name: ".$user->name." ".$user->last_name."<br><br>
+        
+        Email: ".$user->email."<br>
+        
+        Whatsapp Number: ".$user->phone."<br>
+        
+        We’re balling!! <br><br>
+        
+        Signed, <br>
+        The 7D Team.";
+
+        $admins = User::where('role', 'A')->get();
+        $emails = array();
+        foreach ($admins as $admin){
+            $admin->notify(new NewAction($successMsgUser, 'New Creator Alert!'));
+        }
+
 
 
         return back()->withSuccess('account verified!');
@@ -282,6 +321,18 @@ class UserController extends Controller
         $wallet = Wallet::where('user_id', $user->id)->first();
         $data = ['user'=>$user, 'payouts'=>$payouts, 'pending' => $pending, 'wallet' =>$wallet, 'today'=> $today];
         return view('users.payouts', $data);
+    }
+
+    public function payments(){
+        $today = Carbon::now();
+        $user = Auth::guard('web')->user();
+
+        $payment = Payment::leftjoin('users','payments.user_id', 'users.id')
+            ->select('payments.id as pid', 'payments.amount', 'payments.created_at', 'payments.payment_type', 'payments.reference',
+                'payments.gateway_response', 'users.name', 'payments.user_id', 'users.last_name',  'payments.item', 'payments.channel')
+        ->get();
+        $data = ['user'=>$user, 'payment'=>$payment, ];
+        return view('all-payments', $data);
     }
 
     public function allPayouts(){
@@ -491,6 +542,16 @@ class UserController extends Controller
             if($user->id != $request->id)return back()->withError('email address already registered with another user');
         }        $objRequest = $request->all();
 
+        if ($request->hasFile('image')) {
+            $fileName = null;
+            $file = $request->file('image');
+            $fileName = time().$file->getClientOriginalName();
+            $pathmeter_correct =  date('Y').'/'. date('m').'/'. date('d').'/';
+            $fileName = $pathmeter_correct.$fileName;
+            $file->move('./uploads/image/'. $pathmeter_correct, $fileName);
+            $objRequest['image'] = "/uploads/image/".$fileName;
+        }
+
 
         $this->validate(request(), $arrRules);
 
@@ -501,11 +562,8 @@ class UserController extends Controller
         $arrData->update($objRequest);
         $msg='Updated successfully.';
 
-        if($arrData->role != 'A'){
-            return redirect()->to('/account')->with('success', $msg);
-        }
 
-        return redirect()->to('/users')->with('success', $msg);
+        return redirect()->to('/users/'.$request->id)->with('success', $msg);
     }
 
     public function updateAccount(Request $request){

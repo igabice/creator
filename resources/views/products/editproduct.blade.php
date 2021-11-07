@@ -73,7 +73,16 @@
                                                     @endif
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="price">Commission (%)</label>
+                                                    <label for="former_price">Previous Price</label>
+                                                    <input value="{{$data->former_price ?? 0}}" id="former_price" type="text" class="form-control @if($errors->has('former_price')) is-invalid @endif" name="former_price" >
+                                                    @if($errors->has('former_price'))
+                                                        <span class="text-danger">
+                                                            <strong>{{ $errors->first('former_price') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="price">Commission </label>
                                                     <input value="{{$data->commission ?? 0}}" id="commission" type="text" class="form-control @if($errors->has('commission')) is-invalid @endif" name="commission" >
                                                     @if($errors->has('commission'))
                                                         <span class="text-danger">
@@ -82,7 +91,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="price">7dc Commission (%)</label>
+                                                    <label for="price">7dc Commission </label>
                                                     <input value="{{$data->d_commission ?? 0}}" id="d_commission" type="text" class="form-control @if($errors->has('d_commission')) is-invalid @endif" name="d_commission" >
                                                     @if($errors->has('d_commission'))
                                                         <span class="text-danger">
@@ -125,8 +134,15 @@
                                                     <a href="{{$data->image}}" data-lightbox="roadtrip" data-title="Gallery">
                                                         view image</a>
                                                 </div>
-
-
+                                                <div class="form-group">
+                                                    <label for="price">Description</label>
+                                                    <textarea class="form-control" placeholder="Description" name="description">{{$data->description ?? 0}}</textarea>
+                                                    @if($errors->has('description'))
+                                                        <span class="text-danger">
+                                                            <strong>{{ $errors->first('description') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
 

@@ -57,7 +57,11 @@
 
                 <div class="row">
                     <div class="col-lg-12 heading">
+                        <?php if(isset(request()->type)): ?>
+                        <h3><?php echo e(request()->type); ?></h3>
+                        <?php else: ?>
                         <h3>All Users</h3>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -92,6 +96,16 @@
                                 <tr>
                                     <th>First Name</th>
                                     <th>Last Name</th>
+                                    <?php if(isset(request()->type)): ?>
+                                        <?php if(request()->type == 'Creators'): ?>
+                                        <th>Earnings</th>
+                                        <?php else: ?>
+                                            <th>Earnings</th>
+                                            <th>Balance</th>
+                                            <?php endif; ?>
+                                    <?php else: ?>
+
+                                    <?php endif; ?>
                                     <th>Email Address</th>
                                     <th>Phone No.</th>
                                     <th></th>
@@ -110,9 +124,18 @@
                                                 <i class="fa fa-ban" style="color: red"></i>
                                             <?php endif; ?>
                                         </td>
-                                        <td><?php echo e($user->last_name); ?>
+                                        <td><?php echo e($user->last_name); ?></td>
 
-                                        </td>
+                                        <?php if(isset(request()->type)): ?>
+                                            <?php if(request()->type == 'Creators'): ?>
+                                                <td><?php echo e($user->revenue); ?></td>
+                                            <?php else: ?>
+                                                <td><?php echo e($user->referral_bonus); ?></td>
+                                                <td><?php echo e($user->balance); ?></td>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+
+                                        <?php endif; ?>
                                         <td><?php echo e($user->email); ?></td>
                                         <td><?php echo e($user->phone); ?></td>
                                         <td><?php if($user->verified == 1): ?>

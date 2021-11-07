@@ -41,7 +41,7 @@
                             <img src="{{$data->image ?? 'asset/images/noimage.jpeg'}}" alt="product-img" class="img-fluid">
                             <h4>{{ $data->name}}</h4>
 {{--
-  <a href='/cart-delete/{{$data->product_id}}'><i class="fa fa-times" aria-hidden="true"></i></a>--}}
+ <a href='/cart-delete/{{$data->product_id}}'><i class="fa fa-times" aria-hidden="true"></i></a>--}}
                             <div class="checkout-box">
                                 <div class="row">
                                     @if(session()->has('success'))
@@ -71,7 +71,7 @@
                                                 <h3>Price</h3>
                                             </div>
                                             <div class="col-8 col-lg-8 col-sm-8 text-right">
-                                                <h4>{{$data->price}}</h4>
+                                                <h4>{{$data->price}} <small style="color: grey; text-decoration: line-through">₦{{ $data->former_price}}</small></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@
                                             <input type="email" required name="email" placeholder="Email">
                                         @endif
                                         <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
-                                        <input type="hidden" name="amount" value="{{$data->price +10}}">
+                                        <input type="hidden" name="amount" value="{{str_replace(",","",$data->price) }}">
                                         <input type="hidden" name="product_id" value="{{$data->id}}">
                                             @if(isset(request()->ref))
                                             <input type="hidden" name="ref_id" value="{{request()->ref}}">
@@ -157,7 +157,7 @@
                                         @foreach($products as $object)
                                             <div class="col-lg-4 col-sm-6">
                                                 <div class="cart-items text-center">
-                                                    <h3>₦{{ $object->price}}</h3>
+                                                    <h3>₦{{ $object->price}} <small style="color: grey; text-decoration: line-through">₦{{ $object->former_price}}</small></h3>
                                                     <img src="{{$object->image ?? 'asset/images/noimage.jpeg'}}" alt="product-img" class="img-fluid">
                                                     <a href="/products/{{$object->id}}" class="product-btn" style="color: white"><h4>{{ $object->name}}</h4></a>
                                                     {{--                                            <a href='/product-delete/{{$object->product_id}}' ><i class="fa fa-times"  title="Delete" aria-hidden="true"></i></a>--}}

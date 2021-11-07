@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Campaign;
 use App\CourseOwn;
-use App\Post;
-use App\Notifications\NewAction;
-use App\Notifications\NewAffiliate;
-use App\Notifications\NewAffiliateRefferal;
-use App\Notifications\NewCreator;
+use App\Notifications\NewSignup;
 use App\Product;
 use App\State;
 use App\Wallet;
@@ -21,10 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Mail;
 use App\Mail\NewUserMail;
-use App\Mail\PasswordResetMail;
-use App\Withdrawal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 
 class HomeController extends Controller
 {
@@ -213,17 +206,18 @@ class HomeController extends Controller
        $admins = User::where('role', 'A')->get();
         $emails = array();
         foreach ($admins as $admin){
-            $emails[] = $admin->email;
+            $admin->notify(new NewSignup($user));;
         }
         $emails[] = $user->email;
 
 //        $subscriber->notify(new NewPostNotify($request->title, $request->body, $subscriber));
 
-        try{
-            Mail::to($emails)->send(new NewUserMail($user));
-        }catch(\Exception $ex){
+        $user->notify(new NewUserMail($user));
+//        try{
+//            Mail::to($emails)->send(new NewUserMail($user));
+//        }catch(\Exception $ex){
             //return $ex->getMessage();
-        }
+        //}
 
 //        if($refferer != null){
 //            $refferer->notify(new NewAffiliateRefferal($refferer->name, $user->name.' '.$user->last_name, $user->email, $user->phone));
@@ -231,7 +225,7 @@ class HomeController extends Controller
 //        if($user->role == 'M'){
 //            $user->notify(new NewAffiliate($user->name));
 //        }else{
-           $user->notify(new NewCreator($user->name));
+
 //        }
         $msg= 'Account created successfully.';
 
@@ -246,6 +240,8 @@ class HomeController extends Controller
             $request->session()->regenerate();
 
             $user->sendEmailVerificationNotification();
+
+            if(session()->get('ref') != null) return redirect()->to(session()->get('ref'));
 
             return redirect()->to('/home');
         }

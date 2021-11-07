@@ -26,17 +26,26 @@ class NewCreator extends Notification implements  ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Welcome on board!')
-            ->line($this->name.', Thank you!')
-            ->line('We’re happy to have you on 7dc platform')
-            ->line('Focus on creating your digital products; and we will handle the selling for you!')
-            ->line('Start creating, and join us as we revolutionise the digital economy in Nigeria.')
-            ->action('Login', url('/login'))
-            ->line('Thank you!');
+            ->subject(' Create to Millions!')
+            ->line($this->name.', you’re a super-star!')
+            ->line('First of all; THANK YOU! THANK YOU!')
+            ->line('… for believing in us…')
+            ->line('… for choosing to register as a 7D Creator.')
+            ->line('We’re blushing already!')
+            ->line('We feel so grateful and honoured!')
+            ->line('And you see, your ride with us is to Millions - 7 Digits!')
+            ->line('Our Affiliates are super ready to make those sales for you.')
+            ->line('Start creating your courses, and uploading them.')
+            ->line('Leave the rest to us and our Affiliates! Watch us do some Magic!')
+            ->line('Welcome to the 7D Creators’ Community.')
+
+//            ->action('Login', url('/login'))
+            ->line('We LOVE you!')
+            ->line('')
+            ->salutation("To 7 Digits,\n‘Yemi \nCOO");
     }
 
     /*
-
 
 
      */

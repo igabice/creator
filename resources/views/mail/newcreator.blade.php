@@ -1,5 +1,35 @@
 @component('mail::message')
-    {{-- Greeting --}}
+
+
+    [Name], you’re a super-star!
+
+    First of all; THANK YOU! THANK YOU!
+
+    … for believing in us…
+
+    … for choosing to register as a 7D Creator.
+
+    We’re blushing already!
+
+    We feel so grateful and honoured!
+
+
+    And you see, your ride with us is to Millions - 7 Digits!
+
+    Our Affiliates are super ready to make those sales for you.
+
+    Start creating your courses, and uploading them.
+
+    Leave the rest to us and our Affiliates! Watch us do some Magic!
+
+    Welcome to the 7D Creators’ Community.
+
+    We LOVE you!
+
+    To 7 Digits,
+    ‘Yemi
+    COO
+
 
     <p>We are very excited to have you here. Welcome to the 7 Digits Courses Platform (7dc.ng).</p>
     <br>

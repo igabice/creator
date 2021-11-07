@@ -8,17 +8,17 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\HtmlString;
 
-class NewAction extends Notification implements  ShouldQueue
+class NewAlert extends Notification implements  ShouldQueue
 {
     use Queueable;
 
     public $data;
-    public $name;
+    public $subject;
 
-    public function __construct($data, $name)
+    public function __construct($subject, $data)
     {
         $this->data = $data;
-        $this->name = $name;
+        $this->subject = $subject;
     }
 
     public function via($notifiable)
@@ -29,7 +29,7 @@ class NewAction extends Notification implements  ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject($this->name)
+            ->subject($this->subject)
 //            ->line($this->data)
             ->line(new HtmlString($this->data));
     }

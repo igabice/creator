@@ -11,7 +11,7 @@
                         <h3>Courses Page</h3>
                         <div class="col-lg-2">
                             @if(auth()->user() != null)
-                                @if(auth()->user()->role == 'A')
+                                @if(auth()->user()->role == 'A'  || auth()->user()->verified == '1')
 
                                     <a href="/create-product" class="coupon-btn btn btn-primary"><i style="color: white">Add Product</i></a>
                                 @endif
@@ -57,9 +57,10 @@
                                 @foreach($data as $object)
                                     <div class="col-lg-3 col-sm-6">
                                         <div class="cart-items text-center">
-                                            <h3>₦{{ $object->price}}</h3>
                                             <img src="{{$object->image ?? 'asset/images/noimage.jpeg'}}" alt="product-img" class="img-fluid">
-                                            <a href="/products/{{$object->id}}" class="product-btn" style="color: white"><h4>{{ $object->name}}</h4></a>
+                                            <a href="/products/{{$object->id}}" class="product-btn" style="color: white"><h4 style="color: white">{{ $object->name}}</h4></a>
+                                            <h5 style="color: orange">₦{{ $object->price}} <small style="color: grey; text-decoration: line-through">₦{{ $object->former_price}}</small></h5>
+
 {{--                                            <a href='/product-delete/{{$object->product_id}}' ><i class="fa fa-times"  title="Delete" aria-hidden="true"></i></a>--}}
 
 {{--                                            <a href="/cart/{{$object->id}}" class="product-btn">Add to Cart</a>--}}
@@ -78,7 +79,7 @@
                                     <div class="cart-items text-center">
                                         <h3></h3>
                                         <img src="asset/images/product1.png" alt="product-img" class="img-fluid">
-                                        <h4>There are no users</h4>
+
                                     </div>
                                 </div>
                             @endif

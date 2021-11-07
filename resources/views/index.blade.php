@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-sm-8 col-md-6 landscape-m-auto tab-m-auto banner-img">
-                    <img src="asset/images/point.png" alt="banner-img" class="img-fluid">
+                    <img src="asset/images/logo/7dc-prov.jpeg" alt="banner-img" class="img-fluid">
                     <a class="vid-btn venobox" data-autoplay="true" data-vbtype="video" href="../../../../../external.html?link=https://www.youtube.com/embed/mYHSw_Tr3Bc"><i class="fa fa-play" aria-hidden="true"></i></a>
                 </div>
                 <div class="col-lg-5 m-auto banner-txt">
@@ -30,13 +30,13 @@
                         <div class="banner-item">
                             <h3>Sell, Learn</h3>
                             <h3>Create<span>...</span></h3>
-
+                            <br>
                             <a href="#" class="main-btn">LEARN NOW</a>
                         </div>
                         <div class="banner-item">
                             <h3>The 7 Digits</h3>
                             <h3>Call..<span>.</span></h3>
-
+                            <br>
                             <a href="#" class="main-btn">LEARN NOW</a>
                         </div>
                     </div>

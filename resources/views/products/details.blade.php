@@ -103,7 +103,7 @@
                                                 <h3>Price</h3>
                                             </div>
                                             <div class="col-8 col-lg-8 col-sm-8 text-right">
-                                                <h4>{{$data->price}}</h4>
+                                                <h4>{{$data->price}} <small style="color: grey; text-decoration: line-through">₦{{ $data->former_price}}</small></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -148,18 +148,21 @@
                                             <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
                                             <input type="hidden" name="metadata" value="{{ json_encode($array = ['user_id' => $user->id, 'type' => 'cart']) }}" >
                                         @else
-                                            <label for="email">Confirmation Email</label>
-                                            <input type="email" required name="email" placeholder="Email">
+{{--                                            <label for="email">Confirmation Email</label>--}}
+{{--                                            <input type="email" required name="email" placeholder="Email">--}}
                                             <input type="hidden" name="orderID" value="{{random_int(12,234).\Illuminate\Support\Facades\Date::now()}}">
                                             <input type="hidden" name="metadata" value="{{ json_encode($array = ['type' => 'course']) }}" >
                                         @endif
-                                        <input type="hidden" name="amount" value="{{$data->price +10}}">
+                                            <input type="hidden" name="amount" value="{{str_replace(",","",$data->price) +10}}">
                                         <input type="hidden" name="product_id" value="{{$data->id}}">
                                             @if(isset(request()->ref))
                                             <input type="hidden" name="ref_id" value="{{request()->ref}}">
+{{--                                                {{session()->put('ref', request()->ref)}}--}}
                                             @else
                                                 <input type="hidden" name="ref_id" value="7">
                                             @endif
+
+
 
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="currency" value="NGN">
@@ -174,7 +177,7 @@
                                 </div>
                                 <br>
                                 @if($user != null)
-                                    @if($user->affiliate != 1 && $refferal < 1)
+                                    @if($user->affiliate == 1 && $refferal < 1)
 
 
                                         <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this product">
@@ -199,53 +202,71 @@
                         <div class="checkout-box">
                             <div class="row">
                                 <div class="col-lg-12 checkout-item">
+                                    {{session()->get('ref')}}
                                     @if($user != null)
-                                        @if($user->role == 'A')
-                                        <h4>Add Video</h4>
-                                        <form class="form-horizontal" method="POST" action="/video-add" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="col-12">
-                                                            <div class="form-group">
-                                                                <input value="{{old('title')}}" placeholder="Title" id="title" type="text" class="form-control @if($errors->has('title')) is-invalid @endif" name="title" required autocomplete="title" autofocus>
+{{--                             $user->role == 'A' ||             --}}
+                                        @if($user->role == 'A' || $user->id == $data->user_id)
+                                            <h4>Add Video </h4>
+                                            <form class="form-horizontal" method="POST" action="/video-add" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <input value="{{old('title')}}" placeholder="Title" id="title" type="text" class="form-control @if($errors->has('title')) is-invalid @endif" name="title" required autocomplete="title" autofocus>
 
-                                                                @if($errors->has('title'))
-                                                                    <span class="text-danger">
-                                                                        <strong>{{ $errors->first('title') }}</strong>
-                                                                    </span>
-                                                                @endif
+                                                                    @if($errors->has('title'))
+                                                                        <span class="text-danger">
+                                                                            <strong>{{ $errors->first('title') }}</strong>
+                                                                        </span>
+                                                                    @endif
+                                                                </div>
+
+                                                                <input name="course_id" value="{{$data->id}}"  type="hidden" />
+
+                                                                <div class="form-group label-floating  ">
+                                                                    <label class="control-label">Video File</label>
+                                                                <!--<input value="{{old('file')}}" id="file" type="text" class="form-control @if($errors->has('file')) is-invalid @endif" name="file" required >-->
+                                                                    <input class="form-control" name="file" id="image"  type="file" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input value="{{old('description')}}" placeholder="Description" id="description" type="text" class="form-control" name="description" >
+                                                                </div>
+                                                                <input type="hidden" name="status" value="closed">
+                                                                <button class="btn btn-primary btn-sm" type="submit">SUBMIT</button>
+
                                                             </div>
+                                                    <br>
+                                                </div>
 
-                                                            <input name="course_id" value="{{$data->id}}"  type="hidden" />
+                                            </form>
+                                        @endif
 
-                                                            <div class="form-group label-floating  ">
-                                                                <label class="control-label">Video File</label>
-                                                            <!--<input value="{{old('file')}}" id="file" type="text" class="form-control @if($errors->has('file')) is-invalid @endif" name="file" required >-->
-                                                                <input class="form-control" name="file" id="image"  type="file" />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <input value="{{old('description')}}" placeholder="Description" id="description" type="text" class="form-control" name="description" >
-                                                            </div>
-                                                            <input type="hidden" name="status" value="closed">
-                                                            <button class="btn btn-primary btn-sm" type="submit">SUBMIT</button>
+                                            @if(isset($video))
+                                                <video width="100%" height="240" controls autoplay>
+                                                    <source src="{{$video->file}}" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                                <h4>{{$video->title}}</h4>
 
-                                                        </div>
-                                                <br>
-                                            </div>
+                                            @else
+                                                <video width="100%" height="240" controls autoplay>
+                                                    <source src="{{$data->trailer}}" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            @endif
 
-                                        </form>
-
-                                            <h4>Course Videos</h4>
                                             <table class="table table-bordered table-striped">
+
                                                 @foreach($videos as $video)
                                                     <tr><th>
                                                             @if($own != null || auth()->user()->role == 'A')
 
-                                                                @if($video->status == 'yes')
-                                                                    <a href="{{$data->file}}" data-lightbox="roadtrip" data-title="Gallery">
-                                                                        @else
-                                                                            <a  href="#" >
-                                                                                @endif
+
+                                                                    <a href="/products/{{$data->id}}?video={{$video->id}}" >
+{{--                                                                        @if($video->status == 'yes')--}}
+{{--                                                                        @else--}}
+{{--                                                                            <a  href="#" >--}}
+{{--                                                                                @endif--}}
 
 
 
@@ -262,7 +283,7 @@
 
 
                                             </table>
-                                        @endif
+
                                     @endif
 
 

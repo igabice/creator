@@ -49,7 +49,16 @@
                                                                 @endif
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="price">Commission (%)</label>
+                                                                <label for="former_price">Previous Price</label>
+                                                                <input value="{{old('former_price') ?? 0}}" placeholder="Price" id="former_price" type="text" class="form-control @if($errors->has('former_price')) is-invalid @endif" name="former_price">
+                                                                @if($errors->has('former_price'))
+                                                                    <span class="text-danger">
+                                                                        <strong>{{ $errors->first('former_price') }}</strong>
+                                                                    </span>
+                                                                @endif
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="price">Commission </label>
                                                                 <input value="{{old('commission') ?? 0}}" placeholder="Commission" id="commission" type="text" class="form-control @if($errors->has('commission')) is-invalid @endif" name="commission">
                                                                 @if($errors->has('commission'))
                                                                     <span class="text-danger">
@@ -58,7 +67,7 @@
                                                                 @endif
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="price">7dc Commission (%)</label>
+                                                                <label for="price">7dc Commission </label>
                                                                 <input value="{{old('d_commission') ?? 0}}" placeholder="7DC commission"  type="text" class="form-control @if($errors->has('d_commission')) is-invalid @endif" name="d_commission">
                                                                 @if($errors->has('d_commission'))
                                                                     <span class="text-danger">
@@ -72,7 +81,7 @@
 
                                                         <div class="form-group label-floating  ">
                                                             <label class="control-label">Description</label>
-                                                            <input value="{{old('description')}}" placeholder="Description"  type="text" class="form-control @if($errors->has('description')) is-invalid @endif" name="description">
+                                                            <textarea class="form-control" placeholder="Description" name="description">{{old('description')}}</textarea>
                                                         </div>
 
 

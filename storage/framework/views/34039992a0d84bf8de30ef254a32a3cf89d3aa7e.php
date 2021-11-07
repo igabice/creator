@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="HTML5 Template, eSports, Gaming, Bootstrap4, Responsive" />
     <meta name="description" content="Gamix - eSports & Gaming HTML Template" />
-    <title>7DC - Login</title>
+    <title>7DC - Register</title>
     <!--font-awesome icons link-->
     <link rel="stylesheet" href="<?php echo e(asset('asset/css/font-awesome.min.css')); ?>">
 
@@ -98,7 +98,7 @@ endif; ?>" name="name" required autocomplete="name" autofocus>
                                 <input type="hidden" name="register" value="yes">
 
                                 <div class="form-group">
-                                    <input value="<?php echo e(old('phone')); ?>" id="phone" placeholder="Whatsapp Number" type="text" class="form-control <?php if ($errors->has('phone')) :
+                                    <input value="<?php echo e(old('phone')); ?>" id="phone" placeholder="Whatsapp Number" type="number" class="form-control <?php if ($errors->has('phone')) :
 if (isset($message)) { $messageCache = $message; }
 $message = $errors->first('phone'); ?> is-invalid <?php unset($message);
 if (isset($messageCache)) { $message = $messageCache; }
@@ -170,7 +170,7 @@ endif; ?>" name="password1" required autocomplete="password1" autofocus>
                                                     </span>
                                     <?php endif; ?>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <button type="submit" class="btn-md btn-theme btn-block">Create Account</button>
                                 </div>
@@ -186,10 +186,10 @@ endif; ?>" name="password1" required autocomplete="password1" autofocus>
                     <p>Sign up to access a whole lot of features</p>
                     <p>Already have an account?<a href="/login"> Login</a></p>
                     <ul class="social-list clearfix">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="https://www.facebook.com/7dcng"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.twitter.com/7dcng"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com/7dcng"><i class="fa fa-instagram"></i></a></li>
+
                     </ul>
                 </div>
             </div>

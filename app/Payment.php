@@ -8,7 +8,7 @@ class Payment extends Model
 {
     protected $table = 'payments';
     //payment_id	payment_type	user_id
-    protected $fillable = ['payment_id', 'user_id', 'item', 'payment_type', 'reference', 'amount', 'channel',
+    protected $fillable = ['payment_id', 'user_id', 'payment_type', 'reference', 'amount', 'channel',
         'ip_address', 'gateway_response', 'item'];
 
 

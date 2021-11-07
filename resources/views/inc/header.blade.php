@@ -19,7 +19,7 @@
                     <a class="nav-link nl-m-top account-icon" href="/creators"><i>Creators</i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nl-m-top account-icon" href="/blog"><i>Blog</i></a>
+                    <a class="nav-link nl-m-top account-icon" href="#"><i>Blog</i></a>
                 </li>
                 @if(auth()->user() != null)
                 <li class="nav-item">
@@ -93,9 +93,9 @@
                     <li >
                         <a class="menu-link" href="/creators"><i>Creators</i></a>
                     </li>
-{{--                    <li >--}}
-{{--                        <a class="menu-link" href="/blog"><i>Blog</i></a>--}}
-{{--                    </li>--}}
+                    <li >
+                        <a class="menu-link" href="#"><i>Blog</i></a>
+                    </li>
 
                     @if(auth()->user() != null)
                         <li >
@@ -139,6 +139,10 @@
                     </li>
                     <li>
                         <a class="menu-link" href="/all-payouts" >Manage Payouts</a>
+                        {{--                data-target="#contact-model-large"--}}
+                    </li>
+                    <li>
+                        <a class="menu-link" href="/payments" >Payment Logs</a>
                         {{--                data-target="#contact-model-large"--}}
                     </li>
 

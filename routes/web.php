@@ -30,6 +30,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('/', 'HomeController@soon')->name('coming-soon');
 Route::post('/signup', 'HomeController@registerUser')->name('registerUser');
 Route::get('/refer-product/{id}', 'ProductsController@referProduct')->name('create-update');
+Route::get('/products/{id}', 'ProductsController@show')->name('create-update');
 
 
 Route::get('/register', 'HomeController@register')->name('register');
@@ -141,7 +142,8 @@ Route::post('/upload-sections', 'ImportController@importSection')->name('upload-
     Route::get('/marketing-resources', 'PaymentController@marketResources')->name('marketResources');
 
 Route::get('/profile', 'UserController@profile')->name('profile');
-Route::get('/approve/{id}', 'UserController@verify')->name('verify'); 
+Route::get('/payments', 'UserController@payments')->name('profile');
+Route::get('/approve/{id}', 'UserController@verify')->name('verify');
 Route::get('/approve-kyc/{id}', 'UserController@verifyKyc')->name('verifyKyc'); 
 Route::post('/profile', 'UserController@updateProfile')->name('profile-update');
 Route::post('/id-card', 'UserController@idCard')->name('profile-id');

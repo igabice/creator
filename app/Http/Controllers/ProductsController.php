@@ -6,6 +6,8 @@ use App\CommissionDeposit;
 use App\CourseOwn;
 use App\CourseVideo;
 use App\Mail\NewproductMail;
+use App\Notifications\NewAction;
+use App\Notifications\NewCreator;
 use App\Product;
 use App\Rating;
 use App\User;
@@ -33,7 +35,7 @@ class ProductsController extends Controller
 
     public function index(){
         $user = auth('web')->user();
-        $data=Product::all();
+        $data=Product::where('verified', '1')->get();
   return view('products.products', compact('data', 'user'));
     }
     
@@ -72,17 +74,21 @@ class ProductsController extends Controller
             $own = CourseOwn::where('user_id', $user->id)->where('product_id', $id)->first();
         }else{
             $own = null;
-            $refferal = [];
+            $refferal = 0;
             $campaign = [];
         }
 
 
         $videos = CourseVideo::where('course_id', $id)->get();
 
+        $video = null;
+
+        if(isset(request()->video)) $video = CourseVideo::find(request()->video);
 
 
 
-        return view('products.details', ['data' => $data, 'videos' =>$videos,
+
+        return view('products.details', ['data' => $data, 'videos' =>$videos, 'video' =>$video,
             'campaign' => $campaign, 'refferal' => $refferal,  'own' =>$own, 'user'=>$user]);
     }
 
@@ -193,6 +199,7 @@ class ProductsController extends Controller
         }
         if($user->role == 'A'){
             $data = Product::all();
+           // $data = Product::where('user_id', $user->id)->get();
         }
         else{
             $data = Product::where('user_id', $user->id)->get();
@@ -209,21 +216,24 @@ class ProductsController extends Controller
         $data= Product::find($id);
 
         if(isset(request()->ref)){
-            $commission = new CommissionDeposit();
-            $commission->product_id = $id;
-            $commission->user_id = request()->ref;
-            $commission->amount = $data->price *$data->commission * 0.01;
-            $commission->save();
+//            $commission = new CommissionDeposit();
+//            $commission->product_id = $id;
+//            $commission->user_id = request()->ref;
+//            $commission->amount = $data->price *$data->commission * 0.01;
+//            $commission->save();
+//
+//            $wallet= Wallet::where('user_id', request()->ref)->first();
+//            $wallet->balance = $wallet->balance + $commission->amount;
+//            $wallet->referral_bonus = $wallet->referral_bonus + $commission->amount;
+//            $wallet->save();
 
-            $wallet= Wallet::where('user_id', request()->ref)->first();
-            $wallet->balance = $wallet->balance + $commission->amount;
-            $wallet->referral_bonus = $wallet->referral_bonus + $commission->amount;
-            $wallet->save();
+            session()->put('ref', url('/').'/products/'.$id.'?ref='.request()->ref);
 
+           // return session()->get('ref');
             return redirect()->to(url('/').'/products/'.$id.'?ref='.request()->ref);
         }
 
-        return redirect()->to(url('/').'/products/'.$id);
+        return redirect()->to('/products/'.$id);
     }
 
     function newCampaign(Request $request){
@@ -297,6 +307,28 @@ class ProductsController extends Controller
         
      
         $product = Product::create($objRequest);
+
+        $user = Auth()->user();
+
+        $successMsgUser = " Hello Admin,<br>
+        ".$user->name." ".$user->last_name. " has created a New Product,  ".$product->name. "<br><br>
+        
+        Email: ".$user->email."<br>
+        
+        Whatsapp Number: ".$user->phone."<br>
+        
+        Let’s check the product and verify for sale… <br><br>
+        Sweet something… <br><br>
+        
+        Signed, <br>
+        The 7D Team.";
+
+        $admins = User::where('role', 'A')->get();
+        $emails = array();
+        foreach ($admins as $admin){
+            $admin->notify(new NewAction($successMsgUser, 'New Product Created!'));
+        }
+
 
         $msg='Product created successfully.';
         

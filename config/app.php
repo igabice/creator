@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://7dc.com'),
+    'url' => env('APP_URL', 'https://7dc.ng'),
 
     'asset_url' => env('ASSET_URL', null),
 

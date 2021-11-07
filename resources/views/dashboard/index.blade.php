@@ -77,7 +77,7 @@
             <div class="container">
                 <div class="row">
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <div class="checkout-box">
                             <div class="row">
                                 <div class="col-lg-12 checkout-item">
@@ -103,9 +103,11 @@
                                             </div>
                                         </div>
                                         <div class="col-4 col-lg-4 col-sm-4">
+                                            <br>
                                             <h3>Full Name</h3>
                                         </div>
                                         <div class="col-8 col-lg-8 col-sm-8">
+                                            <br>
                                             <h4>
                                                 {{$user->name  }} {{$user->middle_name  }} {{$user->last_name  }}
                                                 @if($user->image != null)
@@ -253,7 +255,7 @@
                                             </div>
                                         @endif
 
-                                           @if($user->affiliate != 1 && $own > 0)
+                                           @if($user->affiliate != 1)
                                         <div class="col-12 col-lg-12 col-sm-12">
 
                                             Become a 7D Affiliate
@@ -291,9 +293,8 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-1"></div>
 
-                    <div class="col-lg-5 ">
+                    <div class="col-lg-7 ">
                         @if(auth()->user() == null)
                             <div class="contact-box">
 
