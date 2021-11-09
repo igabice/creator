@@ -110,7 +110,7 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <input value="{{old('username')}}" id="Username" placeholder="Username" type="text" class="form-control @error('username') is-invalid @enderror" pattern="[a-zA-Z0-9]+" name="username" required>
+                                    <input value="{{old('username')}}" id="Username" placeholder="Username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" required>
                                     @if($errors->has('username'))
                                         <span class="text-danger">
                                             <strong>{{ $errors->first('username') }}</strong>
@@ -142,6 +142,15 @@
                                                     </span>
                                     @endif
                                 </div>
+                                <div class="checkbox clearfix">
+                                    <div class="form-check checkbox-theme">
+                                        <input class="form-check-input" type="checkbox" value="" id="rememberMe" required>
+                                        <label class="form-check-label" for="rememberMe">
+                                            Accept terms
+                                        </label>
+                                    </div>
+                                    <a href="/terms">view terms</a>
+                                </div>
 
                                 <div class="form-group">
                                     <button type="submit" class="btn-md btn-theme btn-block">Create Account</button>
@@ -155,6 +164,7 @@
                     <a href="/" class="logoss">
                         7DC<span>.</span>
                     </a>
+
                     <p>Sign up to access a whole lot of features</p>
                     <p>Already have an account?<a href="/login"> Login</a></p>
                     <ul class="social-list clearfix">

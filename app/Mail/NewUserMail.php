@@ -22,6 +22,12 @@ class NewUserMail extends Mailable
         $this->data=$data;
     }
 
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
+
+
     /**
      * Build the message.
      *
@@ -30,7 +36,7 @@ class NewUserMail extends Mailable
     public function build()
     {
         return $this->from('no-reply@7dc.ng')
-                    ->subject('O ya! '.$this->data->name )
+                    ->subject('O ya! '.$this->data->name)
                     ->view('mail.newuser');
     }
 }

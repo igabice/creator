@@ -239,6 +239,42 @@
                                                         </span>
                                                 @endif
                                             </div>
+                                            <div class="form-group">
+                                                <label for="role">Product 6</label>
+                                                <select name="product_6" required class="form-control">
+                                                    <option value=""></option>
+                                                    @foreach($products as $product)
+                                                        <option value="{{$product->id}}"
+                                                                @if($product->id == $data->product_6)
+                                                                selected
+                                                                @endif
+                                                        >{{$product->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('product_6'))
+                                                    <span class="text-danger">
+                                                            <strong>{{ $errors->first('product_6') }}</strong>
+                                                        </span>
+                                                @endif
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="role">Product 7</label>
+                                                <select name="product_7" required class="form-control">
+                                                    <option value=""></option>
+                                                    @foreach($products as $product)
+                                                        <option value="{{$product->id}}"
+                                                                @if($product->id == $data->product_7)
+                                                                selected
+                                                                @endif
+                                                        >{{$product->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('product_7'))
+                                                    <span class="text-danger">
+                                                            <strong>{{ $errors->first('product_7') }}</strong>
+                                                        </span>
+                                                @endif
+                                            </div>
 
 
                                         </div>

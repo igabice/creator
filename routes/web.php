@@ -29,7 +29,8 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/', 'HomeController@soon')->name('coming-soon');
 Route::post('/signup', 'HomeController@registerUser')->name('registerUser');
-Route::get('/refer-product/{id}', 'ProductsController@referProduct')->name('create-update');
+Route::get('/refer-product/{id}', 'ProductsController@referProduct')->name('referProduct');
+Route::get('/refer-bundle/{id}', 'ProductsController@referBundle')->name('referBundle');
 Route::get('/products/{id}', 'ProductsController@show')->name('create-update');
 
 
@@ -104,6 +105,7 @@ Route::get('/create-bundles', 'BundlesController@createform')->name('create-upda
 
 Route::get('/strategy', 'ProductsController@strategy')->name('strategy');
 Route::post('/campaign', 'ProductsController@newCampaign')->name('new-campaigns');
+Route::post('/bundle-campaign', 'ProductsController@newBundleCampaign')->name('newBundleCampaign');
 
 //Carts
 Route::resource('cart', 'CartsController');

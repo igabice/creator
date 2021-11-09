@@ -84,7 +84,7 @@ class FlutterwaveController extends Controller
             'email' => $user->email,
             'tx_ref' => $reference,
             'currency' => "NGN",
-            'redirect_url' => route('callback-aff'),
+            'redirect_url' => route('callbackAff'),
             'customer' => [
                 'email' => $user->email,
                 "phone_number" => $user->phone,
@@ -142,7 +142,7 @@ class FlutterwaveController extends Controller
             ],
 
             "customizations" => [
-                "title" => '7DC Registration',
+                "title" => 'Buy Course',
                 "description" => "Creator sign up fee"
             ]
         ];
@@ -239,22 +239,23 @@ class FlutterwaveController extends Controller
      public function callbackAff()
     {
         $user = Auth::user();
-        $wallet = Wallet::where('user_id', $user->id)->first();
+        if(request()->user_id) $user = User::find(request()->user_id);
+//        $wallet = Wallet::where('user_id', $user->id)->first();
 //        $wallet->balance = $wallet->balance + 12000;
 //        $wallet->referral_bonus = $wallet->referral_bonus + 12000;
 //        $wallet->save();
 //
-//            $payment = new Payment();
-//            $payment->payment_id = random_int(20, 1000).$user->id;
-//            $payment->gateway_response = 'success';
-//            $payment->ip_address = 'none';
-//            $payment->channel = 'flutterwave';
-//            $payment->amount = 10000;
-//            $payment->reference = 'ref';
-//            $payment->payment_type = 'card';
-//            $payment->item = 'affiliate';
-//            $payment->user_id = $user->id;
-//            $payment->save();
+            $payment = new Payment();
+            $payment->payment_id = random_int(20, 1000).$user->id;
+            $payment->gateway_response = 'success';
+            $payment->ip_address = 'none';
+            $payment->channel = 'flutterwave';
+            $payment->amount = 10500;
+            $payment->reference = 'ref';
+            $payment->payment_type = 'card';
+            $payment->item = 'affiliate';
+            $payment->user_id = $user->id;
+            $payment->save();
 //
 //
             $user->affiliate = 1;
@@ -263,18 +264,18 @@ class FlutterwaveController extends Controller
 
 
 
-     $successMsgUser = " Hello Admin,<br>
-        The following user is now an Affiliate,<br><br>
+     $successMsgUser = " Hello Admin,
+        The following user is now an Affiliate,
         
-        Email: ".$user->email."<br>
+        Email: ".$user->email."
         
-        Whatsapp Number: ".$user->phone."<br>
+        Whatsapp Number: ".$user->phone."
         
-        The community is getting bigger, Team!!<br><br>
-        Oyaaaaaa!!><br>
-        Let’s SOAR, Team!<br><br>
+        The community is getting bigger, Team!!
+        Oyaaaaaa!!
+        Let’s SOAR, Team!
         
-        Signed, <br>
+        Signed, 
         The 7D Team.";
 
          $admins = User::where('role', 'A')->get();
@@ -315,29 +316,54 @@ class FlutterwaveController extends Controller
 
         $amount = $product->commission;
 
-        $wallet1 = Wallet::where('user_id', $user->referred_by_1)->first();
-        $wallet1->balance = $wallet1->balance + ($amount);
-        $wallet1->referral_bonus = $wallet1->referral_bonus + ($amount);
-        $wallet1->save();
+        $wallet7 = Wallet::where('user_id', 1484)->first();
+        $wallet7->balance = $wallet7->balance + $product->d_commission;
+        $wallet7->referral_bonus = $wallet7->referral_bonus +  $product->d_commission;
+        $wallet7->worth = $wallet7->worth + $product->price;
+        $wallet7->sales = $wallet7->sales + 1;
+        $wallet7->save();
 
-        $topup = new TopUp();
-        $topup->wallet_id = $wallet1->id;
-        $topup->owner_id = $user->referred_by_1;
-        $topup->user_id = $user->id;
-        $topup->amount = $amount;
-        $topup->description = 'Wallet credited with referral sale for course: '.$product->name;
-        $topup->type = 'credit';
-        $topup->save();
+        $walletCreator = Wallet::where('user_id', $product->user_id)->first();
+        $walletCreator->balance = $walletCreator->balance + ($product->price - ($product->commission +$product->d_commission));
+        $walletCreator->referral_bonus = $walletCreator->referral_bonus + ($product->price - ($product->commission +$product->d_commission));
+        $walletCreator->worth = $walletCreator->worth + $product->price;
+        $walletCreator->sales = $walletCreator->sales + 1;
+        $walletCreator->save();
+
+
+        $wallet1 = Wallet::where('user_id', $user->referred_by_1)->first();
+        if($wallet1){
+
+            $wallet1->balance = $wallet1->balance + ($amount);
+            $wallet1->referral_bonus = $wallet1->referral_bonus + ($amount);
+            $wallet1->sales = $wallet1->sales + 1;
+            $wallet1->save();
+
+            $topup = new TopUp();
+            $topup->wallet_id = $wallet1->id;
+            $topup->owner_id = $user->referred_by_1;
+            $topup->user_id = $user->id;
+            $topup->amount = $amount;
+            $topup->description = 'Wallet credited with referral sale for course: '.$product->name;
+            $topup->type = 'credit';
+            $topup->save();
+        }
 
 
         $creator = User::find($product->user_id);
 
-        $user->notify(new CreatorSale($creator, $product, $user));
-        $affiliate = User::find($product->referred_by_1);
-        $user->notify(new AffiliateSale($affiliate, $product));
+        $creator->notify(new CreatorSale($creator, $product, $user));
+        $affiliate = User::find($user->referred_by_1);
+
+
+        if($affiliate){
+            $affiliate->notify(new AffiliateSale($affiliate, $product));
+        }else{
+
+        }
 
         $user->item = '';
-        $user->referred_by_1 = 7;
+        $user->referred_by_1 = 1484;
         $user->save();
 
 
@@ -345,6 +371,11 @@ class FlutterwaveController extends Controller
         $admins = User::where('role', 'A')->get();
 
         foreach ($admins as $admin){
+            if($affiliate){
+
+            }else{
+
+            }
             $admin->notify(new AdminSale($affiliate, $product, $user));
         }
 
@@ -457,6 +488,22 @@ class FlutterwaveController extends Controller
             $own->save();
         }
 
+        if($product->product_6){
+
+            $own = new CourseOwn();
+            $own->product_id = $product->product_6;
+            $own->user_id = $user->id;
+            $own->save();
+        }
+
+        if($product->product_7){
+
+            $own = new CourseOwn();
+            $own->product_id = $product->product_7;
+            $own->user_id = $user->id;
+            $own->save();
+        }
+
         $own = new CourseOwn();
         $own->product_id = $product->id;
         $own->user_id = $user->id;
@@ -479,16 +526,54 @@ class FlutterwaveController extends Controller
         $topup->save();
 
 
+        $wallet7 = Wallet::where('user_id', 1484)->first();
+        $wallet7->balance = $wallet7->balance + $product->d_commission;
+        $wallet7->referral_bonus = $wallet7->referral_bonus +  $product->d_commission;
+        $wallet7->sales = $wallet7->sales + 1;
+        $wallet7->save();
+
+        $walletCreator = Wallet::where('user_id', $product->user_id)->first();
+        $walletCreator->balance = $walletCreator->balance + ($product->price - ($product->commission +$product->d_commission));
+        $walletCreator->referral_bonus = $walletCreator->referral_bonus + ($product->price - ($product->commission +$product->d_commission));
+        $walletCreator->worth = $walletCreator->worth + $product->price;
+        $walletCreator->sales = $walletCreator->sales + 1;
+        $walletCreator->save();
 
 
-        $creator = User::find($product->user_id);
+        $creator = User::find($product->created_by);
 
-        $user->notify(new CreatorSale($creator, $product, $user));
-        $affiliate = User::find($product->referred_by_1);
-        $user->notify(new AffiliateSale($affiliate, $product));
+
+        $creator->notify(new CreatorSale($creator, $product, $user));
+
+        $affiliate = User::find($user->referred_by_1);
+
+        $wallet1 = Wallet::where('user_id', $user->referred_by_1)->first();
+        if($wallet1){
+
+            $wallet1->balance = $wallet1->balance + $product->commission;
+            $wallet1->referral_bonus = $wallet1->referral_bonus + $product->commission;
+            $wallet1->sales = $wallet1->sales + 1;
+            $wallet1->save();
+
+            $topup = new TopUp();
+            $topup->wallet_id = $wallet1->id;
+            $topup->owner_id = $user->referred_by_1;
+            $topup->user_id = $user->id;
+            $topup->amount = $amount;
+            $topup->description = 'Wallet credited with referral sale for course: '.$product->name;
+            $topup->type = 'credit';
+            $topup->save();
+        }
+
+
+        if($affiliate){
+            $affiliate->notify(new AffiliateSale($affiliate, $product));
+        }else{
+
+        }
 
         $user->item = '';
-        $user->referred_by_1 = 7;
+        $user->referred_by_1 = 1484;
         $user->save();
 
 

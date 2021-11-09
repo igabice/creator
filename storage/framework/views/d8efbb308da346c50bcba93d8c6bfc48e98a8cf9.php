@@ -142,18 +142,7 @@
                     <?php endif; ?>
                 </ul>
 
-
-                <ul class="responsive-nav">
-                    <?php if(auth()->user() != null): ?>
-                        <li >
-                            <form action="/logout" method="post">
-                                <?php echo csrf_field(); ?>
-                                <input type="submit" style="color: goldenrod; margin-left: 10px; background-color: black" class="nav-link nl-m-top btn-outline-warning btn-sm" href="/logout" value="Logout">
-                            </form>
-                        </li>
-                        <?php endif; ?>
-                </ul>
-
+                
 
 
 

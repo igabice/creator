@@ -116,7 +116,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                        <?php if($user->role == 'A'): ?>
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
                                             <div class="col-4 col-lg-4 col-sm-4">
@@ -127,6 +127,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                        <?php endif; ?>
 
                                     
                                     
@@ -157,7 +158,7 @@
                                             <input type="hidden" name="ref_id" value="<?php echo e(request()->ref); ?>">
 
                                             <?php else: ?>
-                                                <input type="hidden" name="ref_id" value="7">
+                                                <input type="hidden" name="ref_id" value="1484">
                                             <?php endif; ?>
 
 
@@ -249,7 +250,7 @@
                                                 <h4><?php echo e($video->title); ?></h4>
 
                                             <?php else: ?>
-                                                <video width="100%" height="240" controls autoplay>
+                                                <video width="100%" height="240" autoplay controls controlsList="nodownload">
                                                     <source src="<?php echo e($data->trailer); ?>" type="video/mp4">
                                                     Your browser does not support the video tag.
                                                 </video>
@@ -258,9 +259,9 @@
                                             <table class="table table-bordered table-striped">
 
                                                 <?php $__currentLoopData = $videos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $video): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <tr><th>
-                                                            <?php if($own != null || auth()->user()->role == 'A'): ?>
 
+                                                            <?php if($own != null || auth()->user()->role == 'A'  || $user->id == $data->user_id): ?>
+                                                        <tr><th>
 
                                                                     <a href="/products/<?php echo e($data->id); ?>?video=<?php echo e($video->id); ?>" >
 
@@ -276,10 +277,11 @@
                                                                             <?php if(auth()->user()->role == 'A'): ?>
                                                                                 <a class="btn btn-outline-success btn-sm" data-index="<?php echo e($loop->iteration -1); ?>"
                                                                                    data-toggle="modal" data-target="#actionPayout"> Edit</a>
+                                                            </th>
+                                                        </tr>
                                                                 <?php endif; ?>
                                                             <?php endif; ?>
-                                                        </th>
-                                                    </tr>
+
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 

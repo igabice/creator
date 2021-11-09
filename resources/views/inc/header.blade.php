@@ -158,6 +158,7 @@
                     @endif
                 </ul>
 
+                {{--
 
                 <ul class="responsive-nav">
                     @if(auth()->user() != null)
@@ -169,7 +170,7 @@
                         </li>
                         @endif
                 </ul>
-{{--                    <li>--}}
+                    <li>--}}
 {{--                        <a class="nav-link nl-m-top abc"><i class="fa fa-search" aria-hidden="true"></i></a>--}}
 {{--                        <div class="search top-search">--}}
 {{--                            <button type="button" class="close fix-close">×</button>--}}

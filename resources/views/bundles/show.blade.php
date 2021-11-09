@@ -3,19 +3,32 @@
 @section('content')
 @section('script')
 
+    <?php
+    $user = auth()->user();
+    ?>
+
     <script>
         $(document).ready(function(){
 
+            $('#make-campaign').on('shown.bs.modal', function (e) {
+
+                $("#main-content")
+                    .html('<table class="table table-bordered table-striped"><tr><td>Name:</td><th>{{ $data->title}}</th></tr>'+
+                        '<tr><td>Price:</td><th>{{$data->price}}</th></tr>\n' +
+                        '<tr><td>Commission:</td><th>{{$data->commission}}</th></tr>\n' +
+                        '<input type="hidden" name="product_id" value="{{$data->id }}">' +
+                        '<input type="hidden" name="type" value="bundle">' +
+                        '<input type="hidden" name="user_id" value="{{$user != null ? $user->id : ''}}">' +
+                        '\n' +
+                        '                            </table>');
+                //.html('<div class="box3">' + app[i].name + '<br>' + '</div>');
+            });
 
         });
     </script>
 
 @endsection
     <div class="inner-page">
-
-        <?php
-        $user = auth()->user();
-        ?>
 
 
         <!-- INNER_PAGE_BANNER AREA START -->
@@ -87,16 +100,18 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 checkout-item">
-                                        <div class="row">
-                                            <div class="col-4 col-lg-4 col-sm-4">
-                                                <h3>7DC Commission</h3>
+                                   @if($user->role == 'A')
+                                            <div class="col-lg-12 checkout-item">
+                                                <div class="row">
+                                                    <div class="col-4 col-lg-4 col-sm-4">
+                                                        <h3>7DC Commission</h3>
+                                                    </div>
+                                                    <div class="col-8 col-lg-8 col-sm-8 text-right">
+                                                        <h4>{{$data->d_commission}}</h4>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-8 col-lg-8 col-sm-8 text-right">
-                                                <h4>{{$data->d_commission}}</h4>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        @endif
 
 
                                     @if($own == null)
@@ -104,8 +119,8 @@
                                         @if($user)
                                             <input type="hidden" name="email" value="{{$user->email}}"> {{-- required --}}
                                         @else
-                                            <label for="email">Confirmation Email</label>
-                                            <input type="email" required name="email" placeholder="Email">
+{{--                                            <label for="email">Confirmation Email</label>--}}
+{{--                                            <input type="email" required name="email" placeholder="Email">--}}
                                         @endif
                                         <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
                                         <input type="hidden" name="amount" value="{{str_replace(",","",$data->price) }}">
@@ -130,12 +145,12 @@
                                 </div>
                                 <br>
                                 {{$user->affiliate}}
-                                @if($user->affiliate != 1 && $refferal < 1)
+                                @if($user->affiliate == 1 && $refferal < 1)
 
 
-{{--                                    <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">--}}
-{{--                                        Sell this bundle--}}
-{{--                                    </a>--}}
+                                    <a class="btn btn-sm btn-outline-warning" href="/bundle-campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
+                                        Sell this Bundle
+                                    </a>
                                     @endif
 
 {{--                                <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">--}}
@@ -255,7 +270,7 @@
 {{--        </section>--}}
             <div id="make-campaign" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form action="{{url('/campaign')}}" method="post">
+                    <form action="{{url('/bundle-campaign')}}" method="post">
                         @csrf
                         <div class="modal-content">
                             <div class="modal-header">

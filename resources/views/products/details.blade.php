@@ -118,7 +118,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                        @if($user->role == 'A')
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
                                             <div class="col-4 col-lg-4 col-sm-4">
@@ -129,6 +129,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                        @endif
 
                                     {{--                                <div class="col-lg-12 checkout-item">--}}
                                     {{--                                    <div class="row">--}}
@@ -159,7 +160,7 @@
                                             <input type="hidden" name="ref_id" value="{{request()->ref}}">
 {{--                                                {{session()->put('ref', request()->ref)}}--}}
                                             @else
-                                                <input type="hidden" name="ref_id" value="7">
+                                                <input type="hidden" name="ref_id" value="1484">
                                             @endif
 
 
@@ -249,7 +250,7 @@
                                                 <h4>{{$video->title}}</h4>
 
                                             @else
-                                                <video width="100%" height="240" controls autoplay>
+                                                <video width="100%" height="240" autoplay controls controlsList="nodownload">
                                                     <source src="{{$data->trailer}}" type="video/mp4">
                                                     Your browser does not support the video tag.
                                                 </video>
@@ -258,9 +259,9 @@
                                             <table class="table table-bordered table-striped">
 
                                                 @foreach($videos as $video)
-                                                    <tr><th>
-                                                            @if($own != null || auth()->user()->role == 'A')
 
+                                                            @if($own != null || auth()->user()->role == 'A'  || $user->id == $data->user_id)
+                                                        <tr><th>
 
                                                                     <a href="/products/{{$data->id}}?video={{$video->id}}" >
 {{--                                                                        @if($video->status == 'yes')--}}
@@ -275,10 +276,11 @@
                                                                             @if(auth()->user()->role == 'A')
                                                                                 <a class="btn btn-outline-success btn-sm" data-index="{{$loop->iteration -1}}"
                                                                                    data-toggle="modal" data-target="#actionPayout"> Edit</a>
+                                                            </th>
+                                                        </tr>
                                                                 @endif
                                                             @endif
-                                                        </th>
-                                                    </tr>
+
                                                 @endforeach
 
 

@@ -236,6 +236,31 @@ class ProductsController extends Controller
         return redirect()->to('/products/'.$id);
     }
 
+    public function referBundle($id)
+    {
+        $data= Product::find($id);
+
+        if(isset(request()->ref)){
+//            $commission = new CommissionDeposit();
+//            $commission->product_id = $id;
+//            $commission->user_id = request()->ref;
+//            $commission->amount = $data->price *$data->commission * 0.01;
+//            $commission->save();
+//
+//            $wallet= Wallet::where('user_id', request()->ref)->first();
+//            $wallet->balance = $wallet->balance + $commission->amount;
+//            $wallet->referral_bonus = $wallet->referral_bonus + $commission->amount;
+//            $wallet->save();
+
+            session()->put('ref', url('/').'/bundles/'.$id.'?ref='.request()->ref);
+
+           // return session()->get('ref');
+            return redirect()->to(url('/').'/bundles/'.$id.'?ref='.request()->ref);
+        }
+
+        return redirect()->to('/bundles/'.$id);
+    }
+
     function newCampaign(Request $request){
         $arrRules = array(
             'user_id' => ['required'],
@@ -254,6 +279,27 @@ class ProductsController extends Controller
         $msg='Campaign created successfully.';
 
         return redirect()->to('/products/'.$product->product_id)->with('success', $msg);
+
+    }
+
+    function newBundleCampaign(Request $request){
+        $arrRules = array(
+            'user_id' => ['required'],
+            'product_id' => ['required',],
+        );
+
+        $objRequest = $request->all();
+
+
+        try {
+            $this->validate(request(), $arrRules);
+        } catch (ValidationException $e) {
+        }
+        $product = Campaign::create($objRequest);
+
+        $msg='Campaign created successfully.';
+
+        return redirect()->to('/bundles/'.$product->product_id)->with('success', $msg);
 
     }
 
@@ -310,17 +356,17 @@ class ProductsController extends Controller
 
         $user = Auth()->user();
 
-        $successMsgUser = " Hello Admin,<br>
-        ".$user->name." ".$user->last_name. " has created a New Product,  ".$product->name. "<br><br>
+        $successMsgUser = " Hello Admin,
+        ".$user->name." ".$user->last_name. " has created a New Product,  ".$product->name. "
         
-        Email: ".$user->email."<br>
+        Email: ".$user->email."
         
-        Whatsapp Number: ".$user->phone."<br>
+        Whatsapp Number: ".$user->phone."
         
-        Let’s check the product and verify for sale… <br><br>
-        Sweet something… <br><br>
+        Let’s check the product and verify for sale… 
+        Sweet something… 
         
-        Signed, <br>
+        Signed, 
         The 7D Team.";
 
         $admins = User::where('role', 'A')->get();

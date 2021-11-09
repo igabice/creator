@@ -69,6 +69,12 @@
                 </div>
             </div>
 
+            <?php
+
+            $wallet = $user->myWallet()
+
+            ?>
+
 
         </div>
     </section>
@@ -266,25 +272,38 @@
                                             <p style="color: lightgrey"> Want to start earning from selling courses and other products? Register as an Affiliate.
                                                 Learn and Earn while at it.</p>
                                             <br>
-                                            <form method="GET" action="{{ route('callbackAff') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
-                                                @if(auth()->user())
-                                                    <input type="hidden" name="email" value="{{$user->email}}"> {{-- required --}}
-                                                @else
-                                                    <label for="email">Confirmation Email</label>
-                                                    <input type="email" required name="email" placeholder="Email">
-                                                @endif
-                                                <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
-                                                <input type="hidden" name="amount" value="20000"> {{-- required in kobo --}}
-                                                <input type="hidden" name="quantity" value="1">
-                                                <input type="hidden" name="currency" value="NGN">
-                                                <input type="hidden" name="metadata" value="{{ json_encode($array = ['user_id' => $user->id, 'type' => 'creator']) }}" >
-                                                <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
+                                            @if(auth()->user()->role == 'A')
+{{--                                                    <form method="POST" action="{{ route('pay-affiliate') }}" accept-charset="UTF-8" class="form-horizontal" role="form">--}}
+                                                    <form method="GET" action="{{ route('callbackAff') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                                        <input type="hidden" name="user_id" value="{{$user->id}}">
 
-                                                {{ csrf_field() }}
-                                                <button class="main-btn btn-c-white" type="submit" value="Checkout">
-                                                    <span class="f-s--xs">Register (FREE) </span>
-                                                </button>
-                                            </form>
+                                                        {{ csrf_field() }}
+                                                        <button class="main-btn btn-c-white" type="submit" value="Checkout">
+                                                            <span class="f-s--xs">Approve Affiliate </span>
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <form method="POST" action="{{ route('pay-affiliate') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                                        {{--                                            <form method="GET" action="{{ route('callbackAff') }}" accept-charset="UTF-8" class="form-horizontal" role="form">--}}
+                                                        @if(auth()->user())
+                                                            <input type="hidden" name="email" value="{{$user->email}}"> {{-- required --}}
+                                                        @else
+                                                            <label for="email">Confirmation Email</label>
+                                                            <input type="email" required name="email" placeholder="Email">
+                                                        @endif
+                                                        <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
+                                                        <input type="hidden" name="amount" value="10500"> {{-- required in kobo --}}
+                                                        <input type="hidden" name="quantity" value="1">
+                                                        <input type="hidden" name="currency" value="NGN">
+                                                        <input type="hidden" name="metadata" value="{{ json_encode($array = ['user_id' => $user->id, 'type' => 'creator']) }}" >
+                                                        <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
+
+                                                        {{ csrf_field() }}
+                                                        <button class="main-btn btn-c-white" type="submit" value="Checkout">
+                                                            <span class="f-s--xs">Register (10,500) </span>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                         </div>
                                                @endif
                                     </div>
@@ -296,6 +315,7 @@
 
                     <div class="col-lg-7 ">
                         @if(auth()->user() == null)
+                            @if($user->verified == '1')
                             <div class="contact-box">
 
                                 <div class="checkout-box">
@@ -316,6 +336,7 @@
                                     </div>
                                 </div>
                             </div>
+                                @endif
 
                         @elseif($user->id == auth()->user()->id || auth()->user()->role == 'A')
                         <div class="contact-box">
@@ -323,6 +344,7 @@
                             <div class="checkout-box">
                                 <div class="row">
 
+                                    @if($user->verified == '1')
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
                                             <div class="col-12 col-lg-12 col-sm-12">
@@ -335,6 +357,9 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    @endif
                                     <br>
                                     <br>
                                     <br>
@@ -346,7 +371,8 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    0
+                                                    {{$wallet->sales}}
+{{--                                                    {{$totalEarnings == null ? 0 : $totalEarnings[0]->id_count}}--}}
                                                 </h4>
                                             </div>
                                         </div>
@@ -359,7 +385,7 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    ₦ 0
+                                                    ₦{{ $wallet->worth  }}
                                                 </h4>
                                             </div>
                                         </div>
@@ -383,7 +409,7 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    ₦{{$user->getWallet()  }}
+                                                    ₦{{$wallet->balance  }}
                                                 </h4>
                                             </div>
                                         </div>
@@ -395,7 +421,7 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    ₦{{ $totalEarnings  }}
+                                                    ₦{{ $wallet->referral_bonus }}
                                                 </h4>
                                             </div>
                                         </div>
@@ -447,12 +473,36 @@
                                                 <table id="dataTable" class="table   dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
                                                     <tbody>
+
                                                     @foreach($campaigns as $object)
                                                         <tr>
                                                             {{--                    <td>{{ $object->image}} </td>--}}
                                                             <td><a style="color:#fff;" href="/products/{{$object->product_id}}">{{ $object->name}} - {{ $object->price}}</a>
                                                                 <button class="btn btnn" title="click to copy"
                                                                         data-clipboard-text="{{ url('/')}}/refer-product/{{$object->id}}/?ref={{$object->user_id}}">
+                                                                    <i class="fa fa-book" style="color: orangered"> copy link</i>
+                                                                </button>
+                                                            <br>
+                                                                <div class="row">
+                                                                    <div class="col-6 col-lg-6 col-sm-6">
+                                                                        <h4> commission: {{ $object->commission}}</h4>
+                                                                    </div>
+                                                                    <div class="col-6 col-lg-6 col-sm-6 text-right">
+                                                                        <h4>
+                                                                            <small>{{ $object->created_at}}</small>
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                    @endforeach
+                                                    @foreach($bundles_campaigns as $object)
+                                                        <tr>
+                                                            {{--                    <td>{{ $object->image}} </td>--}}
+                                                            <td><a style="color:#fff;" href="/products/{{$object->product_id}}">{{ $object->title}} - {{ $object->price}}</a>
+                                                                <button class="btn btnn" title="click to copy"
+                                                                        data-clipboard-text="{{ url('/')}}/refer-bundle/{{$object->id}}/?ref={{$object->user_id}}">
                                                                     <i class="fa fa-book" style="color: orangered"> copy link</i>
                                                                 </button>
                                                             <br>

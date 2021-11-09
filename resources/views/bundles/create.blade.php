@@ -125,7 +125,7 @@
                                                            </div>
                                                            <div class="form-group">
                                                                <label for="role">Product 3</label>
-                                                               <select name="product_3" required class="form-control">
+                                                               <select name="product_3"  class="form-control">
                                                                    <option value=""></option>
                                                                    @foreach($products as $product)
                                                                        <option value="{{$product->id}}">{{$product->name}}</option>
@@ -139,7 +139,7 @@
                                                            </div>
                                                            <div class="form-group">
                                                                <label for="role">Product 4</label>
-                                                               <select name="product_4" required class="form-control">
+                                                               <select name="product_4"  class="form-control">
                                                                    <option value=""></option>
                                                                    @foreach($products as $product)
                                                                        <option value="{{$product->id}}">{{$product->name}}</option>
@@ -153,7 +153,7 @@
                                                            </div>
                                                            <div class="form-group">
                                                                <label for="role">Product 5</label>
-                                                               <select name="product_5" required class="form-control">
+                                                               <select name="product_5"  class="form-control">
                                                                    <option value=""></option>
                                                                    @foreach($products as $product)
                                                                        <option value="{{$product->id}}">{{$product->name}}</option>
@@ -161,8 +161,36 @@
                                                                </select>
                                                                @if($errors->has('product_5'))
                                                                    <span class="text-danger">
-                                                            <strong>{{ $errors->first('product_5') }}</strong>
-                                                        </span>
+                                                                        <strong>{{ $errors->first('product_5') }}</strong>
+                                                                    </span>
+                                                               @endif
+                                                           </div>
+                                                           <div class="form-group">
+                                                               <label for="role">Product 6</label>
+                                                               <select name="product_6"  class="form-control">
+                                                                   <option value=""></option>
+                                                                   @foreach($products as $product)
+                                                                       <option value="{{$product->id}}">{{$product->name}}</option>
+                                                                   @endforeach
+                                                               </select>
+                                                               @if($errors->has('product_6'))
+                                                                   <span class="text-danger">
+                                                                        <strong>{{ $errors->first('product_6') }}</strong>
+                                                                    </span>
+                                                               @endif
+                                                           </div>
+                                                           <div class="form-group">
+                                                               <label for="role">Product 7</label>
+                                                               <select name="product_7"  class="form-control">
+                                                                   <option value=""></option>
+                                                                   @foreach($products as $product)
+                                                                       <option value="{{$product->id}}">{{$product->name}}</option>
+                                                                   @endforeach
+                                                               </select>
+                                                               @if($errors->has('product_7'))
+                                                                   <span class="text-danger">
+                                                                        <strong>{{ $errors->first('product_7') }}</strong>
+                                                                    </span>
                                                                @endif
                                                            </div>
 

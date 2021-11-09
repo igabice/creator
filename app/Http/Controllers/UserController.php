@@ -158,7 +158,6 @@ class UserController extends Controller
 
 
 
-
         $user->verified = 1;
         $user->save();
         $user->notify(new NewCreator($user->name));
@@ -261,18 +260,38 @@ class UserController extends Controller
             ->select('*')
             ->where('campaign.user_id', $user->id)
             ->get();
+
+        $bundles_campaigns = Campaign::join('bundles', 'bundles.id', '=', 'campaign.product_id')
+            ->select('*')
+            ->where('campaign.user_id', $user->id)
+            ->get();
+
         $data = Product::where('user_id', $user->id)->get();
 
-        $totalEarnings = Product::select('products.id, products.name, products.price')
-            ->join('course_own', 'products.id', '=', 'course_own.product_id')
+
+        $totalEarnings = Product::join('course_own', 'products.id', '=', 'course_own.product_id')
+            ->select( DB::raw('SUM(course_own.id) as id_count'), DB::raw('SUM(products.price) as sales'), DB::raw('SUM(products.price - (products.commission + products.commission)) as revenue'))
             ->where('products.user_id', $user->id)
-            //->groupBy('products.id', 'products.name',)
-            ->sum('price');
+            //->groupBy('course_own.id')
+            ->get();
 
+        $totalSales = Product::join('course_own', 'products.id', '=', 'course_own.product_id')
+            ->where('products.user_id', $user->id)
+            //->groupBy('course_own.id')
+            ->count();
 
+//        return ;
+//            ->get('price');
+//        $totalSales = Product::select('products.id, products.name, products.price')
+//            ->join('course_own', 'products.id', '=', 'course_own.product_id')
+//            ->where('products.user_id', $user->id)
+//            //->groupBy('products.id', 'products.name',)
+//            ->count();
         $own = CourseOwn::where('user_id', $user->id)->count();
 
-        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns, 'own'=>$own, 'totalEarnings' => $totalEarnings]);
+        return view('dashboard.index', ['data'=>$data,'user'=>$user, 'campaigns'=> $campaigns, 'own'=>$own, 'totalSales'=>$totalSales,
+            'bundles_campaigns'=>$bundles_campaigns, 'totalEarnings' => $totalEarnings]);
+
     }
 
 
