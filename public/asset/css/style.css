@@ -554,7 +554,7 @@ input[type=radio] {
 
 .login-12 .login-inner-form .form-check a {
     color: #717171;
-    float: right;
+    /*float: right;*/
 }
 
 .login-12 .login-inner-form .form-check-input {
@@ -606,7 +606,7 @@ input[type=radio] {
 .login-12 .login-inner-form .checkbox a {
     font-size: 14px;
     color: #d79711;
-    float: right;
+    /*float: right;*/
 }
 
 /** MEDIA **/

@@ -146,10 +146,13 @@
                                     <div class="form-check checkbox-theme">
                                         <input class="form-check-input" type="checkbox" value="" id="rememberMe" required>
                                         <label class="form-check-label" for="rememberMe">
-                                            Accept terms
+                                            I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and
+                                            <a href="/terms" target="_blank">Terms of Engagement</a>
                                         </label>
                                     </div>
-                                    <a href="/terms">view terms</a>
+
+
+
                                 </div>
 
                                 <div class="form-group">

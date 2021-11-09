@@ -118,6 +118,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                        @if($user != null)
                                         @if($user->role == 'A')
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
@@ -129,6 +130,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                        @endif
                                         @endif
 
                                     {{--                                <div class="col-lg-12 checkout-item">--}}
@@ -203,7 +205,6 @@
                         <div class="checkout-box">
                             <div class="row">
                                 <div class="col-lg-12 checkout-item">
-                                    {{session()->get('ref')}}
                                     @if($user != null)
 {{--                             $user->role == 'A' ||             --}}
                                         @if($user->role == 'A' || $user->id == $data->user_id)
@@ -257,6 +258,7 @@
                                             @endif
 
                                             <table class="table table-bordered table-striped">
+                                                @if($user != null)
 
                                                 @foreach($videos as $video)
 
@@ -273,15 +275,18 @@
 
                                                                                 {{$loop->index +1}}.   {{$video->title  }}
                                                                             </a>
+                                                                @if($user != null)
                                                                             @if(auth()->user()->role == 'A')
                                                                                 <a class="btn btn-outline-success btn-sm" data-index="{{$loop->iteration -1}}"
                                                                                    data-toggle="modal" data-target="#actionPayout"> Edit</a>
+                                                                    @endif
                                                             </th>
                                                         </tr>
                                                                 @endif
                                                             @endif
 
                                                 @endforeach
+                                                    @endif
 
 
                                             </table>
