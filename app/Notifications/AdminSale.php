@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\HtmlString;
 
 class AdminSale extends Notification implements  ShouldQueue
 {
@@ -54,7 +55,8 @@ class AdminSale extends Notification implements  ShouldQueue
             ->line('Congratulations Team!')
             ->line('Cheers to more!')
             ->line('')
-            ->salutation("Cheers to 7 Digits!\nAyo Olu-Ayoola \nMD/CEO, The 7D Group");
+            ->salutation(new HtmlString("Cheers to 7 Digits!<br>Ayo Olu-Ayoola  <br>MD/CEO, The 7D Group"));
+
     }
 
     /*

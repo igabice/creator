@@ -257,12 +257,12 @@ class UserController extends Controller
 //        $referrals = User::where('referred_by_1', $user->id)->get();
 
         $campaigns = Campaign::join('products', 'products.id', '=', 'campaign.product_id')
-            ->select('*')
+            ->select('products.name', 'products.commission', 'products.id', 'campaign.user_id', 'campaign.created_at', 'campaign.user_id')
             ->where('campaign.user_id', $user->id)
             ->get();
 
         $bundles_campaigns = Campaign::join('bundles', 'bundles.id', '=', 'campaign.product_id')
-            ->select('*')
+            ->select('bundles.title', 'bundles.commission', 'bundles.id', 'campaign.user_id', 'campaign.created_at', 'campaign.user_id')
             ->where('campaign.user_id', $user->id)
             ->get();
 

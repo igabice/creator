@@ -107,7 +107,8 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                        @if($user != null)
+                                            @if($user->role == 'A' || $user->verified == 1 || $user->affiliate == 1)
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
                                             <div class="col-4 col-lg-4 col-sm-4">
@@ -118,8 +119,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                        @if($user != null)
-                                        @if($user->role == 'A')
+
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
                                             <div class="col-4 col-lg-4 col-sm-4">

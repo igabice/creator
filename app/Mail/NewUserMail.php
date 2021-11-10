@@ -3,14 +3,14 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewUserMail extends Mailable
+class NewUserMail extends Notification implements  ShouldQueue
 {
+    use Queueable;
     public $data;
-    use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
@@ -27,16 +27,13 @@ class NewUserMail extends Mailable
         return ['mail'];
     }
 
-
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
+    public function toMail($notifiable)
     {
-        return $this->from('no-reply@7dc.ng')
-                    ->subject('O ya! '.$this->data->name)
-                    ->view('mail.newuser');
+        return (new MailMessage)
+            ->from('no-reply@7dc.ng')
+            ->subject('O ya! '.$this->data->name)
+            ->view('mail.newuser');
     }
+
+
 }

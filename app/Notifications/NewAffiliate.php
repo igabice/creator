@@ -34,6 +34,9 @@ class NewAffiliate extends Notification implements  ShouldQueue
             ->line('WE SOAR in 7DC.!')
             ->line('Yes, we soar in 7 Digits Commissions!')
             ->line('So, '.$this->name)
+            ->line('Go to your dashboard; choose any Course, or Bundle that you LOVE.')
+            ->line('And Click on “Sell Product” to activate it for selling...')
+            ->line('Click on your “Dashboard” to copy Your Unique Affiliate Link for the product.')
             ->line($this->name.', there are challenges for you to win per month (where you can win Mercedes Benz, Lexus, Dubai Trip, iPhone, or Insurance package etc.)')
             ->line('All you need to do;')
             ->line('Start selling and make as many sales as possible.')
@@ -48,30 +51,6 @@ class NewAffiliate extends Notification implements  ShouldQueue
     }
 
     /*
-     *
-Go to your dashboard; choose any Course, or Bundle that you LOVE.
-
-And Click on “Sell Product” to activate it for selling...
-
-Click on your “Dashboard” to copy Your Unique Affiliate Link for the product.
-
-[Name], there are challenges for you to win per month (where you can win Mercedes Benz, Lexus, Dubai Trip, iPhone, or Insurance package etc.)
-
-All you need to do;
-
-Start selling and make as many sales as possible.
-
-Make those 7 Digits Flow….
-
-SOAR, [Name]!!
-
-SOAR like an Eagle!
-
-Cheers to 7D Commissions,
-‘Yemi
-COO
-
-
 
      */
 }

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\HtmlString;
 
 class AffiliateSale extends Notification implements  ShouldQueue
 {
@@ -32,12 +33,12 @@ class AffiliateSale extends Notification implements  ShouldQueue
         return (new MailMessage)
             ->subject('New Money Alert! '.$this->product->commission)
             ->line('Wow! '.$this->affiliate->name)
-            ->line('You just earned '.$this->product->commission.' because you made a sale of '.$this->product->name.'. We are so happy for you.')
+            ->line('You just earned '.$this->product->commission.' because you made a sale of '.$this->product->name.$this->product->title.'. We are so happy for you.')
             ->line('There is no stopping you at all. We are feeling your boss moves.')
             ->line('Keep flying.')
             ->line('Keep SOARING!')
             ->line('Let’s do this!!')
-            ->salutation("To your 7 Digits Success,\n‘Yemi  \nCOO,\n The 7D Group");
+            ->salutation(new HtmlString("To your 7 Digits Success,<br>Yemi  <br>COO, <br>The 7D Group"));
     }
 
     /*

@@ -47,6 +47,22 @@
 
     </script>
     --}}
+    <script>function display_ct6() {
+            var x = new Date()
+            var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
+            hours = x.getHours( ) % 12;
+            hours = hours ? hours : 12;
+            var x1=x.getMonth() + 1+ "/" + x.getDate() + "/" + x.getFullYear();
+            x1 = x1 + " - " +  hours + ":" +  x.getMinutes() + ":" +  x.getSeconds() + ":" + ampm;
+            document.getElementById('ct6').innerHTML = x1;
+            display_c6();
+        }
+        function display_c6(){
+            var refresh=1000; // Refresh rate in milli seconds
+            mytime=setTimeout('display_ct6()',refresh)
+        }
+        display_c6()
+    </script>
 @endsection
 
 
@@ -237,7 +253,7 @@
                                             <div class="col-12 col-lg-12 col-sm-12">
                                                 <h2 style="color: lightgrey">Become a creator</h2>
                                                 <br>
-                                                <p style="color: lightgrey">May a payment of N36,000 Yearly fees and you can start selling your own courses</p>
+                                                <p style="color: lightgrey">Make a payment of N36,000 Yearly fees and you can start selling your own courses</p>
                                                 <br>
                                                 <form method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
                                                     @if(auth()->user())
@@ -426,9 +442,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="main-btn btn-c-white" href="/my-payouts">
-                                        <span class="f-s--xs">My Payouts </span>
-                                    </a>
+                                    <div class="col-lg-12 checkout-item">
+                                        <div class="row">
+                                            <div class="col-6 col-lg-6 col-sm-6">
+                                                <a class="main-btn btn-c-white" href="/my-payouts">
+                                                    <span class="f-s--xs">My Payouts </span>
+                                                </a>
+                                            </div>
+                                            <div class="col-6 col-lg-6 col-sm-6 text-right">
+                                                <span id='ct6' style="color: lightgrey"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
 
 
                                 </div>
@@ -479,7 +505,7 @@
                                                             {{--                    <td>{{ $object->image}} </td>--}}
                                                             <td><a style="color:#fff;" href="/products/{{$object->product_id}}">{{ $object->name}} - {{ $object->price}}</a>
                                                                 <button class="btn btnn" title="click to copy"
-                                                                        data-clipboard-text="{{ url('/')}}/refer-product/{{$object->id}}/?ref={{$object->user_id}}">
+                                                                        data-clipboard-text="{{ url('/')}}/refer-product/{{$object->id}}/?ref={{$user->id}}">
                                                                     <i class="fa fa-book" style="color: orangered"> copy link</i>
                                                                 </button>
                                                             <br>
@@ -502,7 +528,7 @@
                                                             {{--                    <td>{{ $object->image}} </td>--}}
                                                             <td><a style="color:#fff;" href="/products/{{$object->product_id}}">{{ $object->title}} - {{ $object->price}}</a>
                                                                 <button class="btn btnn" title="click to copy"
-                                                                        data-clipboard-text="{{ url('/')}}/refer-bundle/{{$object->id}}/?ref={{$object->user_id}}">
+                                                                        data-clipboard-text="{{ url('/')}}/refer-bundle/{{$object->id}}/?ref={{$user->id}}">
                                                                     <i class="fa fa-book" style="color: orangered"> copy link</i>
                                                                 </button>
                                                             <br>
