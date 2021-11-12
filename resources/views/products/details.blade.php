@@ -120,17 +120,22 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 checkout-item">
-                                        <div class="row">
-                                            <div class="col-4 col-lg-4 col-sm-4">
-                                                <h3>7DC Commission</h3>
-                                            </div>
-                                            <div class="col-8 col-lg-8 col-sm-8 text-right">
-                                                <h4>{{$data->d_commission}}</h4>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                         @endif
+                                                @if($user->role == 'A')
+
+                                                    <div class="col-lg-12 checkout-item">
+                                                        <div class="row">
+                                                            <div class="col-4 col-lg-4 col-sm-4">
+                                                                <h3>7DC Commission</h3>
+                                                            </div>
+                                                            <div class="col-8 col-lg-8 col-sm-8 text-right">
+                                                                <h4>{{$data->d_commission}}</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+
                                         @endif
 
                                     {{--                                <div class="col-lg-12 checkout-item">--}}

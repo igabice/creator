@@ -87,20 +87,27 @@
                                                 <h4>{{$data->price}} <small style="color: grey; text-decoration: line-through">₦{{ $data->former_price}}</small></h4>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-lg-12 checkout-item">
-                                        <div class="row">
-                                            <div class="col-4 col-lg-4 col-sm-4">
-                                                <h3>Commission</h3>
-                                            </div>
-                                            <div class="col-8 col-lg-8 col-sm-8 text-right">
-                                                <h4>{{$data->commission}}</h4>
-                                            </div>
-                                        </div>
                                     </div>
+                                         @if($user != null)
 
-                                   @if($user->role == 'A')
+                                        @if($user->role == 'A' || $user->verified == 1 || $user->affiliate == 1)
+
+                                            <div class="col-lg-12 checkout-item">
+                                                <div class="row">
+                                                    <div class="col-4 col-lg-4 col-sm-4">
+                                                        <h3>Commission</h3>
+                                                    </div>
+                                                    <div class="col-8 col-lg-8 col-sm-8 text-right">
+                                                        <h4>{{$data->commission}}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        @endif
+                                        @if($user->role == 'A')
+
                                             <div class="col-lg-12 checkout-item">
                                                 <div class="row">
                                                     <div class="col-4 col-lg-4 col-sm-4">
@@ -111,6 +118,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        @endif
                                         @endif
 
 
