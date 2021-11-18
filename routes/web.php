@@ -32,6 +32,10 @@ Route::post('/signup', 'HomeController@registerUser')->name('registerUser');
 Route::get('/refer-product/{id}', 'ProductsController@referProduct')->name('referProduct');
 Route::get('/refer-bundle/{id}', 'ProductsController@referBundle')->name('referBundle');
 Route::get('/products/{id}', 'ProductsController@show')->name('create-update');
+Route::get('/bundle/{id}', 'ProductsController@bundle')->name('bundle-ate');
+Route::get('/bundles/{id}', 'BundlesController@show')->name('view-bundle');
+Route::post('/buy-bundle', 'FlutterwaveController@buyBundle')->name('buyBundle');
+Route::post('/buy-course', 'FlutterwaveController@buyCourse')->name('buyCourse');
 
 
 Route::get('/register', 'HomeController@register')->name('register');
@@ -55,11 +59,9 @@ Route::middleware('auth')->group(function(){
 // The callback url after a payment
     Route::get('/rave/callback', 'FlutterwaveController@callback')->name('callback');
     Route::get('/rave/callback-aff', 'FlutterwaveController@callbackAff')->name('callbackAff');
-    Route::get('/rave/callback2', 'FlutterwaveController@callback2')->name('callback');
+    Route::get('/rave/callback2', 'FlutterwaveController@callback2')->name('callback2');
 // The callback url after a course/bundle payment
-    Route::post('/buy-bundle', 'FlutterwaveController@buyBundle')->name('buyBundle');
     Route::get('/rave/bundle-bought', 'FlutterwaveController@bundleBought')->name('bundleBought');
-    Route::post('/buy-course', 'FlutterwaveController@buyCourse')->name('buyCourse');
     Route::get('/rave/course-bought', 'FlutterwaveController@courseBought')->name('courseBought');
 
 

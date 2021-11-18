@@ -26,6 +26,29 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
+    <style>
+        .float{
+            position:fixed;
+            width:60px;
+            height:60px;
+            bottom:90px;
+            right:25px;
+            background-color:#25d366;
+            color:#FFF;
+            border-radius:50px;
+            text-align:center;
+            font-size:30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index:100;
+
+        }
+
+        .my-float{
+            margin-top:16px;
+        }
+
+    </style>
+
 
 
     @yield('css')
@@ -33,6 +56,10 @@
 </head>
 
 <body id="darkmode" >
+
+<a href="https://wa.me/message/5KY4XP55YV47A1" class="float" target="_blank">
+    <i class="fa fa-whatsapp my-float"></i>
+</a>
     <!-- Preloader -->
     <!-- <div class="loader_screen preloader" id="preloader">
         <div class="loader loader-box">

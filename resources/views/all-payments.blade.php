@@ -90,19 +90,33 @@
                                 <td>
                                     <a href="/users/{{$object->user_id}}">{{ $object->name}} {{$object->last_name}}</a>
                                 </td>
-                                @if($object->payment_type == 'bundle')
                                 <td>
-                                    <a href="/bundles/{{$object->item}}">view item</a>
-                                </td>
-                                @else
-                                    <td>
-                                    <a href="/products/{{$object->item}}">view item</a>
-                                </td>
-                                @endif
+                                    @if($object->item == 'affiliate' || $object->item == 'creator')
 
+                                        <a href="/users/{{$object->user_id}}"> {{$object->item}}</a>
+
+                                    @elseif($object->payment_type == 'bundle')
+
+                                        @if(is_numeric($object->item))
+                                            <a href="/bundles/{{$object->item}}"> bundle</a>
+                                        @else
+                                            {{$object->item}}
+                                        @endif
+                                    @else
+
+                                        @if(is_numeric($object->item))
+                                            <a href="/products/{{$object->item}}"> course</a>
+                                        @else
+                                            {{$object->item}}
+                                        @endif
+
+                                    @endif
+                                </td>
                                 <td>
                                     {{ $object->amount}}
+
                                 </td>
+
                                 <td>
                                     {{$object->reference}}
                                 </td>
@@ -113,7 +127,7 @@
                                     {{$object->channel}}
                                 </td>
                                 <td>{{ $object->gateway_response}} </td>
-                                <td>{{ $object->updated_at}} </td>
+                                <td>{{ $object->created_at}} </td>
 {{--                                <td>--}}
 {{--                                    @if($object->verified == 0)--}}
 {{--                                        <a class="btn btn-outline-success btn-sm" data-index="{{$loop->iteration -1}}"--}}

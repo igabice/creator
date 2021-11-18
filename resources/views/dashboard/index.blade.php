@@ -114,6 +114,14 @@
                                                     <strong>Well done!</strong> {{ session()->get('success') }}
                                                 </div>
                                             @endif
+                                            @if(session()->has('error'))
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                    <strong>Error!</strong> {{ session()->get('error') }}
+                                                </div>
+                                            @endif
                                             <div class="game-item text-center">
                                                 <div class="game-img">
                                                     <img src="{{$user->image}}" alt="game-img" class="img-fluid">
@@ -321,7 +329,24 @@
                                                     </form>
                                                 @endif
                                         </div>
-                                               @endif
+
+                                           @else
+
+                                               <div class="col-12 col-lg-12 col-sm-12">
+
+
+
+
+                                                   <h2 style="color: lightgrey">Refer other Affiliates</h2>
+                                                   <br>
+                                                   <p style="color: lightgrey"> </p>
+                                                   <br>
+                                                   <button class="main-btn btn-c-white btnn" title="click to copy" data-clipboard-text="{{request()->root()}}/register?ref={{$user->id}}" >
+                                                       <span class="f-s--xs">Copy Link (5,000) </span>
+                                                   </button>
+
+                                               </div>
+                                           @endif
                                     </div>
                                 </div>
                             </div>

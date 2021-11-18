@@ -1396,7 +1396,8 @@ input[type=radio] {
 }
 
 .form-control {
-    color: black;
+    color: #706b6ba6;
+
 }
 
 .game-img .lightbox-overlay {

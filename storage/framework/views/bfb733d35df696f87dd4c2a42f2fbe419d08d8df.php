@@ -7,6 +7,22 @@
 
 <?php $__env->startSection('script'); ?>
     
+    <script>function display_ct6() {
+            var x = new Date()
+            var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
+            hours = x.getHours( ) % 12;
+            hours = hours ? hours : 12;
+            var x1=x.getMonth() + 1+ "/" + x.getDate() + "/" + x.getFullYear();
+            x1 = x1 + " - " +  hours + ":" +  x.getMinutes() + ":" +  x.getSeconds() + ":" + ampm;
+            document.getElementById('ct6').innerHTML = x1;
+            display_c6();
+        }
+        function display_c6(){
+            var refresh=1000; // Refresh rate in milli seconds
+            mytime=setTimeout('display_ct6()',refresh)
+        }
+        display_c6()
+    </script>
 <?php $__env->stopSection(); ?>
 
 
@@ -29,6 +45,12 @@
                 </div>
             </div>
 
+            <?php
+
+            $wallet = $user->myWallet()
+
+            ?>
+
 
         </div>
     </section>
@@ -50,6 +72,15 @@
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                     <strong>Well done!</strong> <?php echo e(session()->get('success')); ?>
+
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if(session()->has('error')): ?>
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                    <strong>Error!</strong> <?php echo e(session()->get('error')); ?>
 
                                                 </div>
                                             <?php endif; ?>
@@ -180,7 +211,7 @@
                                             <div class="col-12 col-lg-12 col-sm-12">
                                                 <h2 style="color: lightgrey">Become a creator</h2>
                                                 <br>
-                                                <p style="color: lightgrey">May a payment of N36,000 Yearly fees and you can start selling your own courses</p>
+                                                <p style="color: lightgrey">Make a payment of N36,000 Yearly fees and you can start selling your own courses</p>
                                                 <br>
                                                 <form method="POST" action="<?php echo e(route('pay')); ?>" accept-charset="UTF-8" class="form-horizontal" role="form">
                                                     <?php if(auth()->user()): ?>
@@ -217,52 +248,61 @@
                                                 Learn and Earn while at it.</p>
                                             <br>
                                             <?php if(auth()->user()->role == 'A'): ?>
-                                                <form method="POST" action="<?php echo e(route('pay-affiliate')); ?>" accept-charset="UTF-8" class="form-horizontal" role="form">
-                                                    
-                                                    <?php if(auth()->user()): ?>
-                                                        <input type="hidden" name="email" value="<?php echo e($user->email); ?>"> 
-                                                    <?php else: ?>
-                                                        <label for="email">Confirmation Email</label>
-                                                        <input type="email" required name="email" placeholder="Email">
-                                                    <?php endif; ?>
-                                                    <input type="hidden" name="orderID" value="<?php echo e($user->email.\Illuminate\Support\Facades\Date::now()); ?>">
-                                                    <input type="hidden" name="amount" value="10500"> 
-                                                    <input type="hidden" name="quantity" value="1">
-                                                    <input type="hidden" name="currency" value="NGN">
-                                                    <input type="hidden" name="metadata" value="<?php echo e(json_encode($array = ['user_id' => $user->id, 'type' => 'creator'])); ?>" >
-                                                    <input type="hidden" name="reference" value="<?php echo e(Paystack::genTranxRef()); ?>"> 
 
-                                                    <?php echo e(csrf_field()); ?>
+                                                    <form method="GET" action="<?php echo e(route('callbackAff')); ?>" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                                        <input type="hidden" name="user_id" value="<?php echo e($user->id); ?>">
 
-                                                    <button class="main-btn btn-c-white" type="submit" value="Checkout">
-                                                        <span class="f-s--xs">Register (10,500) </span>
-                                                    </button>
-                                                </form>
+                                                        <?php echo e(csrf_field()); ?>
+
+                                                        <button class="main-btn btn-c-white" type="submit" value="Checkout">
+                                                            <span class="f-s--xs">Approve Affiliate </span>
+                                                        </button>
+                                                    </form>
                                                 <?php else: ?>
-                                                <form method="POST" action="<?php echo e(route('pay-affiliate')); ?>" accept-charset="UTF-8" class="form-horizontal" role="form">
-                                                    
-                                                    <?php if(auth()->user()): ?>
-                                                        <input type="hidden" name="email" value="<?php echo e($user->email); ?>"> 
-                                                    <?php else: ?>
-                                                        <label for="email">Confirmation Email</label>
-                                                        <input type="email" required name="email" placeholder="Email">
-                                                    <?php endif; ?>
-                                                    <input type="hidden" name="orderID" value="<?php echo e($user->email.\Illuminate\Support\Facades\Date::now()); ?>">
-                                                    <input type="hidden" name="amount" value="10500"> 
-                                                    <input type="hidden" name="quantity" value="1">
-                                                    <input type="hidden" name="currency" value="NGN">
-                                                    <input type="hidden" name="metadata" value="<?php echo e(json_encode($array = ['user_id' => $user->id, 'type' => 'creator'])); ?>" >
-                                                    <input type="hidden" name="reference" value="<?php echo e(Paystack::genTranxRef()); ?>"> 
+                                                    <form method="POST" action="<?php echo e(route('pay-affiliate')); ?>" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                                        
+                                                        <?php if(auth()->user()): ?>
+                                                            <input type="hidden" name="email" value="<?php echo e($user->email); ?>"> 
+                                                        <?php else: ?>
+                                                            <label for="email">Confirmation Email</label>
+                                                            <input type="email" required name="email" placeholder="Email">
+                                                        <?php endif; ?>
+                                                        <input type="hidden" name="orderID" value="<?php echo e($user->email.\Illuminate\Support\Facades\Date::now()); ?>">
+                                                        <input type="hidden" name="amount" value="10500"> 
+                                                        <input type="hidden" name="quantity" value="1">
+                                                        <input type="hidden" name="currency" value="NGN">
+                                                        <input type="hidden" name="metadata" value="<?php echo e(json_encode($array = ['user_id' => $user->id, 'type' => 'creator'])); ?>" >
+                                                        <input type="hidden" name="reference" value="<?php echo e(Paystack::genTranxRef()); ?>"> 
 
-                                                    <?php echo e(csrf_field()); ?>
+                                                        <?php echo e(csrf_field()); ?>
 
-                                                    <button class="main-btn btn-c-white" type="submit" value="Checkout">
-                                                        <span class="f-s--xs">Register (10,500) </span>
-                                                    </button>
-                                                </form>
+                                                        <button class="main-btn btn-c-white" type="submit" value="Checkout">
+                                                            <span class="f-s--xs">Register (10,500) </span>
+                                                        </button>
+                                                    </form>
                                                 <?php endif; ?>
                                         </div>
-                                               <?php endif; ?>
+
+                                           <?php else: ?>
+
+                                               <div class="col-12 col-lg-12 col-sm-12">
+
+
+
+
+                                                   <h2 style="color: lightgrey">Refer other Affiliates</h2>
+                                                   <br>
+                                                   <p style="color: lightgrey"> </p>
+                                                   <br>
+                                                   <button class="main-btn btn-c-white btnn" title="click to copy" data-clipboard-text="<?php echo e(request()->root()); ?>/register?ref=<?php echo e($user->id); ?>" >
+                                                       <span class="f-s--xs">Copy Link (5,000) </span>
+                                                   </button>
+
+                                                   <h4 class="cta-title">
+                                                       <i class=" btnn btn btn-warning" title="click to copy" data-clipboard-text="<?php echo e(request()->root()); ?>/register?ref=<?php echo e($user->id); ?>">click to copy referral link:  <?php echo e(request()->root()); ?>/register?ref=<?php echo e($user->id); ?></i>
+                                                   </h4>
+                                               </div>
+                                           <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -272,6 +312,7 @@
 
                     <div class="col-lg-7 ">
                         <?php if(auth()->user() == null): ?>
+                            <?php if($user->verified == '1'): ?>
                             <div class="contact-box">
 
                                 <div class="checkout-box">
@@ -293,6 +334,7 @@
                                     </div>
                                 </div>
                             </div>
+                                <?php endif; ?>
 
                         <?php elseif($user->id == auth()->user()->id || auth()->user()->role == 'A'): ?>
                         <div class="contact-box">
@@ -300,6 +342,7 @@
                             <div class="checkout-box">
                                 <div class="row">
 
+                                    <?php if($user->verified == '1'): ?>
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
                                             <div class="col-12 col-lg-12 col-sm-12">
@@ -313,6 +356,9 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    <?php endif; ?>
                                     <br>
                                     <br>
                                     <br>
@@ -324,7 +370,8 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    <?php echo e($totalEarnings == null ? 0 : $totalEarnings[0]->id_count); ?>
+                                                    <?php echo e($wallet->sales); ?>
+
 
                                                 </h4>
                                             </div>
@@ -338,7 +385,7 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    ₦<?php echo e($totalEarnings == null ? 0 : $totalEarnings[0]->sales); ?>
+                                                    ₦<?php echo e($wallet->worth); ?>
 
                                                 </h4>
                                             </div>
@@ -363,7 +410,7 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    ₦<?php echo e($user->getWallet()); ?>
+                                                    ₦<?php echo e($wallet->balance); ?>
 
                                                 </h4>
                                             </div>
@@ -376,15 +423,25 @@
                                             </div>
                                             <div class="col-4 col-lg-4 col-sm-4 text-right">
                                                 <h4>
-                                                    ₦<?php echo e($totalEarnings == null ? 0 : $totalEarnings[0]->revenue); ?>
+                                                    ₦<?php echo e($wallet->referral_bonus); ?>
 
                                                 </h4>
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="main-btn btn-c-white" href="/my-payouts">
-                                        <span class="f-s--xs">My Payouts </span>
-                                    </a>
+                                    <div class="col-lg-12 checkout-item">
+                                        <div class="row">
+                                            <div class="col-6 col-lg-6 col-sm-6">
+                                                <a class="main-btn btn-c-white" href="/my-payouts">
+                                                    <span class="f-s--xs">My Payouts </span>
+                                                </a>
+                                            </div>
+                                            <div class="col-6 col-lg-6 col-sm-6 text-right">
+                                                <span id='ct6' style="color: lightgrey"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
 
 
                                 </div>
@@ -436,7 +493,7 @@
                                                             
                                                             <td><a style="color:#fff;" href="/products/<?php echo e($object->product_id); ?>"><?php echo e($object->name); ?> - <?php echo e($object->price); ?></a>
                                                                 <button class="btn btnn" title="click to copy"
-                                                                        data-clipboard-text="<?php echo e(url('/')); ?>/refer-product/<?php echo e($object->id); ?>/?ref=<?php echo e($object->user_id); ?>">
+                                                                        data-clipboard-text="<?php echo e(url('/')); ?>/refer-product/<?php echo e($object->id); ?>/?ref=<?php echo e($user->id); ?>">
                                                                     <i class="fa fa-book" style="color: orangered"> copy link</i>
                                                                 </button>
                                                             <br>
@@ -459,7 +516,7 @@
                                                             
                                                             <td><a style="color:#fff;" href="/products/<?php echo e($object->product_id); ?>"><?php echo e($object->title); ?> - <?php echo e($object->price); ?></a>
                                                                 <button class="btn btnn" title="click to copy"
-                                                                        data-clipboard-text="<?php echo e(url('/')); ?>/refer-bundle/<?php echo e($object->id); ?>/?ref=<?php echo e($object->user_id); ?>">
+                                                                        data-clipboard-text="<?php echo e(url('/')); ?>/refer-bundle/<?php echo e($object->id); ?>/?ref=<?php echo e($user->id); ?>">
                                                                     <i class="fa fa-book" style="color: orangered"> copy link</i>
                                                                 </button>
                                                             <br>

@@ -1,4 +1,24 @@
 <?php $__env->startSection('content'); ?>
+<?php $__env->startSection('script'); ?>
+    <script src="/js/tinymce/tinymce.min.js"></script>
+    
+
+
+    <script>
+        // $(".select2").select2();
+
+        tinymce.init({
+            selector : "textarea",
+            height : "480",
+            plugins : ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste jbimages"],
+            toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+        });
+
+
+    </script>
+
+    <!-- /content area  | link image jbimages -->
+<?php $__env->stopSection(); ?>
     <div class="inner-page">
 
     <!-- INNER_PAGE_BANNER AREA START -->
@@ -18,7 +38,7 @@
             <div class="container">
                 <div class="row">
 
-                    <div class="col-lg-7 contact-box">
+                    <div class="col-lg-10 contact-box">
                         <div class="checkout-box">
                             <?php if($errors->all()): ?>
                                 <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -67,6 +87,15 @@
                                                     <?php if($errors->has('price')): ?>
                                                         <span class="text-danger">
                                                             <strong><?php echo e($errors->first('price')); ?></strong>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="former_price">Previous Price</label>
+                                                    <input value="<?php echo e($data->former_price ?? 0); ?>" id="former_price" type="text" class="form-control <?php if($errors->has('former_price')): ?> is-invalid <?php endif; ?>" name="former_price" >
+                                                    <?php if($errors->has('former_price')): ?>
+                                                        <span class="text-danger">
+                                                            <strong><?php echo e($errors->first('former_price')); ?></strong>
                                                         </span>
                                                     <?php endif; ?>
                                                 </div>
@@ -126,6 +155,15 @@ endif; ?>
                                                     <input class="form-control" name="image" id="image"  type="file" />
                                                     <a href="<?php echo e($data->image); ?>" data-lightbox="roadtrip" data-title="Gallery">
                                                         view image</a>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="price">Description</label>
+                                                    <textarea class="form-control" placeholder="Description" name="description"><?php echo e($data->description); ?></textarea>
+                                                    <?php if($errors->has('description')): ?>
+                                                        <span class="text-danger">
+                                                            <strong><?php echo e($errors->first('description')); ?></strong>
+                                                        </span>
+                                                    <?php endif; ?>
                                                 </div>
 
 

@@ -1,6 +1,27 @@
 @extends('layouts.main')
 
 @section('content')
+
+@section('script')
+    <script src="/js/tinymce/tinymce.min.js"></script>
+    {{--<script src="{{ asset('js/ .min.js') }}"></script>--}}
+
+
+    <script>
+        // $(".select2").select2();
+
+        tinymce.init({
+            selector : "textarea",
+            height : "480",
+            plugins : ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste jbimages"],
+            toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+        });
+
+    </script>
+
+    <!-- /content area  | link image jbimages -->
+@endsection
+
     <div class="inner-page">
 
         <section id="inner-banner">
@@ -21,7 +42,7 @@
             <div class="container">
                 <div class="row">
 
-                    <div class="col-lg-7 contact-box">
+                    <div class="col-lg-9 contact-box">
                         <div class="checkout-box">
                             <form class="form-horizontal" method="POST" action="{{ url('/products') }}" enctype="multipart/form-data">
                                 @csrf

@@ -54,7 +54,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h3>Course Detail</h3>
+                        <h3>{{$data->name}}</h3>
                         <a href=/"><i class="fa fa-home" aria-hidden="true"></i> Home</a><span> - Course Detail</span>
 
                     </div>
@@ -69,7 +69,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-sm-6">
                         <div class="cart-items text-center">
-                            <h3>₦{{ $data->price}}</h3>
+{{--                            <h3>₦{{ $data->price}}</h3>--}}
                             <img src="{{$data->image ?? 'asset/images/noimage.jpeg'}}" alt="product-img" class="img-fluid">
                             <h4>{{ $data->name}}</h4>
 {{--
@@ -84,18 +84,29 @@
                                             <strong>Well done!</strong> {{ session()->get('success') }}
                                         </div>
                                     @endif
-                                    <div class="col-lg-12 checkout-item">
-
-
-                                        <div class="row">
-                                            <div class="col-4 col-lg-4 col-sm-4">
-                                                <h3>Title</h3>
+                                        @if(session()->has('error'))
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <strong>Well done!</strong> {{ session()->get('error') }}
                                             </div>
-                                            <div class="col-8 col-lg-8 col-sm-8 text-right">
-                                                <h4>{{$data->name}}</h4>
-                                            </div>
+                                        @endif
+                                        <div class="col-12 col-lg-12 col-sm-12 text-left">
+                                            <h4>{{ new \Illuminate\Support\HtmlString($data->description) }}</h4>
                                         </div>
-                                    </div>
+{{--                                    <div class="col-lg-12 checkout-item">--}}
+
+
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-4 col-lg-4 col-sm-4">--}}
+{{--                                                <h3>Title</h3>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-8 col-lg-8 col-sm-8 text-right">--}}
+{{--                                                <h4>{{$data->name}}</h4>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
@@ -148,16 +159,40 @@
                                     {{--                                        </div>--}}
                                     {{--                                    </div>--}}
                                     {{--                                </div>--}}
+                                        <div class="col-lg-12 checkout-item">
+                                            <div class="row">
 
                                     @if($own == null)
-                                    <form method="POST" action="{{ route('buyCourse') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                                    @if(session()->has('error'))
+                                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                            <strong>Error!</strong> {{ session()->get('error') }}
+                                                        </div>
+                                                    @endif
+                                    <form method="POST" action="{{ route('buyCourse') }}" accept-charset="UTF-8" class="form-horizontal" style="width:100%" role="form">
                                         @if($user != null)
                                             <input type="hidden" name="email" value="{{$user->email}}"> {{-- required --}}
                                             <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
                                             <input type="hidden" name="metadata" value="{{ json_encode($array = ['user_id' => $user->id, 'type' => 'cart']) }}" >
                                         @else
-{{--                                            <label for="email">Confirmation Email</label>--}}
-{{--                                            <input type="email" required name="email" placeholder="Email">--}}
+                                            <label for="email">Name</label>
+                                            <input value="{{old('name')}}" id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus>
+                                            @if($errors->has('name'))
+                                                <span class="text-danger">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                    </span>
+                                            @endif
+                                            <label for="email"> Email</label>
+                                            <input type="email" required name="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
+                                            @if($errors->has('email'))
+                                                <span class="text-danger">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                    </span>
+                                            @endif
+                                            <label for="email">Phone Number</label>
+                                            <input type="phone" required name="phone" value="{{old('phone')}}" class="form-control @error('phone') is-invalid @enderror" placeholder="Phone">
                                             <input type="hidden" name="orderID" value="{{random_int(12,234).\Illuminate\Support\Facades\Date::now()}}">
                                             <input type="hidden" name="metadata" value="{{ json_encode($array = ['type' => 'course']) }}" >
                                         @endif
@@ -177,11 +212,14 @@
                                         <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
 
                                         {{ csrf_field() }}
+                                            <br>
                                         <button class="main-btn btn-c-white" type="submit" value="Checkout">
                                             <span class="f-s--xs">Make Payment </span>
                                         </button>
                                     </form>
                                         @endif
+                                            </div>
+                                        </div>
                                 </div>
                                 <br>
                                 @if($user != null)

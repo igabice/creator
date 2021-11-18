@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Campaign;
 use App\CourseOwn;
+use App\Notifications\NewAction;
 use App\Notifications\NewSignup;
 use App\Product;
 use App\State;
@@ -141,6 +142,12 @@ class HomeController extends Controller
 //        $ref3 = User::find($user->referred_by_3);
 //
 //        $referrals = User::where('referred_by_1', $user->id)->get();
+        $wallet = Wallet::where('user_id', $user->id)->first();
+        if($wallet == null){
+            $wallet = new Wallet();
+            $wallet->user_id = $user->id;
+            $wallet->save();
+        }
 
         $campaigns = Campaign::join('products', 'products.id', '=', 'campaign.product_id')
             ->select('products.name', 'products.commission', 'products.id', 'campaign.user_id', 'campaign.created_at', 'campaign.user_id')
@@ -235,23 +242,7 @@ class HomeController extends Controller
         }
         $emails[] = $user->email;
 
-//        $subscriber->notify(new NewPostNotify($request->title, $request->body, $subscriber));
 
-
-//        try{
-//            Mail::to($emails)->send(new NewUserMail($user));
-//        }catch(\Exception $ex){
-            //return $ex->getMessage();
-        //}
-
-//        if($refferer != null){
-//            $refferer->notify(new NewAffiliateRefferal($refferer->name, $user->name.' '.$user->last_name, $user->email, $user->phone));
-//        }
-//        if($user->role == 'M'){
-//            $user->notify(new NewAffiliate($user->name));
-//        }else{
-
-//        }
         $msg= 'Account created successfully.';
 
       
@@ -266,7 +257,27 @@ class HomeController extends Controller
 
             $user->sendEmailVerificationNotification();
 
-            $user->notify(new NewUserMail($user));
+            $successMsgUser = " Hello Admin,
+        The following user is now an Affiliate,
+        
+        Email: ".$user->email."
+        
+        Whatsapp Number: ".$user->phone."
+        
+        The community is getting bigger, Team!!
+        Oyaaaaaa!!
+        Let’s SOAR, Team!
+        
+        Signed, 
+        The 7D Team.";
+
+            $admins = User::where('role', 'A')->get();
+
+            foreach ($admins as $admin){
+                $admin->notify(new NewAction($successMsgUser, 'New Affiliate Onboard!'));
+            }
+
+            //$user->notify(new NewUserMail($user));
 
             if(session()->get('ref') != null) return redirect()->to(session()->get('ref'));
 

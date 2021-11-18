@@ -52,7 +52,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h3>Course Detail</h3>
+                        <h3><?php echo e($data->name); ?></h3>
                         <a href=/"><i class="fa fa-home" aria-hidden="true"></i> Home</a><span> - Course Detail</span>
 
                     </div>
@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-sm-6">
                         <div class="cart-items text-center">
-                            <h3>₦<?php echo e($data->price); ?></h3>
+
                             <img src="<?php echo e($data->image ?? 'asset/images/noimage.jpeg'); ?>" alt="product-img" class="img-fluid">
                             <h4><?php echo e($data->name); ?></h4>
 
@@ -82,18 +82,30 @@
 
                                         </div>
                                     <?php endif; ?>
-                                    <div class="col-lg-12 checkout-item">
+                                        <?php if(session()->has('error')): ?>
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <strong>Well done!</strong> <?php echo e(session()->get('error')); ?>
 
-
-                                        <div class="row">
-                                            <div class="col-4 col-lg-4 col-sm-4">
-                                                <h3>Title</h3>
                                             </div>
-                                            <div class="col-8 col-lg-8 col-sm-8 text-right">
-                                                <h4><?php echo e($data->name); ?></h4>
-                                            </div>
+                                        <?php endif; ?>
+                                        <div class="col-12 col-lg-12 col-sm-12 text-left">
+                                            <h4><?php echo e(new \Illuminate\Support\HtmlString($data->description)); ?> ertyui</h4>
                                         </div>
-                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
@@ -105,7 +117,8 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                        <?php if($user != null): ?>
+                                            <?php if($user->role == 'A' || $user->verified == 1 || $user->affiliate == 1): ?>
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
                                             <div class="col-4 col-lg-4 col-sm-4">
@@ -116,17 +129,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                        <?php if($user->role == 'A'): ?>
-                                    <div class="col-lg-12 checkout-item">
-                                        <div class="row">
-                                            <div class="col-4 col-lg-4 col-sm-4">
-                                                <h3>7DC Commission</h3>
-                                            </div>
-                                            <div class="col-8 col-lg-8 col-sm-8 text-right">
-                                                <h4><?php echo e($data->d_commission); ?></h4>
-                                            </div>
-                                        </div>
-                                    </div>
+
+
+                                        <?php endif; ?>
+                                                <?php if($user->role == 'A'): ?>
+
+                                                    <div class="col-lg-12 checkout-item">
+                                                        <div class="row">
+                                                            <div class="col-4 col-lg-4 col-sm-4">
+                                                                <h3>7DC Commission</h3>
+                                                            </div>
+                                                            <div class="col-8 col-lg-8 col-sm-8 text-right">
+                                                                <h4><?php echo e($data->d_commission); ?></h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+
                                         <?php endif; ?>
 
                                     
@@ -139,16 +158,53 @@
                                     
                                     
                                     
+                                        <div class="col-lg-12 checkout-item">
+                                            <div class="row">
 
                                     <?php if($own == null): ?>
-                                    <form method="POST" action="<?php echo e(route('buyCourse')); ?>" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                                    <?php if(session()->has('error')): ?>
+                                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                            <strong>Error!</strong> <?php echo e(session()->get('error')); ?>
+
+                                                        </div>
+                                                    <?php endif; ?>
+                                    <form method="POST" action="<?php echo e(route('buyCourse')); ?>" accept-charset="UTF-8" class="form-horizontal" style="width:100%" role="form">
                                         <?php if($user != null): ?>
                                             <input type="hidden" name="email" value="<?php echo e($user->email); ?>"> 
                                             <input type="hidden" name="orderID" value="<?php echo e($user->email.\Illuminate\Support\Facades\Date::now()); ?>">
                                             <input type="hidden" name="metadata" value="<?php echo e(json_encode($array = ['user_id' => $user->id, 'type' => 'cart'])); ?>" >
                                         <?php else: ?>
-
-
+                                            <label for="email">Name</label>
+                                            <input value="<?php echo e(old('name')); ?>" id="name" type="text" class="form-control <?php if ($errors->has('name')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('name'); ?> is-invalid <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>" name="name" required autocomplete="name" autofocus>
+                                            <?php if($errors->has('name')): ?>
+                                                <span class="text-danger">
+                                                    <strong><?php echo e($errors->first('name')); ?></strong>
+                                                    </span>
+                                            <?php endif; ?>
+                                            <label for="email"> Email</label>
+                                            <input type="email" required name="email" value="<?php echo e(old('email')); ?>" class="form-control <?php if ($errors->has('email')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('email'); ?> is-invalid <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>" placeholder="Email">
+                                            <?php if($errors->has('email')): ?>
+                                                <span class="text-danger">
+                                                    <strong><?php echo e($errors->first('email')); ?></strong>
+                                                    </span>
+                                            <?php endif; ?>
+                                            <label for="email">Phone Number</label>
+                                            <input type="phone" required name="phone" value="<?php echo e(old('phone')); ?>" class="form-control <?php if ($errors->has('phone')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('phone'); ?> is-invalid <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>" placeholder="Phone">
                                             <input type="hidden" name="orderID" value="<?php echo e(random_int(12,234).\Illuminate\Support\Facades\Date::now()); ?>">
                                             <input type="hidden" name="metadata" value="<?php echo e(json_encode($array = ['type' => 'course'])); ?>" >
                                         <?php endif; ?>
@@ -169,11 +225,14 @@
 
                                         <?php echo e(csrf_field()); ?>
 
+                                            <br>
                                         <button class="main-btn btn-c-white" type="submit" value="Checkout">
                                             <span class="f-s--xs">Make Payment </span>
                                         </button>
                                     </form>
                                         <?php endif; ?>
+                                            </div>
+                                        </div>
                                 </div>
                                 <br>
                                 <?php if($user != null): ?>
@@ -202,8 +261,6 @@
                         <div class="checkout-box">
                             <div class="row">
                                 <div class="col-lg-12 checkout-item">
-                                    <?php echo e(session()->get('ref')); ?>
-
                                     <?php if($user != null): ?>
 
                                         <?php if($user->role == 'A' || $user->id == $data->user_id): ?>
@@ -257,6 +314,7 @@
                                             <?php endif; ?>
 
                                             <table class="table table-bordered table-striped">
+                                                <?php if($user != null): ?>
 
                                                 <?php $__currentLoopData = $videos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $video): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
@@ -274,15 +332,18 @@
                                                                                 <?php echo e($loop->index +1); ?>.   <?php echo e($video->title); ?>
 
                                                                             </a>
+                                                                <?php if($user != null): ?>
                                                                             <?php if(auth()->user()->role == 'A'): ?>
                                                                                 <a class="btn btn-outline-success btn-sm" data-index="<?php echo e($loop->iteration -1); ?>"
                                                                                    data-toggle="modal" data-target="#actionPayout"> Edit</a>
+                                                                    <?php endif; ?>
                                                             </th>
                                                         </tr>
                                                                 <?php endif; ?>
                                                             <?php endif; ?>
 
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php endif; ?>
 
 
                                             </table>

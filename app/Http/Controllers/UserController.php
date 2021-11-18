@@ -15,7 +15,6 @@ use App\TopUp;
 use App\Wallet;
 use Auth;
 use App\User;
-use App\State;
 
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
@@ -255,6 +254,12 @@ class UserController extends Controller
 //        $ref3 = User::find($user->referred_by_3);
 //
 //        $referrals = User::where('referred_by_1', $user->id)->get();
+        $wallet = Wallet::where('user_id', $user->id)->first();
+        if($wallet == null){
+            $wallet = new Wallet();
+            $wallet->user_id = $user->id;
+            $wallet->save();
+        }
 
         $campaigns = Campaign::join('products', 'products.id', '=', 'campaign.product_id')
             ->select('products.name', 'products.commission', 'products.id', 'campaign.user_id', 'campaign.created_at', 'campaign.user_id')

@@ -9,6 +9,7 @@ use App\Mail\NewproductMail;
 use App\Notifications\NewAction;
 use App\Notifications\NewCreator;
 use App\Product;
+use App\Bundle;
 use App\Rating;
 use App\User;
 use App\Wallet;
@@ -36,18 +37,18 @@ class ProductsController extends Controller
     public function index(){
         $user = auth('web')->user();
         $data=Product::where('verified', '1')->get();
-  return view('products.products', compact('data', 'user'));
+        return view('products.products', compact('data', 'user'));
     }
-    
-    
+
+
 
     public function courses(){
         $user = auth('web')->user();
         $data=Product::where('type', 'course')->get();
         return view('products.courses', compact('data', 'user'));
     }
-    
-    
+
+
 
     public function strategy(){
         $user = auth('web')->user();
@@ -90,6 +91,41 @@ class ProductsController extends Controller
 
         return view('products.details', ['data' => $data, 'videos' =>$videos, 'video' =>$video,
             'campaign' => $campaign, 'refferal' => $refferal,  'own' =>$own, 'user'=>$user]);
+    }
+
+    public function bundle($id)
+    {
+        $user = auth('web')->user();
+        $data = Bundle::find($id);
+
+        $arr = [$data->product_1, $data->product_2, $data->product_3, $data->product_4, $data->product_5];
+        $products = Product::whereIn('id', $arr)->get();
+
+        if($user != null){
+            $own = CourseOwn::where('user_id', $user->id)->where('product_id', $id)->first();
+
+            $refferal = Campaign::where('product_id', $id)->where('user_id', $user->id)->count();$campaign = Campaign::leftJoin('users as marketers', 'marketers.id', '=', 'campaign.user_id')
+                ->join('products', 'products.id', '=', 'campaign.product_id')
+                ->leftjoin('commission_deposit', 'marketers.id', '=', 'commission_deposit.user_id')
+                ->select('marketers.name as firstname', 'marketers.last_name as lastname', 'campaign.id as id', 'commission_deposit.amount', 'campaign.created_at as created_at',
+                    'marketers.id as user_id', 'products.id as id',
+                    DB::raw('SUM(commission_deposit.id) as id_count'), DB::raw('SUM(commission_deposit.amount) as revenue'))
+                ->where('products.id', $id)
+                ->groupBy('commission_deposit.amount', 'marketers.name', 'commission_deposit.id', 'marketers.last_name', 'campaign.id', 'campaign.created_at',
+                    'marketers.id', 'products.id')
+                ->get();
+
+        }else{
+            $own = null;
+            $refferal = 0;
+            $campaign = [];
+        }
+
+
+
+
+        return view('bundles.show', ['data' => $data, 'products'=> $products, 'own'=> $own,
+            'campaign' => $campaign, 'refferal' => $refferal,]);
     }
 
     function saveVideo(Request $request){
@@ -199,7 +235,7 @@ class ProductsController extends Controller
         }
         if($user->role == 'A'){
             $data = Product::all();
-           // $data = Product::where('user_id', $user->id)->get();
+            // $data = Product::where('user_id', $user->id)->get();
         }
         else{
             $data = Product::where('user_id', $user->id)->get();
@@ -213,7 +249,7 @@ class ProductsController extends Controller
 
     public function referProduct($id)
     {
-        $data= Product::find($id);
+        //  $data= Product::find($id);
 
         if(isset(request()->ref)){
 //            $commission = new CommissionDeposit();
@@ -229,7 +265,7 @@ class ProductsController extends Controller
 
             session()->put('ref', url('/').'/products/'.$id.'?ref='.request()->ref);
 
-           // return session()->get('ref');
+            // return session()->get('ref');
             return redirect()->to(url('/').'/products/'.$id.'?ref='.request()->ref);
         }
 
@@ -238,27 +274,18 @@ class ProductsController extends Controller
 
     public function referBundle($id)
     {
-        $data= Product::find($id);
+
+
 
         if(isset(request()->ref)){
-//            $commission = new CommissionDeposit();
-//            $commission->product_id = $id;
-//            $commission->user_id = request()->ref;
-//            $commission->amount = $data->price *$data->commission * 0.01;
-//            $commission->save();
-//
-//            $wallet= Wallet::where('user_id', request()->ref)->first();
-//            $wallet->balance = $wallet->balance + $commission->amount;
-//            $wallet->referral_bonus = $wallet->referral_bonus + $commission->amount;
-//            $wallet->save();
 
-            session()->put('ref', url('/').'/bundles/'.$id.'?ref='.request()->ref);
-
-           // return session()->get('ref');
-            return redirect()->to(url('/').'/bundles/'.$id.'?ref='.request()->ref);
+            session()->put('ref', url('/').'/bundle/'.$id.'?ref='.request()->ref);
+            //return url('/').'/bundle/'.$id.'?ref='.request()->ref;
+            // return session()->get('ref');
+            return redirect()->to(url('/').'/bundle/'.$id.'?ref='.request()->ref);
         }
 
-        return redirect()->to('/bundles/'.$id);
+        return redirect()->to('/bundle/'.$id);
     }
 
     function newCampaign(Request $request){
@@ -323,8 +350,8 @@ class ProductsController extends Controller
             $file->move('./uploads/image/'. $pathmeter_correct, $fileName);
             $objRequest['image'] = "/uploads/image/".$fileName;
         }
-        
-        
+
+
         if ($request->hasFile('link')) {
             $fileName = null;
             $file = $request->file('link');
@@ -344,14 +371,14 @@ class ProductsController extends Controller
             $file->move('./uploads/trailer/'. $pathmeter_correct, $fileName);
             $objRequest['trailer'] = "/uploads/trailer/".$fileName;
         }
-        
+
 
         try {
             $this->validate(request(), $arrRules);
         } catch (ValidationException $e) {
         }
-        
-     
+
+
         $product = Product::create($objRequest);
 
         $user = Auth()->user();
@@ -377,7 +404,7 @@ class ProductsController extends Controller
 
 
         $msg='Product created successfully.';
-        
+
         if($product->type == 'course'){
             return redirect()->to('/courses')->with('success', 'Created Successfully!');
         }
@@ -403,7 +430,7 @@ class ProductsController extends Controller
         $this->validate(request(), $arrRules);
 
         $objRequest = $request->all();
-        
+
         //return $objRequest;
 
         if ($request->hasFile('image')) {
@@ -415,12 +442,12 @@ class ProductsController extends Controller
             $fileName = $pathmeter_correct.$fileName;
             $file->move('./uploads/image/'. $pathmeter_correct, $fileName);
             $objRequest['image'] = "/uploads/image/".$fileName;
-           // return $objRequest['image'];
+            // return $objRequest['image'];
         }else{
             $objRequest['image'] = $arrData->image;
         }
-        
-        
+
+
         if ($request->hasFile('link')) {
             //return 'has file';
             $fileName = null;
@@ -430,15 +457,15 @@ class ProductsController extends Controller
             $fileName = $pathmeter_correct.$fileName;
             $file->move('./uploads/image/'. $pathmeter_correct, $fileName);
             $objRequest['link'] = "/uploads/image/".$fileName;
-           // return $objRequest['image'];
+            // return $objRequest['image'];
         }else{
             $objRequest['link'] = $arrData->image;
         }
-        
+
         //return $objRequest;
         $arrData->update($objRequest);
         $msg='Product updated successfully.';
-        
+
         if($arrData->type == 'course'){
             return redirect()->to('/courses')->with('success', 'Updated Successfully!');
         }

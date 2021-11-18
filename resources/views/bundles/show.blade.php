@@ -36,7 +36,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h3>Course Detail</h3>
+                        <h3>{{$data->title}}</h3>
 
                     </div>
                 </div>
@@ -68,19 +68,29 @@
                                     <div class="col-lg-12 checkout-item">
 
 
+                                            <div class="col-12 col-lg-12 col-sm-12 text-left">
+                                                <h4>{{ new \Illuminate\Support\HtmlString($data->description) }}</h4>
+                                            </div>
+
+                                    </div>
+                                    {{--
+                                    <div class="col-lg-12 checkout-item">
+
+
                                         <div class="row">
                                             <div class="col-4 col-lg-4 col-sm-4">
                                                 <h3>Title</h3>
                                             </div>
                                             <div class="col-8 col-lg-8 col-sm-8 text-right">
-                                                <h4>{{$data->name}}</h4>
+                                                <h4>{{$data->title}}</h4>
                                             </div>
                                         </div>
                                     </div>
+                                    --}}
 
                                     <div class="col-lg-12 checkout-item">
                                         <div class="row">
-                                            <div class="col-4 col-lg-4 col-sm-4">
+                                            <div class="col-4 col-lg-4 col-sm-4 text-left">
                                                 <h3>Price</h3>
                                             </div>
                                             <div class="col-8 col-lg-8 col-sm-8 text-right">
@@ -95,7 +105,7 @@
 
                                             <div class="col-lg-12 checkout-item">
                                                 <div class="row">
-                                                    <div class="col-4 col-lg-4 col-sm-4">
+                                                    <div class="col-4 col-lg-4 col-sm-4 text-left">
                                                         <h3>Commission</h3>
                                                     </div>
                                                     <div class="col-8 col-lg-8 col-sm-8 text-right">
@@ -123,14 +133,33 @@
 
 
                                     @if($own == null)
-                                    <form method="POST" action="{{ route('buyBundle') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                                            @if($errors)
+                                                <span class="text-danger">
+                                                    <strong>{{ $errors }}</strong>
+                                                    </span>
+                                            @endif
+                                    <form method="POST" action="{{ route('buyBundle') }}" accept-charset="UTF-8" style="width:100%" class="form-horizontal" role="form">
                                         @if($user)
                                             <input type="hidden" name="email" value="{{$user->email}}"> {{-- required --}}
+                                            <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
                                         @else
-{{--                                            <label for="email">Confirmation Email</label>--}}
-{{--                                            <input type="email" required name="email" placeholder="Email">--}}
+                                            <label for="email">Name</label>
+                                            <input value="{{old('name')}}" id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" autofocus>
+                                            @if($errors->has('name'))
+                                                <span class="text-danger">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                    </span>
+                                            @endif
+                                            <label for="email"> Email</label>
+                                            <input type="email" required name="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
+                                            @if($errors->has('email'))
+                                                <span class="text-danger">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                    </span>
+                                            @endif
+                                            <label for="email">Phone Number</label>
+                                            <input type="phone" required name="phone" value="{{old('phone')}}" class="form-control @error('phone') is-invalid @enderror" placeholder="Phone">
                                         @endif
-                                        <input type="hidden" name="orderID" value="{{$user->email.\Illuminate\Support\Facades\Date::now()}}">
                                         <input type="hidden" name="amount" value="{{str_replace(",","",$data->price) }}">
                                         <input type="hidden" name="product_id" value="{{$data->id}}">
                                             @if(isset(request()->ref))
@@ -141,7 +170,7 @@
 
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="currency" value="NGN">
-                                        <input type="hidden" name="metadata" value="{{ json_encode($array = ['user_id' => $user->id, 'type' => 'cart']) }}" >
+
                                         <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
 
                                         {{ csrf_field() }}
@@ -152,13 +181,15 @@
                                         @endif
                                 </div>
                                 <br>
-                                {{$user->affiliate}}
+
+                                @if($user)
                                 @if($user->affiliate == 1 && $refferal < 1)
 
 
                                     <a class="btn btn-sm btn-outline-warning" href="/bundle-campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">
                                         Sell this Bundle
                                     </a>
+                                    @endif
                                     @endif
 
 {{--                                <a class="btn btn-sm btn-outline-warning" href="/campaign" data-toggle="modal" data-target="#make-campaign" title="Sell this course">--}}

@@ -1,6 +1,27 @@
 @extends('layouts.main')
 
 @section('content')
+
+@section('script')
+    <script src="/js/tinymce/tinymce.min.js"></script>
+    {{--<script src="{{ asset('js/ .min.js') }}"></script>--}}
+
+
+    <script>
+        // $(".select2").select2();
+
+        tinymce.init({
+            selector : "textarea",
+            height : "480",
+            plugins : ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste jbimages"],
+            toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+        });
+
+    </script>
+
+    <!-- /content area  | link image jbimages -->
+@endsection
+
     <div class="inner-page">
 
     <!-- INNER_PAGE_BANNER AREA START -->

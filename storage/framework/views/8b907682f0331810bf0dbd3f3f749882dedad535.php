@@ -9,7 +9,7 @@
                         <h3>Courses Page</h3>
                         <div class="col-lg-2">
                             <?php if(auth()->user() != null): ?>
-                                <?php if(auth()->user()->role == 'A'): ?>
+                                <?php if(auth()->user()->role == 'A'  || auth()->user()->verified == '1'): ?>
 
                                     <a href="/create-product" class="coupon-btn btn btn-primary"><i style="color: white">Add Product</i></a>
                                 <?php endif; ?>

@@ -26,7 +26,6 @@
     <script src="asset/datatables/buttons.print.min.js"></script>
     <script src="asset/datatables/buttons.colVis.min.js"></script>
 
-
     <script>
         $(document).ready(function(){
 
